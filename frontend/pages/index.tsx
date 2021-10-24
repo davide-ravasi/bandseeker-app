@@ -3,19 +3,25 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
-import { SearchForm } from "../components/searchForm";
+import { SearchSection } from "../components/searchsection";
 import { Header } from "../components/header";
-import { UserPage } from "../components/userpage";
+
 import Landing from "../components/landingpage";
-import { Usercard } from "../components/usercard";
+
+import { RecommendPage } from "../components/recommendpage";
+
+import { Footer } from "../components/footer";
 
 const Home: NextPage = () => {
   return (
     <div>
+      <Header />
       {/* <Landing /> */}
-      <SearchForm />
-      <Usercard />
-      {/* <UserPage /> */}
+
+      <SearchSection />
+
+      <RecommendPage />
+      <Footer />
     </div>
   );
 };

@@ -1,78 +1,88 @@
-import React from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
 
 export const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <div>
-      <nav className="flex items-center justify-between flex-wrap bg-gray-800 p-6 fixed w-full z-10 top-0">
-        <div className="flex items-center flex-shrink-0 text-white mr-6">
-          <a
-            className="text-white no-underline hover:text-white hover:no-underline"
-            href="#"
-          >
-            <span className="text-2xl pl-2">
-              <i className="em em-grinning"></i> Brand McBrandface
-            </span>
-          </a>
-        </div>
+    <Nav>
+      <Container>
+        <Logo href="">Bandseeker</Logo>
 
-        <div className="block lg:hidden">
-          <button
-            id="nav-toggle"
-            className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-white hover:border-white"
-          >
-            <svg
-              className="fill-current h-3 w-3"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Menu</title>
-              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-            </svg>
-          </button>
-        </div>
+        <Menu isOpen={isOpen}>
+          <MenuLink href="">ABOUT</MenuLink>
+          <MenuLink href="">CONTACTS</MenuLink>
+          <MenuLink href="">Login</MenuLink>
 
-        <div
-          className="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0"
-          id="nav-content"
-        >
-          <ul className="list-reset lg:flex justify-end flex-1 items-center">
-            <li className="mr-3">
-              <a
-                className="inline-block py-2 px-4 text-white no-underline"
-                href="#"
-              >
-                Active
-              </a>
-            </li>
-            <li className="mr-3">
-              <a
-                className="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
-                href="#"
-              >
-                link
-              </a>
-            </li>
-            <li className="mr-3">
-              <a
-                className="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
-                href="#"
-              >
-                link
-              </a>
-            </li>
-            <li className="mr-3">
-              <a
-                className="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
-                href="#"
-              >
-                link
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-
-      <div className="container shadow-lg mx-auto bg-white mt-24 md:mt-18"></div>
-    </div>
+          <MenuLink href="">Sign Up</MenuLink>
+        </Menu>
+      </Container>
+    </Nav>
   );
 };
+
+const Nav = styled.div`
+  padding: 0 15rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 63px;
+  background: #4c4b63;
+`;
+
+const Container = styled.div`
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1100px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+`;
+
+const Logo = styled.a`
+  position: relative;
+  color: #30bced;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 36px;
+  height: 43px;
+  size: 36px;
+  width: 188px;
+
+  /* span {
+    @import url("https://fonts.googleapis.com/css2?family=Advent+Pro:wght@100&display=swap");
+    font-family: "Advent Pro";
+    font-weight: 300;
+    font-size: 1.3rem;
+  } */
+`;
+
+const Menu = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  left: 30%;
+  @media (max-width: 768px) {
+    overflow: hidden;
+    flex-direction: column;
+    max-height: ${({ isOpen }) => (isOpen ? "300px" : "0")};
+    transition: max-height 0.3s ease-in;
+    width: 100%;
+  }
+`;
+
+const MenuLink = styled.a`
+  @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+  font-family: "Lato", sans-serif;
+  font-weight: normal;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  color: #ffffff;
+  transition: all 0.3s ease-in;
+  font-size: 0.9rem;
+`;
