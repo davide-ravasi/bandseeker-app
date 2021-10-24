@@ -1,9 +1,19 @@
-import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import { withApollo } from '../lib/apollo'
+import { useQuery, gql } from "@apollo/client";
 
-const Home: NextPage = () => {
+const HELLO_QUERY = gql`
+  query HelloQuery {
+    sayHello
+  }
+`;
+
+const Home = () => {
+  const { data, loading, error } = useQuery(HELLO_QUERY)
+  console.log(data,loading)
+  if (loading) return <div />
   return (
     <div className={styles.container}>
       <Head>
@@ -13,8 +23,8 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+        <h1>
+          {data.sayHello}
         </h1>
 
         <p className={styles.description}>
@@ -69,4 +79,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default withApollo(Home)
