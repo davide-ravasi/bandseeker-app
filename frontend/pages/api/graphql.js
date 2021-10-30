@@ -1,23 +1,20 @@
-import { gql, ApolloServer } from "apollo-server-micro";
+import { ApolloServer } from 'apollo-server-micro'
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+import { makeExecutableSchema } from 'graphql-tools'
+import { DateResolver, DateTypeDefinition, URLResolver, URLTypeDefinition } from "graphql-scalars"
+import bandTypeDefs from '../../lib/models/bands/schema'
+import bandResolvers from '../../lib/models/bands/resolvers'
+import connectDb from '../../lib/mongoose'
 
-const typeDefs = gql`
-  type Query {
-    sayHello: String!
-  }
-`
+connectDb()
 
-const resolvers = {
-  Query: {
-    sayHello: () => {
-      return "Hello Level Up"
-    }
-  },
-}
+export const schema = makeExecutableSchema({
+  typeDefs: bandTypeDefs,
+  resolvers: bandResolvers,
+})
 
 const apolloServer = new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema,
   playground: true,
   plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
 });
