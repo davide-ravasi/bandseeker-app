@@ -24,11 +24,10 @@ const UsersSchema = new Schema({
     type: String
   },
   instruments: [{
-    name: {type: String, required: true}
+    name: {type: String}
   }],
   avatar: {
-    name: {type: String, required: true},
-    url: {type: String, required: true}
+    url: {type: String}
   },
 },
 { timestamps: true })
