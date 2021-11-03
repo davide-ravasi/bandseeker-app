@@ -1,0 +1,19 @@
+import { connect } from 'mongoose'
+
+const MongoDb = process.env.MONGODB_URI
+
+const connectDb = async () => {
+  try {
+    await connect(MongoDb, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    console.log('db success connect')
+  } catch (err) {
+    console.log('error connecting to database')
+    console.log(err)
+    process.exit(1)
+  }
+}
+
+export default connectDb

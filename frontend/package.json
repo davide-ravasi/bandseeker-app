@@ -11,34 +11,26 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.4",
-    "@types/styled-components": "^5.1.15",
-    "add": "^2.0.6",
-    "next": "11.1.2",
-    "next-images": "^1.8.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "styled-components": "^5.3.1",
-    "yarn": "^1.22.17"
+    "@apollo/client": "^3.4.16",
+    "apollo-server-core": "^3.4.0",
+    "apollo-server-micro": "^3.4.0",
+    "babel-plugin-styled-components": "^1.13.3",
+    "graphql": "^15.6.1",
+    "graphql-scalars": "^1.12.0",
+    "graphql-tools": "^8.2.0",
+    "micro": "^9.3.4",
+    "mongoose": "^6.0.11",
+    "mongoose-type-url": "^2.1.0",
+    "next": "^11.1.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "swr": "^1.0.1",
+    "webpack-graphql-loader": "^0.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
-    "@storybook/addon-actions": "^6.3.12",
-    "@storybook/addon-essentials": "^6.3.12",
-    "@storybook/addon-links": "^6.3.12",
-    "@storybook/react": "^6.3.12",
-    "@types/react": "17.0.28",
-    "@typescript-eslint/eslint-plugin": "^5.0.0",
-    "autoprefixer": "^9.8.8",
-    "babel-loader": "^8.2.2",
-    "babel-plugin-styled-components": "^1.13.3",
+    "@babel/preset-env": "^7.15.8",
     "eslint": "7.32.0",
-    "eslint-config-next": "11.1.2",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-unused-imports": "^1.1.5",
-    "postcss": "^7.0.39",
-    "prettier": "^2.4.1",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
-    "typescript": "4.4.3"
+    "eslint-config-next": "11.1.2"
   }
 }
