@@ -1,6 +1,8 @@
 import React from "react";
 import { Usercard } from "../usercard";
 import styled from "styled-components";
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const RecommendPage = () => {
   return (
@@ -8,9 +10,8 @@ export const RecommendPage = () => {
       <Background>
         <Container>
           <SectionTitle>
-            BANDS SEARCHING FOR MUSICIANS <Seemore> SEE MORE</Seemore>
+            BANDS SEARCHING FOR MUSICIANS <Seemore> SEE MORE <FontAwesomeIcon icon={faAngleRight} /></Seemore>
           </SectionTitle>
-          ;
           <SectionContainer>
             <Usercard />
             <Usercard />
@@ -18,16 +19,15 @@ export const RecommendPage = () => {
             <Usercard />
           </SectionContainer>
           <SectionTitle>
-            MUSICIANS SEARCHING A BAND<Seemore> SEE MORE</Seemore>
+            MUSICIANS SEARCHING A BAND<Seemore> SEE MORE <FontAwesomeIcon icon={faAngleRight} /></Seemore>
           </SectionTitle>
-          ;
           <SectionContainer>
             <Usercard />
             <Usercard />
             <Usercard />
             <Usercard />
           </SectionContainer>
-          <SectionTitle>NEW MEMBERS</SectionTitle>;
+          <SectionTitle>NEW MEMBERS</SectionTitle>
           <SectionContainer>
             <Usercard />
             <Usercard />
@@ -53,9 +53,10 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  /* width: 100vw; */
+  max-width: 1100px;
+  margin: 0 auto;
 
-  padding: 0 15rem;
+  /* width: 100vw; */
 
   /* padding: 0 15rem;
   display: flex;
@@ -65,24 +66,17 @@ const Container = styled.div`
   background: #4c4b63; */
 `;
 
-const Seemore = styled.div`
-  float: right;
-  display: flex;
-
-  @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+const Seemore = styled.a`
   font-family: "Lato", sans-serif;
-  display: flex;
-  justify-content: flex-start;
   color: #ffffff;
-  margin-left: 30px;
+  padding-left: 10px;
   font-size: 15px;
 `;
 
-const SectionTitle = styled.div`
+const SectionTitle = styled.h1`
   position: relative;
-
-  width: 800px;
   height: 25px;
+  width: 100%;
 
   margin-left: 0px;
 
@@ -105,6 +99,8 @@ const SectionContainer = styled.div`
   position: relative;
   flex-wrap: wrap;
   display: flex;
+  justify-content: space-between;
+  width: 100%;
 
   margin-bottom: 10px;
 `;
