@@ -1,20 +1,27 @@
 import React from "react";
-import styled from "styled-components";
+import styled, {ThemeProvider} from "styled-components";
+import {theme} from '../../styles/theme.styles';
+import { faAngleRight, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const Usercard = () => {
   return (
-    <CardContainer>
-      <CardImage />
-      <Button>ROCK</Button>
-      <ArrowButton />
-      <CardTitle>THE MANNEQUINS</CardTitle>
-      <CardDetail>
-        Lorem ipsum dolor sit amet, consectetur incididunt ut labore et
-        dolore...
-      </CardDetail>
-      <Location>Denver</Location>
-      <Searching>SEARCHING:</Searching>
-    </CardContainer>
+    <ThemeProvider theme={theme}>
+      <CardContainer>
+        <CardImage />
+        <Button>ROCK</Button>
+        <ArrowButton>
+          <FontAwesomeIcon icon={faAngleRight} />
+        </ArrowButton>
+        <CardTitle>THE MANNEQUINS</CardTitle>
+        <CardDetail>
+          Lorem ipsum dolor sit amet, consectetur incididunt ut labore et
+          dolore...
+        </CardDetail>
+        <Location><FontAwesomeIcon icon={faMapMarkerAlt} /> Denver</Location>
+        <Searching>SEARCHING:</Searching>
+      </CardContainer>
+    </ThemeProvider>
   );
 };
 
@@ -34,19 +41,28 @@ const CardContainer = styled.div`
 `;
 const ArrowButton = styled.div`
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   left: 79.02%;
   right: 5.8%;
   top: 38.99%;
   bottom: 51.41%;
   border-radius: 50%;
-  background: #30bced;
+  background: ${props => props.theme.colors.cyan};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 34px;
+  height: 34px;
+
+  & > svg {
+    color: #fff;
+    font-size: 28px;
+  }
 `;
 
 const Location = styled.div`
   position: absolute;
-  left: 10.71%;
-  right: 71.88%;
+  left: 3.71%;
   top: 70.9%;
   bottom: 25.14%;
 
@@ -60,6 +76,11 @@ const Location = styled.div`
   text-align: center;
 
   color: #c4c4c4;
+
+  & > svg {
+    margin-right: 4px;
+    color: ${props => props.theme.colors.cyan};
+  }
 `;
 
 const Button = styled.div`
@@ -98,7 +119,7 @@ const Searching = styled.div`
   line-height: 120%;
   /* or 14px */
 
-  color: #30bced;
+  color: ${props => props.theme.colors.cyan};
 `;
 const CardImage = styled.div`
   position: absolute;
@@ -128,7 +149,7 @@ const CardTitle = styled.div`
   align-items: center;
   text-align: center;
 
-  color: #e4e752;
+  color: ${props => props.theme.colors.yellow};
 `;
 
 const CardDetail = styled.div`
