@@ -13,8 +13,12 @@ export const SearchSection = () => {
             Search Thousands of Musicians and Bands:
           </SearchFormDetail>
           <InputContainer>
-            <Input type="text" placeholder="Email" />
-            <Input type="Search" placeholder="   Search...." />
+            <Input name="searchtype" kind="select">
+              <option value="">Who are you looking for? </option>
+              <option value="band">Band</option>
+              <option value="member">Member</option>
+            </Input>
+            <Input type="Search" name="search" placeholder="Search...." kind="input" />
           </InputContainer>
           <ButtonContainer>
             <Button content="SUBMIT" />
@@ -65,7 +69,7 @@ const SearchFormTitle = styled.a`
   height: 40px; */
   /* left: calc(50% - 87px / 2 + 0.5px);
   top: 123px; */
-  top: 40px;
+  padding-top: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -85,41 +89,36 @@ const SearchFormDetail = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 60px;
-  @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+  margin-top: 20px;
+  margin-bottom: 10px;
+
   font-family: "Lato", sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 20px;
   line-height: 140.62%;
   /* or 28px */
-  top: 20px;
   text-align: center;
 
   color: #fffffc;
 `;
 
 const ButtonContainer = styled.div`
-  position: absolute;
-  bottom: 18px;
-  margin: 1rem 0 2rem 0;
+  margin: 0 0 2rem 0;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6px;
+  padding: 0 6px 6px;
 `;
 
 const SubmmitButton = styled.a``;
 
 const InputContainer = styled.div`
-  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  height: 20%;
   width: 100%;
-
-  bottom: 20.74%;
 `;

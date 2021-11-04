@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Link from 'next/link';
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Nav>
       <Container>
-        <Logo href="">Bandseeker</Logo>
+        <Link href="/">
+          <Logo href="">Bandseeker</Logo>
+        </Link>
 
         <Menu isOpen={isOpen}>
+          <Link href="/admin">
+            <MenuLink>ADMIN</MenuLink>
+          </Link>
           <MenuLink href="">ABOUT</MenuLink>
+
           <MenuLink href="">CONTACTS</MenuLink>
           <MenuLink href="">Login</MenuLink>
 
@@ -75,7 +82,6 @@ const Menu = styled.div`
 `;
 
 const MenuLink = styled.a`
-  @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
   font-family: "Lato", sans-serif;
   font-weight: normal;
   padding: 1rem 2rem;

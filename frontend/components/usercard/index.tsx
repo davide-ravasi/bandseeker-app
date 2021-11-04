@@ -1,27 +1,24 @@
 import React from "react";
-import styled, {ThemeProvider} from "styled-components";
-import {theme} from '../../styles/theme.styles';
+import styled from "styled-components";
 import { faAngleRight, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const Usercard = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <CardContainer>
-        <CardImage />
-        <Button>ROCK</Button>
-        <ArrowButton>
-          <FontAwesomeIcon icon={faAngleRight} />
-        </ArrowButton>
-        <CardTitle>THE MANNEQUINS</CardTitle>
-        <CardDetail>
-          Lorem ipsum dolor sit amet, consectetur incididunt ut labore et
-          dolore...
-        </CardDetail>
-        <Location><FontAwesomeIcon icon={faMapMarkerAlt} /> Denver</Location>
-        <Searching>SEARCHING:</Searching>
-      </CardContainer>
-    </ThemeProvider>
+    <CardContainer>
+      <CardImage />
+      <Button>ROCK</Button>
+      <ArrowButton>
+        <FontAwesomeIcon icon={faAngleRight} />
+      </ArrowButton>
+      <CardTitle>THE MANNEQUINS</CardTitle>
+      <CardDetail>
+        Lorem ipsum dolor sit amet, consectetur incididunt ut labore et
+        dolore...
+      </CardDetail>
+      <Location><FontAwesomeIcon icon={faMapMarkerAlt} /> Denver</Location>
+      <Searching>SEARCHING:</Searching>
+    </CardContainer>
   );
 };
 
@@ -117,7 +114,6 @@ const Searching = styled.div`
   font-weight: normal;
   font-size: 12px;
   line-height: 120%;
-  /* or 14px */
 
   color: ${props => props.theme.colors.cyan};
 `;
@@ -128,7 +124,7 @@ const CardImage = styled.div`
   top: 0%;
   bottom: 56.21%;
   background-size: cover;
-  background-image: url("image_band.png");
+  background-image: url("/images/image_band.png");
   background-position: center;
   border-radius: 13px 13px 0px 0px;
 `;
