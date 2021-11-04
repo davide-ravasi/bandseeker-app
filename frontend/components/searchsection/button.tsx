@@ -8,7 +8,6 @@ const StyledButton = styled.button`
   background: #e4e752;
   font-family: "Lato", sans-serif;
   text-transform: uppercase;
-  position: absolute;
   width: 330px;
   height: 48px;
 
