@@ -14,7 +14,7 @@ const Home: NextPage = () => {
           <AdminLink>Manage band</AdminLink>
         </Link>
         <Link href="/admin/manage-musician">
-          <AdminLink>Manage musician (under construction)</AdminLink>
+          <AdminLink>Manage musician</AdminLink>
         </Link>
       </Container>
       <Footer />
