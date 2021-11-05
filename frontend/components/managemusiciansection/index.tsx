@@ -7,85 +7,43 @@ import useInput from "../../hooks/useInput";
 import { withApollo } from "../../lib/apollo";
 import { useQuery, useMutation, gql } from "@apollo/client";
 
-const ADD_BAND_PROFILE = gql`
-  mutation AddBandProfile(
-    $name: String!
-    $genre: String!
-    $location: String!
-    $description: String!
-  ) {
-    addBandProfile {
-      name
-      description
-      location
-      foundation_date
-    }
-  }
-`;
-
-function ManageBandSection() {
+export const ManageMusicianSection = () => {
   const { value: valueName, bind: bindName, reset: resetName } = useInput("");
-  const {
-    value: valueDescription,
-    bind: bindDescription,
-    reset: resetDescription,
-  } = useInput("");
-  const {
-    value: valueLocation,
-    bind: bindLocation,
-    reset: resetLocation,
-  } = useInput("");
-  const {
-    value: valueFoundation,
-    bind: bindFoundation,
-    reset: resetFoundation,
-  } = useInput("");
+  const { value: valueNickname, bind: bindNickname, reset: resetNickname } = useInput("");
+  const { value: valueEmail, bind: bindEmail, reset: resetEmail } = useInput("");
+  const { value: valueBirthdate, bind: bindBirthdate, reset: resetBirthdate } = useInput("");
+  const { value: valueDescription, bind: bindDescription, reset: resetDescription } = useInput("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("submit form");
     console.log("value to send valueName", valueName);
     resetName();
+    console.log("value to send valueNickname", valueNickname);
+    resetNickname();
+    console.log("value to send valueEmail", valueEmail);
+    resetEmail();
+    console.log("value to send valueBirthdate", valueBirthdate);
+    resetBirthdate();
     console.log("value to send valueDescription", valueDescription);
     resetDescription();
-    console.log("value to send valueLocation", valueLocation);
-    resetLocation();
-    console.log("value to send", valueFoundation);
-    resetFoundation();
-    addBandProfile();
-  };
-
-  const [addBandProfile, { data, loading, error }] =
-    useMutation(ADD_BAND_PROFILE);
+  }
 
   return (
     <Container>
       <FormContainer>
-        <SearchFormTitle>BAND PROFILE</SearchFormTitle>
+        <SearchFormTitle>MUSICIAN PROFILE</SearchFormTitle>
         <SearchFormDetail>
-          Add or modify the informations about your band
+          Add or modify the informations
+          about you
         </SearchFormDetail>
         <form onSubmit={handleSubmit}>
           <InputContainer>
             <Input type="text" placeholder="Name" kind="input" {...bindName} />
-            <Input
-              type="textarea"
-              placeholder="Description"
-              kind="textarea"
-              {...bindDescription}
-            />
-            <Input
-              type="text"
-              placeholder="Location"
-              kind="input"
-              {...bindLocation}
-            />
-            <Input
-              type="text"
-              placeholder="Foundation date"
-              kind="input"
-              {...bindFoundation}
-            />
+            <Input type="text" placeholder="Nickname" kind="input" {...bindNickname} />
+            <Input type="text" placeholder="Email" kind="input" {...bindEmail} />
+            <Input type="text" placeholder="Birth Date" kind="input" {...bindBirthdate} />
+            <Input type="textarea" placeholder="Description" kind="textarea" {...bindDescription} />
           </InputContainer>
           <ButtonContainer>
             <Button type="submit" content="SUBMIT" />
@@ -94,10 +52,7 @@ function ManageBandSection() {
       </FormContainer>
     </Container>
   );
-}
-
-export default withApollo(ManageBandSection);
-
+};
 const Container = styled.div`
   position: relative;
 `;
@@ -136,7 +91,7 @@ const SearchFormDetail = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-
+  
   margin-top: 20px;
   margin-bottom: 10px;
 
