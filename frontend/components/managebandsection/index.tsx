@@ -7,56 +7,92 @@ import useInput from "../../hooks/useInput";
 import { withApollo } from "../../lib/apollo";
 import { useQuery, useMutation, gql } from "@apollo/client";
 
-const ADD_BAND_PROFILE = gql`
-  mutation AddBandProfile(
-    $name: String!
-    $genre: String!
-    $location: String!
-    $description: String!
-  ) {
-    addBandProfile {
+const GET_BAND = gql`
+  query GetBand($id: ID!) {
+    getBand(id: $id) {
+      id
       name
       description
       location
       foundation_date
+      genres {
+        name
+      }
+      videos {
+        title
+        url
+      }
+      images {
+        name
+      }
+      members {
+        name
+      }
     }
   }
 `;
 
-function ManageBandSection() {
-  const { value: valueName, bind: bindName, reset: resetName } = useInput("");
-  const {
-    value: valueDescription,
-    bind: bindDescription,
-    reset: resetDescription,
-  } = useInput("");
-  const {
-    value: valueLocation,
-    bind: bindLocation,
-    reset: resetLocation,
-  } = useInput("");
-  const {
-    value: valueFoundation,
-    bind: bindFoundation,
-    reset: resetFoundation,
-  } = useInput("");
+const UPDATE_BAND = gql`
+  mutation UpdateBand($id: ID!, $BandUpdateInput: BandUpdateInput) {
+    updateBand(id: $id, input: $BandUpdateInput) {
+      id
+      name
+      description
+      location
+      foundation_date
+      genres {
+        name
+      }
+      videos {
+        title
+        url
+      }
+      images {
+        name
+        url
+      }
+      avatar {
+        name
+        url
+      }
+    }
+  }
+`;
+
+function ManageBandSection(props) {
+  const { loading, error, data } = useQuery(GET_BAND, {
+    variables: { id: props.id },
+    onCompleted: (data) => {
+      setName(data.getBand.name);
+      setDescription(data.getBand.description);
+      setLocation(data.getBand.location);
+      setFoundation_date(data.getBand.foundation_date);
+    },
+  });
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
+  const [foundation_date, setFoundation_date] = useState("");
+
+  const [hasUpdated, setHasUpdated] = useState("SUBMIT");
+
+  const [updateBand] = useMutation(UPDATE_BAND, {
+    variables: {
+      id: props.id,
+      BandUpdateInput: {
+        name: name,
+        location: location,
+        description: description,
+        foundation_date: foundation_date,
+      },
+    },
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submit form");
-    console.log("value to send valueName", valueName);
-    resetName();
-    console.log("value to send valueDescription", valueDescription);
-    resetDescription();
-    console.log("value to send valueLocation", valueLocation);
-    resetLocation();
-    console.log("value to send", valueFoundation);
-    resetFoundation();
-    addBandProfile();
+    updateBand();
+    setHasUpdated("UPDATED!");
   };
-
-  const [addBandProfile, { data, loading, error }] =
-    useMutation(ADD_BAND_PROFILE);
 
   return (
     <Container>
@@ -67,28 +103,49 @@ function ManageBandSection() {
         </SearchFormDetail>
         <form onSubmit={handleSubmit}>
           <InputContainer>
-            <Input type="text" placeholder="Name" kind="input" {...bindName} />
+            <Input
+              type="text"
+              placeholder="Name"
+              kind="input"
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
+            />
             <Input
               type="textarea"
               placeholder="Description"
               kind="textarea"
-              {...bindDescription}
+              value={description}
+              onChange={(e) => {
+                setDescription(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
             />
             <Input
               type="text"
               placeholder="Location"
               kind="input"
-              {...bindLocation}
+              value={location}
+              onChange={(e) => {
+                setLocation(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
             />
             <Input
               type="text"
               placeholder="Foundation date"
               kind="input"
-              {...bindFoundation}
+              value={foundation_date}
+              onChange={(e) => {
+                setFoundation_date(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
             />
           </InputContainer>
           <ButtonContainer>
-            <Button type="submit" content="SUBMIT" />
+            <Button type="submit" content={hasUpdated} />
           </ButtonContainer>
         </form>
       </FormContainer>
@@ -96,7 +153,7 @@ function ManageBandSection() {
   );
 }
 
-export default withApollo(ManageBandSection);
+export default ManageBandSection;
 
 const Container = styled.div`
   position: relative;

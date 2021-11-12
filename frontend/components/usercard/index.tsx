@@ -1,7 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { faAngleRight, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faAngleRight,
+  faMapMarkerAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Usercard = () => {
   return (
@@ -16,7 +19,9 @@ export const Usercard = () => {
         Lorem ipsum dolor sit amet, consectetur incididunt ut labore et
         dolore...
       </CardDetail>
-      <Location><FontAwesomeIcon icon={faMapMarkerAlt} /> Denver</Location>
+      <Location>
+        <FontAwesomeIcon icon={faMapMarkerAlt} /> Denver
+      </Location>
       <Searching>SEARCHING:</Searching>
     </CardContainer>
   );
@@ -46,7 +51,7 @@ const ArrowButton = styled.div`
   top: 38.99%;
   bottom: 51.41%;
   border-radius: 50%;
-  background: ${props => props.theme.colors.cyan};
+  background: ${(props) => props.theme.colors.cyan};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   width: 34px;
   height: 34px;
@@ -76,7 +81,7 @@ const Location = styled.div`
 
   & > svg {
     margin-right: 4px;
-    color: ${props => props.theme.colors.cyan};
+    color: ${(props) => props.theme.colors.cyan};
   }
 `;
 
@@ -115,7 +120,7 @@ const Searching = styled.div`
   font-size: 12px;
   line-height: 120%;
 
-  color: ${props => props.theme.colors.cyan};
+  color: ${(props) => props.theme.colors.cyan};
 `;
 const CardImage = styled.div`
   position: absolute;
@@ -145,7 +150,7 @@ const CardTitle = styled.div`
   align-items: center;
   text-align: center;
 
-  color: ${props => props.theme.colors.yellow};
+  color: ${(props) => props.theme.colors.yellow};
 `;
 
 const CardDetail = styled.div`

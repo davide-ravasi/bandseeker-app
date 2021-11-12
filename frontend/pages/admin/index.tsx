@@ -2,43 +2,93 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import styled from "styled-components";
 
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Header } from "../../components/header";
 import { Footer } from "../../components/footer";
-import { Usercard } from "../../components/usercard/index";
 
-const Home: NextPage = () => {
+import { gql, useQuery } from "@apollo/client";
+import { withApollo } from "../../lib/apollo";
+
+const GET_BANDS = gql`
+  query getBands {
+    getBands {
+      id
+      name
+      description
+      location
+      foundation_date
+      genres {
+        name
+      }
+      videos {
+        title
+        url
+      }
+      images {
+        name
+      }
+      members {
+        name
+      }
+    }
+  }
+`;
+
+const Admin: NextPage = () => {
+  const { loading, error, data } = useQuery(GET_BANDS);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
   return (
     <div>
       <Header />
       <Container>
-        <AdminTitle>
-          YOUR PROFILE
-        </AdminTitle>
+        <AdminTitle>YOUR PROFILE</AdminTitle>
         <SectionContainer>
-          <Link href="/admin/manage-musician">
-            <a>Edit your profile <FontAwesomeIcon icon={faAngleRight} /></a>
+          <Link
+            href={{
+              pathname: "/admin/manage-musician",
+              // query: { id: JSON.stringify(user.id) },
+            }}
+          >
+            <a>
+              Edit your profile <FontAwesomeIcon icon={faAngleRight} />
+            </a>
           </Link>
         </SectionContainer>
-        <AdminTitle>
-          YOUR BANDS
-        </AdminTitle>
+        <AdminTitle>YOUR BANDS</AdminTitle>
         <SectionContainer>
-          <Link href="/admin/manage-band">
-            <a>Band Name 01 <FontAwesomeIcon icon={faAngleRight} /></a>
+          <Link href="/admin/new-band">
+            <a>
+              Make New Band
+              <FontAwesomeIcon icon={faAngleRight} />
+            </a>
           </Link>
-          <Link href="/admin/manage-band">
-            <a>Band Name 02 <FontAwesomeIcon icon={faAngleRight} /></a>
-          </Link>
+          {data.getBands.map((band) => (
+            <Link
+              href={{
+                pathname: "/admin/manage-band",
+                query: { id: band.id },
+              }}
+              as={"/admin/manabe-band"}
+            >
+              <a key={band}>
+                Band Name 01 {band.name}
+                <FontAwesomeIcon icon={faAngleRight} />
+              </a>
+            </Link>
+          ))}
         </SectionContainer>
-
       </Container>
       <Footer />
     </div>
   );
 };
+
+export default withApollo(Admin);
 
 const Container = styled.div`
   position: relative;
@@ -80,7 +130,6 @@ const SectionContainer = styled.div`
     font-family: "Lato", sans-serif;
     color: #fff;
     display: block;
-    width: 100%
+    width: 100%;
   }
 `;
-export default Home;
