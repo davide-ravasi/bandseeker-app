@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "../searchsection/button";
 import Input from "../searchsection/input";
 import styled from "styled-components";
@@ -7,83 +7,61 @@ import useInput from "../../hooks/useInput";
 import { withApollo } from "../../lib/apollo";
 import { useQuery, useMutation, gql } from "@apollo/client";
 
-const GET_USER = gql`
-  query getUser($id: ID!) {
-    getUser(id: $id) {
-      id
+const NEW_BAND = gql`
+  mutation NewBand($BandCreateInput: BandCreateInput) {
+    newBand(input: $BandCreateInput) {
       name
-      nickname
       description
-      email
-      birth_date
-      address
-      instruments
+      location
+      foundation_date
+      genres {
+        name
+      }
+      videos {
+        title
+        url
+      }
+      images {
+        name
+        url
+      }
       avatar {
+        name
         url
       }
     }
   }
 `;
 
-const UPDATE_USER = gql`
-  mutation UpdateUser($id: ID!, $UserUpdateInput: UserUpdateInput) {
-    updateUser(id: $id, input: $UserUpdateInput) {
-      id
-      name
-      description
-      email
-      birth_date
-      address
-      instruments
-      avatar {
-        url
-      }
-    }
-  }
-`;
+function NewBandSection(props) {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
+  const [foundation_date, setFoundation_date] = useState("");
 
-export function ManageMusicianSection(props) {
-  const { loading, error, data } = useQuery(GET_USER, {
-    variables: { id: props.id },
-    onCompleted: (data) => {
-      setName(data.getUser.name);
-      setNickname(data.getUser.nickname);
-      setEmail(data.getUser.email);
-      setBirth_date(data.getUser.birth_date);
-      setDescription(data.getUser.description);
-    },
-  });
-
-  const [name, setName] = useState();
-  const [nickname, setNickname] = useState();
-  const [email, setEmail] = useState();
-  const [birth_date, setBirth_date] = useState();
-  const [description, setDescription] = useState();
-
-  const [updateUser] = useMutation(UPDATE_USER, {
-    variables: {
-      id: props.id,
-      UserUpdateInput: {
-        name: name,
-        nickname: nickname,
-        email: email,
-        birth_date: birth_date,
-        description: description,
-      },
-    },
-  });
+  const [newBand] = useMutation(NEW_BAND);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateUser();
+
+    newBand({
+      variables: {
+        BandCreateInput: {
+          name: name,
+          description: description,
+          location: location,
+          foundation_date: foundation_date,
+        },
+      },
+    });
   };
 
   return (
     <Container>
       <FormContainer>
-        <SearchFormTitle>MUSICIAN PROFILE</SearchFormTitle>
+        <SearchFormTitle>BAND PROFILE</SearchFormTitle>
         <SearchFormDetail>
-          Add or modify the informations about you
+          Add or modify the informations about your band
         </SearchFormDetail>
         <form onSubmit={handleSubmit}>
           <InputContainer>
@@ -95,32 +73,25 @@ export function ManageMusicianSection(props) {
               onChange={(e) => setName(e.target.value)}
             />
             <Input
-              type="text"
-              placeholder="Nickname"
-              kind="input"
-              onChange={(e) => setNickname(e.target.value)}
-              value={nickname}
-            />
-            <Input
-              type="text"
-              placeholder="Email"
-              kind="input"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Input
-              type="text"
-              placeholder="Birth Date"
-              kind="input"
-              value={birth_date}
-              onChange={(e) => setBirth_date(e.target.value)}
-            />
-            <Input
               type="textarea"
               placeholder="Description"
               kind="textarea"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+            />
+            <Input
+              type="text"
+              placeholder="Location"
+              kind="input"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            />
+            <Input
+              type="text"
+              placeholder="Foundation date"
+              kind="input"
+              value={foundation_date}
+              onChange={(e) => setFoundation_date(e.target.value)}
             />
           </InputContainer>
           <ButtonContainer>
@@ -132,7 +103,7 @@ export function ManageMusicianSection(props) {
   );
 }
 
-export default withApollo(ManageMusicianSection);
+export default NewBandSection;
 
 const Container = styled.div`
   position: relative;

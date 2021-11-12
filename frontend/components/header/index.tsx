@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Link from 'next/link';
+import Link from "next/link";
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +28,6 @@ export const Header = () => {
 };
 
 const Nav = styled.div`
-  padding: 0 15rem;
   display: flex;
   justify-content: space-between;
   align-items: center;

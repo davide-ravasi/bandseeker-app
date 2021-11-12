@@ -5,7 +5,7 @@ const BandsSchema = new Schema(
   {
     name: {
       type: String,
-      required: true,
+
       trim: true,
     },
     description: {
@@ -20,24 +20,24 @@ const BandsSchema = new Schema(
     },
     genres: [
       {
-        name: { type: String, required: true },
+        name: { type: String },
       },
     ],
     videos: [
       {
-        title: { type: String, required: true },
-        url: { type: String, required: true },
+        title: { type: String },
+        url: { type: String },
       },
     ],
     images: [
       {
-        name: { type: String, required: true },
-        url: { type: String, required: true },
+        name: { type: String },
+        url: { type: String },
       },
     ],
     avatar: {
-      name: { type: String, required: true },
-      url: { type: String, required: true },
+      name: { type: String },
+      url: { type: String },
     },
     members: [UsersSchema],
   },
