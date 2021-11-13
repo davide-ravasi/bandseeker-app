@@ -3,7 +3,12 @@ import Link from "next/link";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 
-import { faAngleRight, faPlus, faPen, faTimes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleRight,
+  faPlus,
+  faPen,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Header } from "../../components/header";
@@ -49,15 +54,14 @@ const Admin: NextPage = () => {
 
   const [deleteBand] = useMutation(DELETE_BAND, {
     variables: {
-      id: elToDelete
+      id: elToDelete,
     },
     refetchQueries: [GET_BANDS],
-  }
-  );
+  });
 
   const onDelete = (id) => {
     setElToDelete(id.toString());
-  }
+  };
 
   useEffect(() => {
     if (elToDelete !== "") {
@@ -86,18 +90,18 @@ const Admin: NextPage = () => {
             </a>
           </Link>
         </SectionContainer>
-        <AdminTitle>YOUR BANDS
+        <AdminTitle>
+          YOUR BANDS
           <Link href="/admin/new-band">
             <PlusButton title="Add a new band">
               <FontAwesomeIcon icon={faPlus} />
             </PlusButton>
-          </Link></AdminTitle>
+          </Link>
+        </AdminTitle>
         <SectionContainer>
           {data.getBands.map((band) => (
-            <ListBlock>
-              <span>
-                Band Name: {band.name ? band.name : 'no name'}
-              </span>
+            <ListBlock key={band}>
+              <span>Band Name: {band.name ? band.name : "no name"}</span>
               <Link
                 href={{
                   pathname: "/admin/manage-band",
@@ -109,7 +113,11 @@ const Admin: NextPage = () => {
                   <FontAwesomeIcon icon={faPen} />
                 </ModifyButton>
               </Link>
-              <DeleteButton title="Delete this band" key={band} onClick={() => onDelete(band.id)}>
+              <DeleteButton
+                title="Delete this band"
+                key={band}
+                onClick={() => onDelete(band.id)}
+              >
                 <FontAwesomeIcon icon={faTimes} />
               </DeleteButton>
             </ListBlock>
@@ -149,7 +157,6 @@ const AdminTitle = styled.h1`
   color: #757780;
 
   & > a {
-
   }
 `;
 
@@ -175,7 +182,7 @@ const PlusButton = styled.a`
   text-align: center;
   line-height: 32px;
   border-radius: 50%;
-  background: ${props => props.theme.colors.cyan};
+  background: ${(props) => props.theme.colors.cyan};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   width: 34px;
   height: 34px;
@@ -194,7 +201,7 @@ const ListBlock = styled.div`
   width: 100%;
   color: #fff;
   font-family: Lato, sans-serif;
-  border-bottom: 1px solid ${props => props.theme.colors.mediumgrey};
+  border-bottom: 1px solid ${(props) => props.theme.colors.mediumgrey};
 `;
 
 const DeleteButton = styled.a`
@@ -202,7 +209,7 @@ const DeleteButton = styled.a`
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: ${props => props.theme.colors.red};
+  background: ${(props) => props.theme.colors.red};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   width: 28px;
   height: 28px;
@@ -220,7 +227,7 @@ const ModifyButton = styled.a`
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: ${props => props.theme.colors.cyan};
+  background: ${(props) => props.theme.colors.cyan};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   width: 28px;
   height: 28px;
