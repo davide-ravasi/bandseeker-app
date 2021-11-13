@@ -14,6 +14,7 @@ const NEW_BAND = gql`
       description
       location
       foundation_date
+      email
       genres {
         name
       }
@@ -38,6 +39,7 @@ function NewBandSection(props) {
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [foundation_date, setFoundation_date] = useState("");
+  const [email, setEmail] = useState("");
 
   const [newBand] = useMutation(NEW_BAND);
 
@@ -51,6 +53,7 @@ function NewBandSection(props) {
           description: description,
           location: location,
           foundation_date: foundation_date,
+          email: email
         },
       },
     });
@@ -92,6 +95,15 @@ function NewBandSection(props) {
               kind="input"
               value={foundation_date}
               onChange={(e) => setFoundation_date(e.target.value)}
+            />
+            <Input
+              type="text"
+              placeholder="Email"
+              kind="input"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
             />
           </InputContainer>
           <ButtonContainer>

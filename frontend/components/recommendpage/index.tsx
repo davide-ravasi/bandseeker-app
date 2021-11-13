@@ -3,8 +3,41 @@ import { Usercard } from "../usercard";
 import styled from "styled-components";
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useQuery, gql } from "@apollo/client";
+import { Bandcard } from "../bandcard";
+
+
+const GET_BANDS = gql`
+  query getBands {
+    getBands {
+      id
+      name
+      description
+      location
+      foundation_date
+      genres {
+        name
+      }
+      videos {
+        title
+        url
+      }
+      images {
+        name
+      }
+      members {
+        name
+      }
+    }
+  }
+`;
 
 export const RecommendPage = () => {
+  const { loading, error, data } = useQuery(GET_BANDS);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
   return (
     <div>
       <Background>
@@ -13,10 +46,9 @@ export const RecommendPage = () => {
             BANDS SEARCHING FOR MUSICIANS <Seemore> SEE MORE <FontAwesomeIcon icon={faAngleRight} /></Seemore>
           </SectionTitle>
           <SectionContainer>
-            <Usercard />
-            <Usercard />
-            <Usercard />
-            <Usercard />
+            {data.getBands.map((band) => (
+              <Bandcard band={band} />
+            ))}
           </SectionContainer>
           <SectionTitle>
             MUSICIANS SEARCHING A BAND<Seemore> SEE MORE <FontAwesomeIcon icon={faAngleRight} /></Seemore>

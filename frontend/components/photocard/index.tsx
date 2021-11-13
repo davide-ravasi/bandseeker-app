@@ -4,7 +4,7 @@ import Image from "next/dist/client/image";
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export const PhotoCard = () => {
+export const PhotoCard = ({ edit }) => {
   return (
     <PhotoContainer>
       <Photo />
@@ -16,9 +16,10 @@ export const PhotoCard = () => {
         width={204}
         height={129}
       />
-      <CloseButton>
+      {edit && <CloseButton>
         <FontAwesomeIcon icon={faTimes} />
       </CloseButton>
+      }
     </PhotoContainer>
   );
 };

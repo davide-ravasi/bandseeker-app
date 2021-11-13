@@ -4,22 +4,23 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PhotoCard } from "../photocard";
 
-export const ManagePhotos = () => {
+export const ManagePhotos = ({ edit }) => {
   return (
     <div>
       <Background>
         <Container>
-          <SectionTitle>
-            MANAGE YOUR PHOTOS <PlusButton><FontAwesomeIcon icon={faPlus} /></PlusButton>
-          </SectionTitle>
+          {edit ?
+            <SectionTitle>MANAGE YOUR PHOTOS <PlusButton><FontAwesomeIcon icon={faPlus} /></PlusButton></SectionTitle>
+            :
+            <SectionTitle>YOUR PHOTOS</SectionTitle>
+          }
           <SectionContainer>
-            <PhotoCard />
-            <PhotoCard />
-            <PhotoCard />
-            <PhotoCard />
-            <PhotoCard />
-            <PhotoCard />
-            <PhotoCard />
+            <PhotoCard edit={edit} />
+            <PhotoCard edit={edit} />
+            <PhotoCard edit={edit} />
+            <PhotoCard edit={edit} />
+            <PhotoCard edit={edit} />
+            <PhotoCard edit={edit} />
           </SectionContainer>
         </Container>
       </Background>

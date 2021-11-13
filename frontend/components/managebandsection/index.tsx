@@ -15,6 +15,7 @@ const GET_BAND = gql`
       description
       location
       foundation_date
+      email
       genres {
         name
       }
@@ -40,6 +41,7 @@ const UPDATE_BAND = gql`
       description
       location
       foundation_date
+      email
       genres {
         name
       }
@@ -67,12 +69,15 @@ function ManageBandSection(props) {
       setDescription(data.getBand.description);
       setLocation(data.getBand.location);
       setFoundation_date(data.getBand.foundation_date);
+      setEmail(data.getBand.email);
     },
   });
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [foundation_date, setFoundation_date] = useState("");
+  const dateFormatted = new Date(parseInt(foundation_date)).toLocaleDateString()
+  const [email, setEmail] = useState("");
 
   const [hasUpdated, setHasUpdated] = useState("SUBMIT");
 
@@ -84,6 +89,7 @@ function ManageBandSection(props) {
         location: location,
         description: description,
         foundation_date: foundation_date,
+        email: email
       },
     },
   });
@@ -137,9 +143,19 @@ function ManageBandSection(props) {
               type="text"
               placeholder="Foundation date"
               kind="input"
-              value={foundation_date}
+              value={dateFormatted}
               onChange={(e) => {
                 setFoundation_date(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
+            />
+            <Input
+              type="text"
+              placeholder="Email"
+              kind="input"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
                 setHasUpdated("SUBMIT");
               }}
             />

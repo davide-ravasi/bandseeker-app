@@ -18,6 +18,9 @@ const BandsSchema = new Schema(
     foundation_date: {
       type: Date,
     },
+    email: {
+      type: String,
+    },
     genres: [
       {
         name: { type: String },

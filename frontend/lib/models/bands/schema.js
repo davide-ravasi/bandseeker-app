@@ -32,6 +32,7 @@ const bandTypeDefs = gql`
     name: String
     description: String
     location: String
+    email: String
     foundation_date: String
     genres: [Genre]
     videos: [Video]
@@ -70,6 +71,7 @@ const bandTypeDefs = gql`
     description: String
     location: String
     foundation_date: String
+    email: String
     genres: [GenreInput]
     videos: [VideoInput]
     images: [ImageInput]
@@ -81,6 +83,7 @@ const bandTypeDefs = gql`
     description: String
     location: String
     foundation_date: String
+    email: String
     genres: [GenreInput]
     videos: [VideoInput]
     images: [ImageInput]
