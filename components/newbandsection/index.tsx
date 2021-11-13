@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Button from "../searchsection/button";
 import Input from "../searchsection/input";
 import styled from "styled-components";
-import useInput from "../../hooks/useInput";
 
 import { withApollo } from "../../lib/apollo";
 import { useQuery, useMutation, gql } from "@apollo/client";
@@ -41,6 +40,8 @@ function NewBandSection(props) {
   const [foundation_date, setFoundation_date] = useState("");
   const [email, setEmail] = useState("");
 
+  const [hasUpdated, setHasUpdated] = useState("SUBMIT");
+
   const [newBand] = useMutation(NEW_BAND);
 
   const handleSubmit = (e) => {
@@ -53,10 +54,11 @@ function NewBandSection(props) {
           description: description,
           location: location,
           foundation_date: foundation_date,
-          email: email
+          email: email,
         },
       },
     });
+    setHasUpdated("SUBMITTED!!");
   };
 
   return (
@@ -73,28 +75,40 @@ function NewBandSection(props) {
               placeholder="Name"
               kind="input"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                setName(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
             />
             <Input
               type="textarea"
               placeholder="Description"
               kind="textarea"
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) => {
+                setDescription(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
             />
             <Input
               type="text"
               placeholder="Location"
               kind="input"
               value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              onChange={(e) => {
+                setLocation(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
             />
             <Input
               type="text"
               placeholder="Foundation date"
               kind="input"
               value={foundation_date}
-              onChange={(e) => setFoundation_date(e.target.value)}
+              onChange={(e) => {
+                setFoundation_date(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
             />
             <Input
               type="text"
@@ -103,11 +117,12 @@ function NewBandSection(props) {
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
+                setHasUpdated("SUBMIT");
               }}
             />
           </InputContainer>
           <ButtonContainer>
-            <Button type="submit" content="SUBMIT" />
+            <Button type="submit" content={hasUpdated} />
           </ButtonContainer>
         </form>
       </FormContainer>
@@ -115,7 +130,7 @@ function NewBandSection(props) {
   );
 }
 
-export default NewBandSection;
+export default withApollo(NewBandSection);
 
 const Container = styled.div`
   position: relative;

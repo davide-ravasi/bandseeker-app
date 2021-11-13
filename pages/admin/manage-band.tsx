@@ -9,16 +9,16 @@ import { withApollo } from "../../lib/apollo";
 
 const ManageBand: NextPage = ({ router: query }) => {
   const router = useRouter();
-  const bandId = router.query;
+  const band = router.query;
 
-  console.log(bandId.id);
+  console.log(band.id);
   return (
     <div>
       <Header />
       <ManageBandSection
         apolloClient={undefined}
         apolloState={undefined}
-        id={bandId.id}
+        id={band.id}
       />
       <ManagePhotos />
       <Footer />

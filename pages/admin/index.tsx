@@ -42,42 +42,108 @@ const GET_BANDS = gql`
   }
 `;
 
+const GET_USERS = gql`
+  query getUsers {
+    getUsers {
+      id
+      name
+      nickname
+      description
+      email
+      birth_date
+      address
+      instruments
+      avatar {
+        url
+      }
+    }
+  }
+`;
+
 const DELETE_BAND = gql`
-  mutation DeleteBand($id: ID!) {
+  mutation deleteBand($id: ID!) {
     deleteBand(id: $id)
   }
 `;
 
+const DELETE_USER = gql`
+  mutation deleteUser($id: ID!) {
+    deleteUser(id: $id)
+  }
+`;
+
 const Admin: NextPage = () => {
-  const { loading, error, data } = useQuery(GET_BANDS);
-  const [elToDelete, setElToDelete] = useState("");
+  // About User
+  const {
+    loading: loadingBand,
+    error: errorBand,
+    data: dataBand,
+  } = useQuery(GET_BANDS);
+
+  const {
+    loading: loadingUser,
+    error: errorUser,
+    data: dataUser,
+  } = useQuery(GET_USERS);
+
+  const [bandElToDelete, setBandElToDelete] = useState("");
+
+  const [userElToDelete, setUserElToDelete] = useState("");
 
   const [deleteBand] = useMutation(DELETE_BAND, {
     variables: {
-      id: elToDelete,
+      id: bandElToDelete,
     },
     refetchQueries: [GET_BANDS],
   });
 
-  const onDelete = (id) => {
-    setElToDelete(id.toString());
-  };
+  const [deleteUser] = useMutation(DELETE_USER, {
+    variables: {
+      id: userElToDelete,
+    },
+    refetchQueries: [GET_USERS],
+  });
 
   useEffect(() => {
-    if (elToDelete !== "") {
+    if (bandElToDelete !== "") {
       deleteBand();
-      setElToDelete("");
+      setBandElToDelete("");
     }
-  }, [elToDelete]);
+  }, [bandElToDelete]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  useEffect(() => {
+    if (userElToDelete !== "") {
+      deleteUser();
+      setUserElToDelete("");
+    }
+  }, [userElToDelete]);
+
+  const onDeleteUser = (id) => {
+    setUserElToDelete(id.toString());
+  };
+
+  const onDeleteBand = (id) => {
+    setBandElToDelete(id.toString());
+  };
+
+  if (loadingUser) return <p>Loading...</p>;
+  if (errorUser) return <p>Error :(</p>;
+
+  if (loadingBand) return <p>Loading...</p>;
+  if (errorBand) return <p>Error :(</p>;
 
   return (
     <div>
       <Header />
       <Container>
-        <AdminTitle>YOUR PROFILE</AdminTitle>
+        <AdminTitle>
+          YOUR PROFILE
+          <Link href="/admin/new-musician">
+            <PlusButton title="Add a new user">
+              <FontAwesomeIcon icon={faPlus} />
+            </PlusButton>
+          </Link>
+        </AdminTitle>
         <SectionContainer>
           <Link
             href={{
@@ -89,6 +155,29 @@ const Admin: NextPage = () => {
               Edit your profile <FontAwesomeIcon icon={faAngleRight} />
             </a>
           </Link>
+          {dataUser.getUsers.map((user) => (
+            <ListBlock key={user}>
+              <span>User Name: {user.name ? user.name : "no name"}</span>
+              <Link
+                href={{
+                  pathname: "/admin/manage-musician",
+                  query: { id: user.id },
+                }}
+                as={"/admin/manage-musician"}
+              >
+                <ModifyButton title="Modify this user" key={user}>
+                  <FontAwesomeIcon icon={faPen} />
+                </ModifyButton>
+              </Link>
+              <DeleteButton
+                title="Delete this user"
+                key={user}
+                onClick={() => onDeleteUser(user.id)}
+              >
+                <FontAwesomeIcon icon={faTimes} />
+              </DeleteButton>
+            </ListBlock>
+          ))}
         </SectionContainer>
         <AdminTitle>
           YOUR BANDS
@@ -99,7 +188,7 @@ const Admin: NextPage = () => {
           </Link>
         </AdminTitle>
         <SectionContainer>
-          {data.getBands.map((band) => (
+          {dataBand.getBands.map((band) => (
             <ListBlock key={band}>
               <span>Band Name: {band.name ? band.name : "no name"}</span>
               <Link
@@ -116,7 +205,7 @@ const Admin: NextPage = () => {
               <DeleteButton
                 title="Delete this band"
                 key={band}
-                onClick={() => onDelete(band.id)}
+                onClick={() => onDeleteBand(band.id)}
               >
                 <FontAwesomeIcon icon={faTimes} />
               </DeleteButton>

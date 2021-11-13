@@ -34,6 +34,7 @@ const GET_BANDS = gql`
 const GET_USERS = gql`
   query getUsers {
     getUsers {
+      id
       name
       nickname
       description
@@ -50,22 +51,22 @@ const GET_USERS = gql`
 
 export const RecommendPage = () => {
   const {
-    loading: loadingBand,
-    error: errorBand,
-    data: dataBand,
-  } = useQuery(GET_BANDS);
-
-  if (loadingBand) return <p>Loading...</p>;
-  if (errorBand) return <p>Error :(</p>;
-
-  const {
     loading: loadingUser,
     error: errorUser,
     data: dataUser,
   } = useQuery(GET_USERS);
 
+  const {
+    loading: loadingBand,
+    error: errorBand,
+    data: dataBand,
+  } = useQuery(GET_BANDS);
+
   if (loadingUser) return <p>Loading...</p>;
   if (errorUser) return <p>Error :(</p>;
+
+  if (loadingBand) return <p>Loading...</p>;
+  if (errorBand) return <p>Error :(</p>;
 
   return (
     <div>
@@ -122,15 +123,6 @@ const Container = styled.div`
 
   max-width: 1100px;
   margin: 0 auto;
-
-  /* width: 100vw; */
-
-  /* padding: 0 15rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  background: #4c4b63; */
 `;
 
 const Seemore = styled.a`
@@ -155,9 +147,6 @@ const SectionTitle = styled.h1`
 
   margin-top: 50px;
   align-items: start;
-  /* identical to box height, or 25px */
-
-  /* align-items: center; */
 
   color: #757780;
 `;
@@ -171,5 +160,3 @@ const SectionContainer = styled.div`
 
   margin-bottom: 10px;
 `;
-
-const UsercardContainer = styled.div``;

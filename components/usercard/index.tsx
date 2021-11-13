@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import styled from "styled-components";
 import {
   faAngleRight,
@@ -6,16 +7,21 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const UserCard = (user) => {
+export const UserCard = ({ user }) => {
+  console.log(user);
   return (
     <CardContainer>
       <CardImage />
       <Button>ROCK</Button>
-      <ArrowButton>
-        <FontAwesomeIcon icon={faAngleRight} />
-      </ArrowButton>
+      <Link href={`/band/${user.id}`}>
+        <ArrowButton>
+          <FontAwesomeIcon icon={faAngleRight} />
+        </ArrowButton>
+      </Link>
       <CardTitle>{user.name}</CardTitle>
-      <CardDetail>{user.description}</CardDetail>
+      <CardDetail>
+        {user.description && user.description.substring(0, 100)}...
+      </CardDetail>
       <Location>
         <FontAwesomeIcon icon={faMapMarkerAlt} /> {user.location}
       </Location>
@@ -52,6 +58,7 @@ const ArrowButton = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   width: 34px;
   height: 34px;
+  cursor: pointer;
 
   & > svg {
     color: #fff;
