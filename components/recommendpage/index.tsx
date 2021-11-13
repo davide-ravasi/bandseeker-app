@@ -1,11 +1,10 @@
 import React from "react";
-import { Usercard } from "../usercard";
 import styled from "styled-components";
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery, gql } from "@apollo/client";
-import { Bandcard } from "../bandcard";
-
+import { BandCard } from "../bandcard";
+import { UserCard } from "../usercard";
 
 const GET_BANDS = gql`
   query getBands {
@@ -32,39 +31,75 @@ const GET_BANDS = gql`
   }
 `;
 
-export const RecommendPage = () => {
-  const { loading, error, data } = useQuery(GET_BANDS);
+const GET_USERS = gql`
+  query getUsers {
+    getUsers {
+      name
+      nickname
+      description
+      email
+      birth_date
+      address
+      instruments
+      avatar {
+        url
+      }
+    }
+  }
+`;
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+export const RecommendPage = () => {
+  const {
+    loading: loadingBand,
+    error: errorBand,
+    data: dataBand,
+  } = useQuery(GET_BANDS);
+
+  if (loadingBand) return <p>Loading...</p>;
+  if (errorBand) return <p>Error :(</p>;
+
+  const {
+    loading: loadingUser,
+    error: errorUser,
+    data: dataUser,
+  } = useQuery(GET_USERS);
+
+  if (loadingUser) return <p>Loading...</p>;
+  if (errorUser) return <p>Error :(</p>;
 
   return (
     <div>
       <Background>
         <Container>
           <SectionTitle>
-            BANDS SEARCHING FOR MUSICIANS <Seemore> SEE MORE <FontAwesomeIcon icon={faAngleRight} /></Seemore>
+            BANDS SEARCHING FOR MUSICIANS{" "}
+            <Seemore>
+              {" "}
+              SEE MORE <FontAwesomeIcon icon={faAngleRight} />
+            </Seemore>
           </SectionTitle>
           <SectionContainer>
-            {data.getBands.map((band) => (
-              <Bandcard band={band} />
+            {dataBand.getBands.map((band) => (
+              <BandCard key={band} band={band} />
             ))}
           </SectionContainer>
           <SectionTitle>
-            MUSICIANS SEARCHING A BAND<Seemore> SEE MORE <FontAwesomeIcon icon={faAngleRight} /></Seemore>
+            MUSICIANS SEARCHING A BAND
+            <Seemore>
+              {" "}
+              SEE MORE <FontAwesomeIcon icon={faAngleRight} />
+            </Seemore>
           </SectionTitle>
           <SectionContainer>
-            <Usercard />
-            <Usercard />
-            <Usercard />
-            <Usercard />
+            {dataUser.getUsers.map((user) => (
+              <UserCard key={user} user={user} />
+            ))}
           </SectionContainer>
           <SectionTitle>NEW MEMBERS</SectionTitle>
           <SectionContainer>
-            <Usercard />
-            <Usercard />
-            <Usercard />
-            <Usercard />
+            {dataUser.getUsers.map((user) => (
+              <UserCard key={user} user={user} />
+            ))}
           </SectionContainer>
         </Container>
       </Background>

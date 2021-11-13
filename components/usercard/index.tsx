@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const Usercard = () => {
+export const UserCard = (user) => {
   return (
     <CardContainer>
       <CardImage />
@@ -14,13 +14,10 @@ export const Usercard = () => {
       <ArrowButton>
         <FontAwesomeIcon icon={faAngleRight} />
       </ArrowButton>
-      <CardTitle>THE MANNEQUINS</CardTitle>
-      <CardDetail>
-        Lorem ipsum dolor sit amet, consectetur incididunt ut labore et
-        dolore...
-      </CardDetail>
+      <CardTitle>{user.name}</CardTitle>
+      <CardDetail>{user.description}</CardDetail>
       <Location>
-        <FontAwesomeIcon icon={faMapMarkerAlt} /> Denver
+        <FontAwesomeIcon icon={faMapMarkerAlt} /> {user.location}
       </Location>
       <Searching>SEARCHING:</Searching>
     </CardContainer>
