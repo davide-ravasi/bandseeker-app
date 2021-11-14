@@ -7,7 +7,13 @@ export const Header = () => {
   return (
     <Nav>
       <Container>
-        <Link href="/">
+        <Link
+          href={{
+            pathname: "/",
+            query: { type: "searchsection" },
+          }}
+          as={"/"}
+        >
           <Logo href="">Bandseeker</Logo>
         </Link>
 
@@ -18,9 +24,24 @@ export const Header = () => {
           <MenuLink href="">ABOUT</MenuLink>
 
           <MenuLink href="">CONTACTS</MenuLink>
-          <MenuLink href="">Login</MenuLink>
-
-          <MenuLink href="">Sign Up</MenuLink>
+          <Link
+            href={{
+              pathname: "/",
+              query: { type: "login" },
+            }}
+            as={"/"}
+          >
+            <MenuLink href="">LOGIN</MenuLink>
+          </Link>
+          <Link
+            href={{
+              pathname: "/",
+              query: { type: "signup" },
+            }}
+            as={"/"}
+          >
+            <MenuLink href="">SIGN UP</MenuLink>
+          </Link>
         </Menu>
       </Container>
     </Nav>

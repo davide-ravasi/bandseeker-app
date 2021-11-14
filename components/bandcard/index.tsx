@@ -8,7 +8,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const BandCard = ({ band }) => {
-  console.log(band);
   return (
     <CardContainer>
       <CardImage />
