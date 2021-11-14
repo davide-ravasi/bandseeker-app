@@ -80,7 +80,7 @@ export const RecommendPage = () => {
             </Seemore>
           </SectionTitle>
           <SectionContainer>
-            {dataBand.getBands.map((band) => (
+            {dataBand.getBands.slice(0, 4).map((band) => (
               <BandCard key={band} band={band} />
             ))}
           </SectionContainer>
@@ -92,13 +92,13 @@ export const RecommendPage = () => {
             </Seemore>
           </SectionTitle>
           <SectionContainer>
-            {dataUser.getUsers.map((user) => (
+            {dataUser.getUsers.slice(0, 4).map((user) => (
               <UserCard key={user} user={user} />
             ))}
           </SectionContainer>
           <SectionTitle>NEW MEMBERS</SectionTitle>
           <SectionContainer>
-            {dataUser.getUsers.map((user) => (
+            {dataUser.getUsers.slice(0, 4).map((user) => (
               <UserCard key={user} user={user} />
             ))}
           </SectionContainer>
@@ -155,8 +155,7 @@ const SectionContainer = styled.div`
   position: relative;
   flex-wrap: wrap;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
-
   margin-bottom: 10px;
 `;

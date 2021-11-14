@@ -8,7 +8,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const UserCard = ({ user }) => {
-  console.log(user);
   return (
     <CardContainer>
       <CardImage />

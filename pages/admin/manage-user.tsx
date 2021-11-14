@@ -2,20 +2,19 @@ import type { NextPage } from "next";
 import { Header } from "../../components/header";
 
 import { Footer } from "../../components/footer";
-import { ManageMusicianSection } from "../../components/managemusiciansection";
+import { ManageUserSection } from "../../components/manageusersection";
 import { ManagePhotos } from "../../components/managephotos";
 import { withRouter, useRouter } from "next/router";
 import { withApollo } from "../../lib/apollo";
 
-const ManageMusician: NextPage = ({ router: query }) => {
+const ManageUser: NextPage = ({ router: query }) => {
   const router = useRouter();
   const user = router.query;
 
-  console.log(user.id);
   return (
     <div>
       <Header />
-      <ManageMusicianSection
+      <ManageUserSection
         apolloClient={undefined}
         apolloState={undefined}
         id={user.id}
@@ -26,4 +25,4 @@ const ManageMusician: NextPage = ({ router: query }) => {
   );
 };
 
-export default withApollo(ManageMusician);
+export default withApollo(ManageUser);

@@ -4,6 +4,10 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PhotoCard } from "../photocard";
 
+
+
+
+
 export const ManagePhotos = ({ edit }) => {
   return (
     <div>

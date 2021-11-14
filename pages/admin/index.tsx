@@ -138,7 +138,7 @@ const Admin: NextPage = () => {
       <Container>
         <AdminTitle>
           YOUR PROFILE
-          <Link href="/admin/new-musician">
+          <Link href="/admin/new-user">
             <PlusButton title="Add a new user">
               <FontAwesomeIcon icon={faPlus} />
             </PlusButton>
@@ -147,7 +147,7 @@ const Admin: NextPage = () => {
         <SectionContainer>
           <Link
             href={{
-              pathname: "/admin/manage-musician",
+              pathname: "/admin/manage-user",
               // query: { id: JSON.stringify(user.id) },
             }}
           >
@@ -160,10 +160,10 @@ const Admin: NextPage = () => {
               <span>User Name: {user.name ? user.name : "no name"}</span>
               <Link
                 href={{
-                  pathname: "/admin/manage-musician",
+                  pathname: "/admin/manage-user",
                   query: { id: user.id },
                 }}
-                as={"/admin/manage-musician"}
+                as={"/admin/manage-user"}
               >
                 <ModifyButton title="Modify this user" key={user}>
                   <FontAwesomeIcon icon={faPen} />

@@ -11,7 +11,6 @@ const ManageBand: NextPage = ({ router: query }) => {
   const router = useRouter();
   const band = router.query;
 
-  console.log(band.id);
   return (
     <div>
       <Header />

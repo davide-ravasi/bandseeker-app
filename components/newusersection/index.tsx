@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import Button from "../searchsection/button";
 import Input from "../searchsection/input";
 import styled from "styled-components";
-import useInput from "../../hooks/useInput";
 
 import { withApollo } from "../../lib/apollo";
 import { useQuery, useMutation, gql } from "@apollo/client";
 
-const GET_USER = gql`
-  query getUser($id: ID!) {
-    getUser(id: $id) {
+const NEW_USER = gql`
+  mutation newUser($UserCreateInput: UserCreateInput) {
+    newUser(input: $UserCreateInput) {
       id
       name
       nickname
@@ -17,7 +16,6 @@ const GET_USER = gql`
       email
       birth_date
       address
-      instruments
       avatar {
         url
       }
@@ -25,47 +23,18 @@ const GET_USER = gql`
   }
 `;
 
-const UPDATE_USER = gql`
-  mutation UpdateUser($id: ID!, $UserUpdateInput: UserUpdateInput) {
-    updateUser(id: $id, input: $UserUpdateInput) {
-      id
-      name
-      description
-      email
-      birth_date
-      address
-      instruments
-      avatar {
-        url
-      }
-    }
-  }
-`;
-
-export function ManageMusicianSection(props) {
-  const { loading, error, data } = useQuery(GET_USER, {
-    variables: { id: props.id },
-    onCompleted: (data) => {
-      setName(data.getUser.name);
-      setNickname(data.getUser.nickname);
-      setEmail(data.getUser.email);
-      setBirth_date(data.getUser.birth_date);
-      setDescription(data.getUser.description);
-    },
-  });
-
-  const [name, setName] = useState();
-  const [nickname, setNickname] = useState();
-  const [email, setEmail] = useState();
-  const [birth_date, setBirth_date] = useState();
-  const [description, setDescription] = useState();
+export function NewUserSection(props) {
+  const [name, setName] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [email, setEmail] = useState("");
+  const [birth_date, setBirth_date] = useState("");
+  const [description, setDescription] = useState("");
 
   const [hasUpdated, setHasUpdated] = useState("SUBMIT");
 
-  const [updateUser] = useMutation(UPDATE_USER, {
+  const [newUser] = useMutation(NEW_USER, {
     variables: {
-      id: props.id,
-      UserUpdateInput: {
+      UserCreateInput: {
         name: name,
         nickname: nickname,
         email: email,
@@ -77,8 +46,8 @@ export function ManageMusicianSection(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateUser();
-    setHasUpdated("UPDATED!!");
+    newUser();
+    setHasUpdated("SUBMITTED!!");
   };
 
   return (
@@ -150,7 +119,7 @@ export function ManageMusicianSection(props) {
   );
 }
 
-export default withApollo(ManageMusicianSection);
+export default withApollo(NewUserSection);
 
 const Container = styled.div`
   position: relative;
