@@ -6,6 +6,24 @@ import { useQuery, gql } from "@apollo/client";
 import { BandCard } from "../bandcard";
 import { UserCard } from "../usercard";
 
+const GET_USERS = gql`
+  query getUsers {
+    getUsers {
+      id
+      name
+      nickname
+      description
+      email
+      birth_date
+      address
+      instruments
+      avatar {
+        url
+      }
+    }
+  }
+`;
+
 const GET_BANDS = gql`
   query getBands {
     getBands {
@@ -31,24 +49,6 @@ const GET_BANDS = gql`
   }
 `;
 
-const GET_USERS = gql`
-  query getUsers {
-    getUsers {
-      id
-      name
-      nickname
-      description
-      email
-      birth_date
-      address
-      instruments
-      avatar {
-        url
-      }
-    }
-  }
-`;
-
 export const RecommendPage = () => {
   const {
     loading: loadingUser,
@@ -62,11 +62,8 @@ export const RecommendPage = () => {
     data: dataBand,
   } = useQuery(GET_BANDS);
 
-  if (loadingUser) return <p>Loading...</p>;
-  if (errorUser) return <p>Error :(</p>;
-
-  if (loadingBand) return <p>Loading...</p>;
-  if (errorBand) return <p>Error :(</p>;
+  if (loadingUser || loadingBand) return <p>Loading...</p>;
+  if (errorUser || errorBand) return <p>Error :(</p>;
 
   return (
     <div>
