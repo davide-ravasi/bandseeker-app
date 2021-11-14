@@ -1,34 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Bandseeker
 
-## Getting Started
+This single page app is a job seeker for musicians. 
+Members of a band who are looking to fill in a position (drummer, guitarist, bass player ....) can find it with the help of this app. 
+Musicians who want to join a band can search for different bands that are registered and choose the ones they want to join.
 
-First, run the development server:
+Stack: React, Nextjs, Styled Components, Graphql, Nodejs, Mongodb
 
-```bash
-npm run dev
-# or
-yarn dev
+## Setup instructions
+
+Clone the repository to your local machine:
+
+`git clone https://github.com/chingu-voyages/v34-bears-team-09`
+
+Install the dependencies locally:
+
+`cd v34-bears-team-09/ && npm i`
+
+To use this project you must have a Mongodb database.
+
+## Mongodb database
+
+In your Mongodb Atlas account find the Uri of your database.
+
+Add it in the .env file (see the .env_sample file in the root folder as a reference).
+
+Your code must be like this:
+
 ```
+MONGODB_URI=="Mongo uri"
+```
+
+Refs: [find uri mongodb docs](https://docs.mongodb.com/manual/reference/connection-string/)
+
+## Running the app
+
+Run the command `npm run dev` to start the app.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Deployments
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- https://bandseeker.netlify.app/ - production build of main branch
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Contributing
 
-## Learn More
+Bandseeker all was developed by [@oakeem](https://github.com/akeemoduola), [@zxcv](https://github.com/zxcv3) and [@davide-ravasi](https://github.com/davide-ravasi).
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+If you like the app, feel free to fork this repository or open a pull request
