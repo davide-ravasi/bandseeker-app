@@ -51,6 +51,7 @@ export function ManageUserSection(props) {
       setEmail(data.getUser.email);
       setBirth_date(data.getUser.birth_date);
       setDescription(data.getUser.description);
+      setAvatarUrl(data.getUser.avatar.url);
     },
   });
 
@@ -59,6 +60,7 @@ export function ManageUserSection(props) {
   const [email, setEmail] = useState();
   const [birth_date, setBirth_date] = useState();
   const [description, setDescription] = useState();
+  const [avatarUrl, setAvatarUrl] = useState();
 
   const [hasUpdated, setHasUpdated] = useState("SUBMIT");
 
@@ -71,6 +73,7 @@ export function ManageUserSection(props) {
         email: email,
         birth_date: birth_date,
         description: description,
+        avatar: { url: avatarUrl },
       },
     },
   });
@@ -137,6 +140,16 @@ export function ManageUserSection(props) {
               value={description}
               onChange={(e) => {
                 setDescription(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
+            />
+            <Input
+              type="textarea"
+              placeholder="Avatar Address"
+              kind="textarea"
+              value={avatarUrl}
+              onChange={(e) => {
+                setAvatarUrl(e.target.value);
                 setHasUpdated("SUBMIT");
               }}
             />

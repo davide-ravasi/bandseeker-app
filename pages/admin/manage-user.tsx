@@ -19,7 +19,7 @@ const ManageUser: NextPage = ({ router: query }) => {
         apolloState={undefined}
         id={user.id}
       />
-      <ManagePhotos />
+
       <Footer />
     </div>
   );

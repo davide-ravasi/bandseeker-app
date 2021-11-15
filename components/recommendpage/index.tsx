@@ -45,6 +45,9 @@ const GET_BANDS = gql`
       members {
         name
       }
+      avatar {
+        url
+      }
     }
   }
 `;

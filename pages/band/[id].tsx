@@ -4,7 +4,7 @@ import { useState } from "react";
 import {
   faEnvelope,
   faMapMarkerAlt,
-  faCalendar
+  faCalendar,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -44,8 +44,8 @@ const GET_BAND = gql`
 `;
 
 const ManageBand: NextPage = ({ router: query }) => {
-  const router = useRouter()
-  const { id } = router.query
+  const router = useRouter();
+  const { id } = router.query;
 
   const { loading, error, data } = useQuery(GET_BAND, {
     variables: { id: id },
@@ -64,8 +64,9 @@ const ManageBand: NextPage = ({ router: query }) => {
   const [foundation_date, setFoundation_date] = useState("");
   const [email, setEmail] = useState("");
 
-  const dateFormatted = new Date(parseInt(foundation_date)).toLocaleDateString()
-
+  const dateFormatted = new Date(
+    parseInt(foundation_date)
+  ).toLocaleDateString();
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -89,22 +90,27 @@ const ManageBand: NextPage = ({ router: query }) => {
           <SectionTitle>
             {name} <Badge>Rock</Badge>
           </SectionTitle>
-          <SectionDescription>
-            {description}
-          </SectionDescription>
+          <SectionDescription>{description}</SectionDescription>
           <SectionInfos>
-            <span><FontAwesomeIcon icon={faMapMarkerAlt} /> Location: </span>{location}
+            <span>
+              <FontAwesomeIcon icon={faMapMarkerAlt} /> Location:{" "}
+            </span>
+            {location}
           </SectionInfos>
           <SectionInfos>
-            <span><FontAwesomeIcon icon={faCalendar} /> Foundation date: </span>{dateFormatted}
+            <span>
+              <FontAwesomeIcon icon={faCalendar} /> Foundation date:{" "}
+            </span>
+            {dateFormatted}
           </SectionInfos>
           <SectionInfos>
-            <span><FontAwesomeIcon icon={faEnvelope} /> Contacts: </span>{email}
+            <span>
+              <FontAwesomeIcon icon={faEnvelope} /> Contacts:{" "}
+            </span>
+            {email}
           </SectionInfos>
         </HalfCol>
       </Container>
-
-      <ManagePhotos edit={false} />
       <Footer />
     </div>
   );
@@ -132,12 +138,12 @@ const SectionTitle = styled.h2`
   font-size: 24px;
   line-height: 24px;
   text-transform: uppercase;
-  color: ${props => props.theme.colors.yellow}
+  color: ${(props) => props.theme.colors.yellow};
 `;
 const Badge = styled.span`
-  background: ${props => props.theme.colors.lightgrey};
+  background: ${(props) => props.theme.colors.lightgrey};
   font-family: "Lato", sans-serif;
-  color: ${props => props.theme.colors.darkgrey};
+  color: ${(props) => props.theme.colors.darkgrey};
 
   font-size: 12px;
   justify-content: center;
@@ -154,17 +160,16 @@ const SectionDescription = styled.p`
   margin: 15px 0;
   font-family: Lato;
   font-size: 16px;
-  color: ${props => props.theme.colors.lightgrey};
+  color: ${(props) => props.theme.colors.lightgrey};
 `;
 const SectionInfos = styled.p`
   font-family: Lato;
   font-size: 14px;
-  color: ${props => props.theme.colors.lightgrey};
+  color: ${(props) => props.theme.colors.lightgrey};
 
   & > span {
-    color: ${props => props.theme.colors.cyan};
+    color: ${(props) => props.theme.colors.cyan};
   }
 `;
-
 
 export default withApollo(ManageBand);

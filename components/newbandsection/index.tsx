@@ -39,6 +39,7 @@ function NewBandSection(props) {
   const [location, setLocation] = useState("");
   const [foundation_date, setFoundation_date] = useState("");
   const [email, setEmail] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
 
   const [hasUpdated, setHasUpdated] = useState("SUBMIT");
 
@@ -55,6 +56,7 @@ function NewBandSection(props) {
           location: location,
           foundation_date: foundation_date,
           email: email,
+          avatar: { url: avatarUrl },
         },
       },
     });
@@ -117,6 +119,16 @@ function NewBandSection(props) {
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
+            />
+            <Input
+              type="textarea"
+              placeholder="Avatar Address"
+              kind="textarea"
+              value={avatarUrl}
+              onChange={(e) => {
+                setAvatarUrl(e.target.value);
                 setHasUpdated("SUBMIT");
               }}
             />

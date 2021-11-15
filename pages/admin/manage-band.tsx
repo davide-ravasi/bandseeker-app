@@ -19,7 +19,7 @@ const ManageBand: NextPage = ({ router: query }) => {
         apolloState={undefined}
         id={band.id}
       />
-      <ManagePhotos />
+
       <Footer />
     </div>
   );
