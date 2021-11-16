@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
+import { useUser } from '@auth0/nextjs-auth0';
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, isLoading } = useUser();
+
   return (
     <Nav>
       <Container>
@@ -24,24 +27,16 @@ export const Header = () => {
           <MenuLink href="">ABOUT</MenuLink>
 
           <MenuLink href="">CONTACTS</MenuLink>
-          <Link
-            href={{
-              pathname: "/",
-              query: { type: "login" },
-            }}
-            as={"/"}
-          >
-            <MenuLink href="">LOGIN</MenuLink>
-          </Link>
-          <Link
-            href={{
-              pathname: "/",
-              query: { type: "signup" },
-            }}
-            as={"/"}
-          >
-            <MenuLink href="">SIGN UP</MenuLink>
-          </Link>
+          {!isLoading && !user && (
+            <a href="/api/auth/login">
+              LOGIN/SIGNUP
+            </a>
+          )}
+          {user && (
+            <a href="/api/auth/logout">
+              LOGOUT
+            </a>
+          )}
         </Menu>
       </Container>
     </Nav>
