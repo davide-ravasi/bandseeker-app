@@ -11,7 +11,7 @@ const NewUser: NextPage = (props) => {
     <div>
       <Header />
       <NewUserSection apolloClient={undefined} apolloState={undefined} />
-      <ManagePhotos />
+
       <Footer />
     </div>
   );

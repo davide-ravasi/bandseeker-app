@@ -29,6 +29,7 @@ export function NewUserSection(props) {
   const [email, setEmail] = useState("");
   const [birth_date, setBirth_date] = useState("");
   const [description, setDescription] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
 
   const [hasUpdated, setHasUpdated] = useState("SUBMIT");
 
@@ -40,6 +41,7 @@ export function NewUserSection(props) {
         email: email,
         birth_date: birth_date,
         description: description,
+        avatar: { url: avatarUrl },
       },
     },
   });
@@ -106,6 +108,16 @@ export function NewUserSection(props) {
               value={description}
               onChange={(e) => {
                 setDescription(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
+            />
+            <Input
+              type="textarea"
+              placeholder="Avatar Address"
+              kind="textarea"
+              value={avatarUrl}
+              onChange={(e) => {
+                setAvatarUrl(e.target.value);
                 setHasUpdated("SUBMIT");
               }}
             />

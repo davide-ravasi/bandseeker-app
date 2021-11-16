@@ -11,7 +11,7 @@ const NewBand: NextPage = (props) => {
     <div>
       <Header />
       <NewBandSection apolloClient={undefined} apolloState={undefined} />
-      <ManagePhotos />
+
       <Footer />
     </div>
   );

@@ -1,24 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from 'next/router'
 import styled from "styled-components";
 import Button from "./button";
 import Input from "./input";
 
 export const SearchSection = () => {
+  const [searchType, setSearchType] = useState("");
+  const [searchBy, setSearchBy] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const router = useRouter();
+
+  const search = async event => {
+    event.preventDefault();
+
+    router.push({
+      pathname: '/list/pagelist',
+      query: {
+        type: 'search',
+        searchType,
+        searchBy,
+        searchQuery
+      },
+    })
+  }
+
   return (
     <div>
       <Container>
-        <FormContainer>
+        <FormContainer onSubmit={(e) => search(e)}>
           <SearchFormTitle>FIND YOUR MEMBER</SearchFormTitle>
           <SearchFormDetail>
             Search Thousands of Musicians and Bands:
           </SearchFormDetail>
           <InputContainer>
-            <Input name="searchtype" kind="select">
+            <Input name="searchtype" id="searchtype" kind="select" value={searchType} onChange={(e) => { setSearchType(e.target.value) }}>
               <option value="">Who are you looking for? </option>
               <option value="band">Band</option>
               <option value="member">Member</option>
             </Input>
-            <Input type="Search" name="search" placeholder="Search...." kind="input" />
+            <Input name="searchby" id="searchby" kind="select" value={searchBy} onChange={(e) => { setSearchBy(e.target.value) }}>
+              <option value="">Search by.... </option>
+              <option value="content">Content</option>
+              <option value="genre">Genre</option>
+            </Input>
+            <Input type="Search" name="search" id="search" placeholder="Search term...." kind="input" value={searchQuery} onChange={(e) => { setSearchQuery(e.target.value) }} />
           </InputContainer>
           <ButtonContainer>
             <Button content="SUBMIT" />
@@ -45,10 +71,10 @@ const Container = styled.div`
  */
 `;
 
-const FormContainer = styled.div`
+const FormContainer = styled.form`
   position: relative;
   width: 624px;
-  height: 374px;
+  height: 410px;
   /* width: 30%;
   height: 30%;
   top: 74px;

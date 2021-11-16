@@ -8,9 +8,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const BandCard = ({ band }) => {
+  console.log(band.avatar.url);
   return (
     <CardContainer>
-      <CardImage />
+      <CardImage imageUrl={band.avatar.url} />
       <Button>ROCK</Button>
       <Link href={`/band/${band.id}`}>
         <ArrowButton>
@@ -132,7 +133,7 @@ const CardImage = styled.div`
   top: 0%;
   bottom: 56.21%;
   background-size: cover;
-  background-image: url("/images/image_band.png");
+  background-image: url(${(props) => props.imageUrl});
   background-position: center;
   border-radius: 13px 13px 0px 0px;
 `;

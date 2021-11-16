@@ -29,6 +29,9 @@ const GET_BAND = gql`
       members {
         name
       }
+      avatar {
+        url
+      }
     }
   }
 `;
@@ -70,14 +73,18 @@ function ManageBandSection(props) {
       setLocation(data.getBand.location);
       setFoundation_date(data.getBand.foundation_date);
       setEmail(data.getBand.email);
+      setAvatarUrl(data.getBand.avatar.url);
     },
   });
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [foundation_date, setFoundation_date] = useState("");
-  const dateFormatted = new Date(parseInt(foundation_date)).toLocaleDateString()
+  const dateFormatted = new Date(
+    parseInt(foundation_date)
+  ).toLocaleDateString();
   const [email, setEmail] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
 
   const [hasUpdated, setHasUpdated] = useState("SUBMIT");
 
@@ -89,7 +96,8 @@ function ManageBandSection(props) {
         location: location,
         description: description,
         foundation_date: foundation_date,
-        email: email
+        email: email,
+        avatar: { url: avatarUrl },
       },
     },
   });
@@ -156,6 +164,16 @@ function ManageBandSection(props) {
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
+            />
+            <Input
+              type="textarea"
+              placeholder="Avatar Address"
+              kind="textarea"
+              value={avatarUrl}
+              onChange={(e) => {
+                setAvatarUrl(e.target.value);
                 setHasUpdated("SUBMIT");
               }}
             />
