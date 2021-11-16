@@ -9,7 +9,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styled from "styled-components";
-import Image from "next/dist/client/image";
 
 import { Footer } from "../../components/footer";
 import { ManagePhotos } from "../../components/managephotos";
@@ -17,28 +16,17 @@ import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
 import { withApollo } from "../../lib/apollo";
 
-const GET_BAND = gql`
-  query GetBand($id: ID!) {
-    getBand(id: $id) {
+const GET_USER = gql`
+  query getUser($id: ID!) {
+    getUser(id: $id) {
       id
       name
+      nickname
       description
-      location
-      foundation_date
       email
-      genres {
-        name
-      }
-      videos {
-        title
-        url
-      }
-      images {
-        name
-      }
-      members {
-        name
-      }
+      birth_date
+      address
+      instruments
       avatar {
         url
       }
@@ -46,31 +34,33 @@ const GET_BAND = gql`
   }
 `;
 
-const ManageBand: NextPage = ({ router: query }) => {
+const UserPage: NextPage = ({ router: query }) => {
   const router = useRouter();
   const { id } = router.query;
 
-  const { loading, error, data } = useQuery(GET_BAND, {
+  const { loading, error, data } = useQuery(GET_USER, {
     variables: { id: id },
     onCompleted: (data) => {
       console.log(data);
-      setName(data.getBand.name);
-      setImage(data.getBand.avatar.url);
-      setDescription(data.getBand.description);
-      setLocation(data.getBand.location);
-      setFoundation_date(data.getBand.foundation_date);
-      setEmail(data.getBand.email);
+      setName(data.getUser.name);
+      setNickname(data.getUser.nickname);
+      setImage(data.getUser.avatar.url);
+      setBirthdate(data)
+      setAddress(data.getUser.address);
+      setDescription(data.getUser.description);
+      setEmail(data.getUser.email);
     },
   });
   const [name, setName] = useState("");
+  const [nickname, setNickname] = useState("");
   const [image, setImage] = useState("");
+  const [birthdate, setBirthdate] = useState("");
+  const [address, setAddress] = useState("");
   const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("");
-  const [foundation_date, setFoundation_date] = useState("");
   const [email, setEmail] = useState("");
 
   const dateFormatted = new Date(
-    parseInt(foundation_date)
+    parseInt(birthdate)
   ).toLocaleDateString();
 
   if (loading) return <p>Loading...</p>;
@@ -91,16 +81,19 @@ const ManageBand: NextPage = ({ router: query }) => {
           <SectionTitle>
             {name} <Badge>Rock</Badge>
           </SectionTitle>
+          <SectionSubtitle>
+            Nickname: {nickname}
+          </SectionSubtitle>
           <SectionDescription>{description}</SectionDescription>
           <SectionInfos>
             <span>
-              <FontAwesomeIcon icon={faMapMarkerAlt} /> Location:{" "}
+              <FontAwesomeIcon icon={faMapMarkerAlt} /> Address:{" "}
             </span>
-            {location}
+            {address}
           </SectionInfos>
           <SectionInfos>
             <span>
-              <FontAwesomeIcon icon={faCalendar} /> Foundation date:{" "}
+              <FontAwesomeIcon icon={faCalendar} /> Birth date:{" "}
             </span>
             {dateFormatted}
           </SectionInfos>
@@ -142,6 +135,13 @@ const SectionTitle = styled.h2`
   text-transform: uppercase;
   color: ${(props) => props.theme.colors.yellow};
 `;
+const SectionSubtitle = styled.h3`
+  font-family: Lato;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  color: ${(props) => props.theme.colors.cyan};
+`;
 const Badge = styled.span`
   background: ${(props) => props.theme.colors.lightgrey};
   font-family: "Lato", sans-serif;
@@ -173,8 +173,9 @@ const SectionInfos = styled.p`
     color: ${(props) => props.theme.colors.cyan};
   }
 `;
+
 const Avatar = styled.img`
   width: 100%;
 `;
 
-export default withApollo(ManageBand);
+export default withApollo(UserPage);
