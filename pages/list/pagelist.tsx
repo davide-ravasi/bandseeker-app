@@ -10,7 +10,6 @@ import { withApollo } from "../../lib/apollo";
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
 
-
 const GET_BAND_BY_CONTENT = gql`
   query getBandsByContent($text: String) {
     getBandsByContent(text: $text) {
@@ -33,6 +32,9 @@ const GET_BAND_BY_CONTENT = gql`
       members {
         name
       }
+      avatar {
+        url
+      }
     }
   }
 `;
@@ -52,7 +54,8 @@ const GET_USER_BY_CONTENT = gql`
         url
       }
     }
-  }`;
+  }
+`;
 
 const Home: NextPage = ({ router: Query }) => {
   const router = useRouter();
@@ -62,8 +65,8 @@ const Home: NextPage = ({ router: Query }) => {
   const searchType = query.searchType;
   const searchBy = query.searchBy;
   const searchQuery = query.searchQuery;
-  const skipUserQuery = searchType === 'band';
-  const skipBandQuery = searchType === 'member';
+  const skipUserQuery = searchType === "band";
+  const skipBandQuery = searchType === "member";
 
   const {
     loading: loadingBand,
@@ -94,17 +97,26 @@ const Home: NextPage = ({ router: Query }) => {
           RESULTS FOR "{searchQuery}" IN {skipBandQuery ? "Members" : "Bands"}
         </SectionTitle>
         <SectionContainer>
-          {dataBand && dataBand.getBandsByContent.length && dataBand.getBandsByContent.slice(0, 4).map((band) => (
-            <BandCard key={band} band={band} />
-          ))}
+          {dataBand &&
+            dataBand.getBandsByContent.length &&
+            dataBand.getBandsByContent
+              .slice(0, 4)
+              .map((band) => <BandCard key={band} band={band} />)}
 
-          {searchType === 'band' && dataBand.getBandsByContent.length === 0 && <SimpleText>"No results for this term"</SimpleText>}
+          {searchType === "band" && dataBand.getBandsByContent.length === 0 && (
+            <SimpleText>"No results for this term"</SimpleText>
+          )}
 
-          {dataUser && dataUser.getUserByContent.length && dataUser.getUserByContent.slice(0, 4).map((user) => (
-            <UserCard key={user} user={user} />
-          ))}
+          {dataUser &&
+            dataUser.getUserByContent.length &&
+            dataUser.getUserByContent
+              .slice(0, 4)
+              .map((user) => <UserCard key={user} user={user} />)}
 
-          {searchType === 'member' && dataUser.getUserByContent.length === 0 && <SimpleText>"No results for this term"</SimpleText>}
+          {searchType === "member" &&
+            dataUser.getUserByContent.length === 0 && (
+              <SimpleText>"No results for this term"</SimpleText>
+            )}
         </SectionContainer>
       </Container>
       <Footer />
@@ -155,7 +167,7 @@ const SectionContainer = styled.div`
 
 const SimpleText = styled.p`
   font-family: Lato, sans-serif;
-  color: #fff
+  color: #fff;
 `;
 
 export default withApollo(Home);
