@@ -24,9 +24,24 @@ export const Header = () => {
           <Link href="/admin">
             <MenuLink>ADMIN</MenuLink>
           </Link>
-          <MenuLink href="">ABOUT</MenuLink>
-
-          <MenuLink href="">CONTACTS</MenuLink>
+          <Link
+            href={{
+              pathname: "/statics",
+              query: { type: "about-us" },
+            }}
+            as={"/about-us"}
+          >
+            <MenuLink href="">ABOUT</MenuLink>
+          </Link>
+          <Link
+            href={{
+              pathname: "/statics",
+              query: { type: "contacts" },
+            }}
+            as={"/contacts"}
+          >
+            <MenuLink href="">CONTACTS</MenuLink>
+          </Link>
           {!isLoading && !user && (
             <a href="/api/auth/login">
               LOGIN/SIGNUP
