@@ -13,7 +13,13 @@ export const UserCard = ({ user }) => {
     <CardContainer>
       <CardImage imageUrl={user.avatar.url} />
       <Button>ROCK</Button>
-      <Link href={`/user/${user.id}`}>
+      <Link
+        href={{
+          pathname: "/user",
+          query: { id: user.id },
+        }}
+        as={`/user/${user.name}`}
+      >
         <ArrowButton>
           <FontAwesomeIcon icon={faAngleRight} />
         </ArrowButton>

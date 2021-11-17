@@ -13,7 +13,13 @@ export const BandCard = ({ band }) => {
     <CardContainer>
       <CardImage imageUrl={band.avatar.url} />
       <Button>ROCK</Button>
-      <Link href={`/band/${band.id}`}>
+      <Link
+        href={{
+          pathname: "/band",
+          query: { id: band.id },
+        }}
+        as={`/band/${band.name}`}
+      >
         <ArrowButton>
           <FontAwesomeIcon icon={faAngleRight} />
         </ArrowButton>
