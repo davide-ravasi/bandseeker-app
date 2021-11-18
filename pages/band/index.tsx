@@ -60,6 +60,7 @@ const ManageBand: NextPage = ({ router: query }) => {
       setLocation(data.getBand.location);
       setFoundation_date(data.getBand.foundation_date);
       setEmail(data.getBand.email);
+      setGenres(data.getBand.genres);
     },
   });
   const [name, setName] = useState("");
@@ -68,6 +69,7 @@ const ManageBand: NextPage = ({ router: query }) => {
   const [location, setLocation] = useState("");
   const [foundation_date, setFoundation_date] = useState("");
   const [email, setEmail] = useState("");
+  const [genres, setGenres] = useState([]);
 
   const dateFormatted = new Date(
     parseInt(foundation_date)
@@ -89,7 +91,10 @@ const ManageBand: NextPage = ({ router: query }) => {
         </HalfCol>
         <HalfCol>
           <SectionTitle>
-            {name} <Badge>Rock</Badge>
+            {name}
+            {genres && genres.slice(0, 3).map(genre => {
+              return <Badge>{genre.name}</Badge>
+            })}
           </SectionTitle>
           <SectionDescription>{description}</SectionDescription>
           <SectionInfos>

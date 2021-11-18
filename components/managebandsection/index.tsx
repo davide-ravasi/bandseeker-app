@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import Button from "../searchsection/button";
 import Input from "../searchsection/input";
 import styled from "styled-components";
-import useInput from "../../hooks/useInput";
-
-import { withApollo } from "../../lib/apollo";
 import { useQuery, useMutation, gql } from "@apollo/client";
 
 const GET_BAND = gql`
@@ -64,22 +61,42 @@ const UPDATE_BAND = gql`
   }
 `;
 
+const convertToArray = (string) => {
+  console.log("string", string);
+  const stringToArray = string.split(",");
+  console.log("stringToArray", stringToArray);
+
+  return stringToArray.map(el => { return { name: el } });
+}
+
+const convertToString = (array) => {
+  if (typeof array === 'undefined') return false;
+  console.log(array);
+  const planArray = array.map(el => el.name);
+  console.log("planArray", planArray);
+
+  return planArray.join(",");
+}
+
 function ManageBandSection(props) {
   const { loading, error, data } = useQuery(GET_BAND, {
     variables: { id: props.id },
     onCompleted: (data) => {
+      const genresString = data.getBand.genres.length ? convertToString(data.getBand.genres) : "";
       setName(data.getBand.name);
       setDescription(data.getBand.description);
       setLocation(data.getBand.location);
       setFoundation_date(data.getBand.foundation_date);
       setEmail(data.getBand.email);
       setAvatarUrl(data.getBand.avatar.url);
+      setGenres(genresString);
     },
   });
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [foundation_date, setFoundation_date] = useState("");
+  const [genres, setGenres] = useState("");
   const dateFormatted = new Date(
     parseInt(foundation_date)
   ).toLocaleDateString();
@@ -88,23 +105,27 @@ function ManageBandSection(props) {
 
   const [hasUpdated, setHasUpdated] = useState("SUBMIT");
 
-  const [updateBand] = useMutation(UPDATE_BAND, {
-    variables: {
-      id: props.id,
-      BandUpdateInput: {
-        name: name,
-        location: location,
-        description: description,
-        foundation_date: foundation_date,
-        email: email,
-        avatar: { url: avatarUrl },
-      },
-    },
-  });
+  const [updateBand] = useMutation(UPDATE_BAND);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateBand();
+    const convertedGenres = convertToArray(genres);
+    console.log("convertedgenres  ", convertedGenres);
+
+    updateBand({
+      variables: {
+        id: props.id,
+        BandUpdateInput: {
+          name: name,
+          location: location,
+          description: description,
+          foundation_date: foundation_date,
+          email: email,
+          avatar: { url: avatarUrl },
+          genres: convertedGenres
+        },
+      },
+    });
     setHasUpdated("UPDATED!");
   };
 
@@ -119,7 +140,7 @@ function ManageBandSection(props) {
           <InputContainer>
             <Input
               type="text"
-              placeholder="Name"
+              placeholder="Name xxx"
               kind="input"
               value={name}
               onChange={(e) => {
@@ -174,6 +195,17 @@ function ManageBandSection(props) {
               value={avatarUrl}
               onChange={(e) => {
                 setAvatarUrl(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
+            />
+            <Input
+              type="text"
+              placeholder="Genres comma separated. Ex. rock, blues"
+              kind="input"
+              value={genres}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setGenres(e.target.value);
                 setHasUpdated("SUBMIT");
               }}
             />
