@@ -200,7 +200,7 @@ function ManageBandSection(props) {
             />
             <Input
               type="text"
-              placeholder="Genres (add list comma separated)"
+              placeholder="Genres comma separated. Ex. rock, blues"
               kind="input"
               value={genres}
               onChange={(e) => {

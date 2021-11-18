@@ -30,7 +30,7 @@ export const UserCard = ({ user }) => {
       <Location>
         <FontAwesomeIcon icon={faMapMarkerAlt} /> {user.location}
       </Location>
-      <Searching>SEARCHING:</Searching>
+      <Searching>INSTRUMENTS:</Searching>
     </CardContainer>
   );
 };
