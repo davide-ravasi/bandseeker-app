@@ -40,6 +40,7 @@ function NewBandSection(props) {
   const [foundation_date, setFoundation_date] = useState("");
   const [email, setEmail] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
+  const [genres, setGenres] = useState("");
 
   const [hasUpdated, setHasUpdated] = useState("SUBMIT");
 
@@ -47,6 +48,8 @@ function NewBandSection(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const genresArray = convertToArray(genres);
 
     newBand({
       variables: {
@@ -57,11 +60,18 @@ function NewBandSection(props) {
           foundation_date: foundation_date,
           email: email,
           avatar: { url: avatarUrl },
+          genres: genresArray
         },
       },
     });
     setHasUpdated("SUBMITTED!!");
   };
+
+  const convertToArray = (string) => {
+    const stringToArray = string.split(",");
+
+    return stringToArray.map(el => { return { 'name': el } });
+  }
 
   return (
     <Container>
@@ -129,6 +139,16 @@ function NewBandSection(props) {
               value={avatarUrl}
               onChange={(e) => {
                 setAvatarUrl(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
+            />
+            <Input
+              type="text"
+              placeholder="Genres (add list comma separated)"
+              kind="input"
+              value={genres}
+              onChange={(e) => {
+                setGenres(e.target.value);
                 setHasUpdated("SUBMIT");
               }}
             />

@@ -8,11 +8,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const BandCard = ({ band }) => {
-  console.log(band.avatar.url);
   return (
     <CardContainer>
       <CardImage imageUrl={band.avatar.url} />
-      <Button>ROCK</Button>
+      {band.genres && band.genres.slice(0, 3).map(genre => {
+        return <Button>{genre.name}</Button>
+      })}
       <Link
         href={{
           pathname: "/band",
@@ -96,9 +97,11 @@ const Location = styled.div`
 `;
 
 const Button = styled.div`
-  position: absolute;
+  position: relative;
+  float: left;
 
   font-family: "Lato", sans-serif;
+  text-transform: uppercase;
 
   font-size: 12px;
   justify-content: center;
@@ -107,10 +110,12 @@ const Button = styled.div`
 
   padding: 5px;
 
-  left: 33.93%;
-  right: 42.41%;
+  // left: 33.93%;
+  // right: 42.41%;
   top: 40.11%;
-  bottom: 53.39%;
+  // bottom: 53.39%;
+
+  margin-left: 5px;
 
   background: #c4c4c4;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -149,8 +154,9 @@ const CardTitle = styled.div`
   font-family: "Lato", sans-serif;
   left: 3.57%;
   right: 31.7%;
-  top: 48.98%;
+  top: 41.6%;
   bottom: 45.12%;
+  width: 100%;
 
   font-style: normal;
   font-weight: 500;

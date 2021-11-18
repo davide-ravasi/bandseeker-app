@@ -8,11 +8,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const UserCard = ({ user }) => {
-  console.log(user.avatar.url);
+  console.log(user);
   return (
     <CardContainer>
       <CardImage imageUrl={user.avatar.url} />
-      <Button>ROCK</Button>
       <Link
         href={{
           pathname: "/user",
@@ -93,28 +92,6 @@ const Location = styled.div`
     margin-right: 4px;
     color: ${(props) => props.theme.colors.cyan};
   }
-`;
-
-const Button = styled.div`
-  position: absolute;
-
-  font-family: "Lato", sans-serif;
-
-  font-size: 12px;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-
-  padding: 5px;
-
-  left: 33.93%;
-  right: 42.41%;
-  top: 40.11%;
-  bottom: 53.39%;
-
-  background: #c4c4c4;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 11px;
 `;
 
 const Searching = styled.div`
