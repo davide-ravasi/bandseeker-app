@@ -11,8 +11,8 @@ export const BandCard = ({ band }) => {
   return (
     <CardContainer>
       <CardImage imageUrl={band.avatar.url} />
-      {band.genres && band.genres.slice(0, 3).map(genre => {
-        return <Button>{genre.name}</Button>
+      {band.genres && band.genres.slice(0, 3).map((genre, index) => {
+        return <Button key={`${band.name}-${genre.name}-${index}`}>{genre.name}</Button>
       })}
       <Link
         href={{

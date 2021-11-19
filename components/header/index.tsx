@@ -43,14 +43,18 @@ export const Header = () => {
             <MenuLink href="">CONTACTS</MenuLink>
           </Link>
           {!isLoading && !user && (
-            <a href="/api/auth/login">
-              LOGIN/SIGNUP
-            </a>
+            <Link href="/api/auth/login">
+              <a>
+                LOGIN/SIGNUP
+              </a>
+            </Link>
           )}
           {user && (
-            <a href="/api/auth/logout">
-              LOGOUT
-            </a>
+            <Link href="/api/auth/logout">
+              <a>
+                LOGOUT
+              </a>
+            </Link>
           )}
         </Menu>
       </Container>

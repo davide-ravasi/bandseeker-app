@@ -94,7 +94,7 @@ const Home: NextPage = ({ router: Query }) => {
       <Header />
       <Container>
         <SectionTitle>
-          RESULTS FOR "{searchQuery}" IN {skipBandQuery ? "Members" : "Bands"}
+          RESULTS FOR {searchQuery} IN {skipBandQuery ? "Members" : "Bands"}
         </SectionTitle>
         <SectionContainer>
           {dataBand &&
@@ -104,7 +104,7 @@ const Home: NextPage = ({ router: Query }) => {
               .map((band) => <BandCard key={band} band={band} />)}
 
           {searchType === "band" && dataBand.getBandsByContent.length === 0 && (
-            <SimpleText>"No results for this term"</SimpleText>
+            <SimpleText>No results for this term</SimpleText>
           )}
 
           {dataUser &&
@@ -115,7 +115,7 @@ const Home: NextPage = ({ router: Query }) => {
 
           {searchType === "member" &&
             dataUser.getUserByContent.length === 0 && (
-              <SimpleText>"No results for this term"</SimpleText>
+              <SimpleText>No results for this term</SimpleText>
             )}
         </SectionContainer>
       </Container>
