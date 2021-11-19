@@ -18,6 +18,7 @@ export const UserCard = ({ user }) => {
           query: { id: user.id },
         }}
         as={`/user/${user.name}`}
+        passHref
       >
         <ArrowButton>
           <FontAwesomeIcon icon={faAngleRight} />

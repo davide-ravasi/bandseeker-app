@@ -16,12 +16,13 @@ export const Header = () => {
             query: { type: "searchsection" },
           }}
           as={"/"}
+          passHref
         >
           <Logo href="">Bandseeker</Logo>
         </Link>
 
         <Menu isOpen={isOpen}>
-          <Link href="/admin">
+          <Link href="/admin" passHref>
             <MenuLink>ADMIN</MenuLink>
           </Link>
           <Link
@@ -30,6 +31,7 @@ export const Header = () => {
               query: { type: "about-us" },
             }}
             as={"/about-us"}
+            passHref
           >
             <MenuLink href="">ABOUT</MenuLink>
           </Link>
@@ -39,6 +41,7 @@ export const Header = () => {
               query: { type: "contacts" },
             }}
             as={"/contacts"}
+            passHref
           >
             <MenuLink href="">CONTACTS</MenuLink>
           </Link>

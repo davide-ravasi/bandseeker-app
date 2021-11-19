@@ -20,6 +20,7 @@ export const BandCard = ({ band }) => {
           query: { id: band.id },
         }}
         as={`/band/${band.name}`}
+        passHref
       >
         <ArrowButton>
           <FontAwesomeIcon icon={faAngleRight} />

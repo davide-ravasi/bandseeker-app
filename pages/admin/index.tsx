@@ -138,7 +138,7 @@ const Admin: NextPage = () => {
       <Container>
         <AdminTitle>
           YOUR PROFILE
-          <Link href="/admin/new-user">
+          <Link href="/admin/new-user" passHref>
             <PlusButton title="Add a new user">
               <FontAwesomeIcon icon={faPlus} />
             </PlusButton>
@@ -164,6 +164,7 @@ const Admin: NextPage = () => {
                   query: { id: user.id },
                 }}
                 as={"/admin/manage-user"}
+                passHref
               >
                 <ModifyButton title="Modify this user" key={user}>
                   <FontAwesomeIcon icon={faPen} />
@@ -181,7 +182,7 @@ const Admin: NextPage = () => {
         </SectionContainer>
         <AdminTitle>
           YOUR BANDS
-          <Link href="/admin/new-band">
+          <Link href="/admin/new-band" passHref>
             <PlusButton title="Add a new band">
               <FontAwesomeIcon icon={faPlus} />
             </PlusButton>
@@ -197,6 +198,7 @@ const Admin: NextPage = () => {
                   query: { id: band.id },
                 }}
                 as={"/admin/manabe-band"}
+                passHref
               >
                 <ModifyButton title="Modify this band" key={band}>
                   <FontAwesomeIcon icon={faPen} />
