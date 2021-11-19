@@ -92,8 +92,8 @@ const ManageBand: NextPage = ({ router: query }) => {
         <HalfCol>
           <SectionTitle>
             {name}
-            {genres && genres.slice(0, 3).map(genre => {
-              return <Badge>{genre.name}</Badge>
+            {genres && genres.slice(0, 3).map((genre, index) => {
+              return <Badge key={`${name}-${genre.name}-${index}`}>{genre.name}</Badge>
             })}
           </SectionTitle>
           <SectionDescription>{description}</SectionDescription>
