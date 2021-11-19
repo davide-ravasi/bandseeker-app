@@ -33,9 +33,9 @@ const Home: NextPage = ({ router: Query }) => {
 
           {type === 'contacts' && <SimpleText>
             <p>This app was developed by{" "}:</p>
-            <p><a href="https://github.com/zxcv3" target="_blank">@zxcv <FontAwesomeIcon icon={faAngleRight} /></a></p>
-            <p><a href="https://github.com/davide-ravasi" target="_blank">@davide-ravasi <FontAwesomeIcon icon={faAngleRight} /></a></p>
-            <p><a href="https://github.com/akeemoduola" target="_blank">@oakeem <FontAwesomeIcon icon={faAngleRight} /></a></p>
+            <p><a href="https://github.com/zxcv3" target="_blank" rel="noreferrer">@zxcv <FontAwesomeIcon icon={faAngleRight} /></a></p>
+            <p><a href="https://github.com/davide-ravasi" target="_blank" rel="noreferrer">@davide-ravasi <FontAwesomeIcon icon={faAngleRight} /></a></p>
+            <p><a href="https://github.com/akeemoduola" target="_blank" rel="noreferrer">@oakeem <FontAwesomeIcon icon={faAngleRight} /></a></p>
             <p>If you like the app, feel free to fork this repository or open a pull request</p>
           </SimpleText>
           }
