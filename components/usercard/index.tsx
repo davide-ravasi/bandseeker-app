@@ -12,6 +12,9 @@ export const UserCard = ({ user }) => {
   return (
     <CardContainer>
       <CardImage imageUrl={user.avatar.url} />
+      {user.genres && user.genres.slice(0, 3).map((genre, index) => {
+        return <Button key={`${user.name}-${user.name}-${index}`}>{genre.name}</Button>
+      })}
       <Link
         href={{
           pathname: "/user",
@@ -93,6 +96,27 @@ const Location = styled.div`
     margin-right: 4px;
     color: ${(props) => props.theme.colors.cyan};
   }
+`;
+
+const Button = styled.div`
+  position: relative;
+  float: left;
+
+  font-family: "Lato", sans-serif;
+  text-transform: uppercase;
+
+  font-size: 12px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  padding: 5px;
+  top: 40.11%;
+  margin-left: 5px;
+
+  background: #c4c4c4;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 11px;
 `;
 
 const Searching = styled.div`

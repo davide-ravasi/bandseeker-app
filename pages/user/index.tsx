@@ -24,6 +24,9 @@ const GET_USER = gql`
       nickname
       description
       email
+      genres {
+        name
+      }
       birth_date
       address
       instruments
@@ -49,6 +52,8 @@ const UserPage: NextPage = ({ router: query }) => {
       setAddress(data.getUser.address);
       setDescription(data.getUser.description);
       setEmail(data.getUser.email);
+      setGenres(data.getUser.genres);
+
     },
   });
   const [name, setName] = useState("");
@@ -58,6 +63,7 @@ const UserPage: NextPage = ({ router: query }) => {
   const [address, setAddress] = useState("");
   const [description, setDescription] = useState("");
   const [email, setEmail] = useState("");
+  const [genres, setGenres] = useState([]);
 
   const dateFormatted = new Date(
     parseInt(birthdate)
@@ -79,7 +85,10 @@ const UserPage: NextPage = ({ router: query }) => {
         </HalfCol>
         <HalfCol>
           <SectionTitle>
-            {name} <Badge>Rock</Badge>
+            {name}
+            {genres && genres.slice(0, 3).map((genre, index) => {
+              return <Badge key={`${name}-${genre.name}-${index}`}>{genre.name}</Badge>
+            })}
           </SectionTitle>
           <SectionSubtitle>
             Nickname: {nickname}

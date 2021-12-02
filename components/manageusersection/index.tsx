@@ -6,6 +6,7 @@ import useInput from "../../hooks/useInput";
 
 import { withApollo } from "../../lib/apollo";
 import { useQuery, useMutation, gql } from "@apollo/client";
+import { convertToArray, convertToString } from "../../outils";
 
 const GET_USER = gql`
   query getUser($id: ID!) {
@@ -17,6 +18,9 @@ const GET_USER = gql`
       email
       birth_date
       address
+      genres {
+        name
+      }
       instruments
       avatar {
         url
@@ -34,6 +38,9 @@ const UPDATE_USER = gql`
       email
       birth_date
       address
+      genres {
+        name
+      }
       instruments
       avatar {
         url
@@ -50,6 +57,7 @@ export function ManageUserSection(props) {
       setNickname(data.getUser.nickname);
       setEmail(data.getUser.email);
       setBirth_date(data.getUser.birth_date);
+      setGenres(convertToString(data.getUser.genres));
       setDescription(data.getUser.description);
       setAvatarUrl(data.getUser.avatar.url);
     },
@@ -60,27 +68,32 @@ export function ManageUserSection(props) {
   const [email, setEmail] = useState();
   const [birth_date, setBirth_date] = useState();
   const [description, setDescription] = useState();
+  const [genres, setGenres] = useState("");
   const [avatarUrl, setAvatarUrl] = useState();
 
   const [hasUpdated, setHasUpdated] = useState("SUBMIT");
 
-  const [updateUser] = useMutation(UPDATE_USER, {
-    variables: {
-      id: props.id,
-      UserUpdateInput: {
-        name: name,
-        nickname: nickname,
-        email: email,
-        birth_date: birth_date,
-        description: description,
-        avatar: { url: avatarUrl },
-      },
-    },
-  });
+  const [updateUser] = useMutation(UPDATE_USER);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateUser();
+
+    const genresArray = convertToArray(genres);
+
+    updateUser({
+      variables: {
+        id: props.id,
+        UserUpdateInput: {
+          name: name,
+          nickname: nickname,
+          email: email,
+          birth_date: birth_date,
+          description: description,
+          genres: genresArray,
+          avatar: { url: avatarUrl },
+        },
+      }
+    });
     setHasUpdated("UPDATED!!");
   };
 
@@ -140,6 +153,16 @@ export function ManageUserSection(props) {
               value={description}
               onChange={(e) => {
                 setDescription(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
+            />
+            <Input
+              type="text"
+              placeholder="Genres comma separated Ex. blues,jazz"
+              kind="input"
+              value={genres}
+              onChange={(e) => {
+                setGenres(e.target.value);
                 setHasUpdated("SUBMIT");
               }}
             />

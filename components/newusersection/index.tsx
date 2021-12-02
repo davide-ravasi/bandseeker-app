@@ -4,7 +4,8 @@ import Input from "../searchsection/input";
 import styled from "styled-components";
 
 import { withApollo } from "../../lib/apollo";
-import { useQuery, useMutation, gql } from "@apollo/client";
+import { useMutation, gql } from "@apollo/client";
+import { convertToArray } from "../../outils";
 
 const NEW_USER = gql`
   mutation newUser($UserCreateInput: UserCreateInput) {
@@ -16,6 +17,9 @@ const NEW_USER = gql`
       email
       birth_date
       address
+      genres {
+        name
+      }
       avatar {
         url
       }
@@ -29,26 +33,31 @@ export function NewUserSection(props) {
   const [email, setEmail] = useState("");
   const [birth_date, setBirth_date] = useState("");
   const [description, setDescription] = useState("");
+  const [genres, setGenres] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
 
   const [hasUpdated, setHasUpdated] = useState("SUBMIT");
 
-  const [newUser] = useMutation(NEW_USER, {
-    variables: {
-      UserCreateInput: {
-        name: name,
-        nickname: nickname,
-        email: email,
-        birth_date: birth_date,
-        description: description,
-        avatar: { url: avatarUrl },
-      },
-    },
-  });
+  const [newUser] = useMutation(NEW_USER);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    newUser();
+
+    const genresArray = convertToArray(genres);
+
+    newUser({
+      variables: {
+        UserCreateInput: {
+          name: name,
+          nickname: nickname,
+          email: email,
+          birth_date: birth_date,
+          description: description,
+          genres: genresArray,
+          avatar: { url: avatarUrl },
+        },
+      },
+    });
     setHasUpdated("SUBMITTED!!");
   };
 
@@ -108,6 +117,16 @@ export function NewUserSection(props) {
               value={description}
               onChange={(e) => {
                 setDescription(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
+            />
+            <Input
+              type="text"
+              placeholder="Genres comma separated Ex. blues,jazz"
+              kind="input"
+              value={genres}
+              onChange={(e) => {
+                setGenres(e.target.value);
                 setHasUpdated("SUBMIT");
               }}
             />
