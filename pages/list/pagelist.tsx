@@ -10,9 +10,9 @@ import { withApollo } from "../../lib/apollo";
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
 
-const GET_BAND_BY_CONTENT = gql`
-  query getBandsByContent($text: String) {
-    getBandsByContent(text: $text) {
+const GET_BANDS_FROM_SEARCH = gql`
+  query getBandsFromSearch($type: String, $text: String) {
+    getBandsFromSearch(type: $type, text: $text) {
       id
       name
       description
@@ -39,14 +39,17 @@ const GET_BAND_BY_CONTENT = gql`
   }
 `;
 
-const GET_USER_BY_CONTENT = gql`
-  query getUserByContent($text: String) {
-    getUserByContent(text: $text) {
+const GET_USERS_FROM_SEARCH = gql`
+  query getUsersFromSearch($type: String, $text: String) {
+    getUsersFromSearch(type: $type, text: $text) {
       id
       name
       nickname
       description
       email
+      genres {
+        name
+      }
       birth_date
       address
       instruments
@@ -72,8 +75,8 @@ const Home: NextPage = ({ router: Query }) => {
     loading: loadingBand,
     error: errorBand,
     data: dataBand,
-  } = useQuery(GET_BAND_BY_CONTENT, {
-    variables: { text: searchQuery },
+  } = useQuery(GET_BANDS_FROM_SEARCH, {
+    variables: { type: searchBy, text: searchQuery },
     skip: skipBandQuery,
   });
 
@@ -81,8 +84,8 @@ const Home: NextPage = ({ router: Query }) => {
     loading: loadingUser,
     error: errorUser,
     data: dataUser,
-  } = useQuery(GET_USER_BY_CONTENT, {
-    variables: { text: searchQuery },
+  } = useQuery(GET_USERS_FROM_SEARCH, {
+    variables: { type: searchBy, text: searchQuery },
     skip: skipUserQuery,
   });
 
@@ -94,27 +97,27 @@ const Home: NextPage = ({ router: Query }) => {
       <Header />
       <Container>
         <SectionTitle>
-          RESULTS FOR {searchQuery} IN {skipBandQuery ? "Members" : "Bands"}
+          RESULTS FOR {searchQuery} IN {skipBandQuery ? "Members" : "Bands"} BY {searchBy}
         </SectionTitle>
         <SectionContainer>
           {dataBand &&
-            dataBand.getBandsByContent.length &&
-            dataBand.getBandsByContent
+            dataBand.getBandsFromSearch.length &&
+            dataBand.getBandsFromSearch
               .slice(0, 4)
               .map((band) => <BandCard key={band} band={band} />)}
 
-          {searchType === "band" && dataBand.getBandsByContent.length === 0 && (
+          {searchType === "band" && dataBand.getBandsFromSearch.length === 0 && (
             <SimpleText>No results for this term</SimpleText>
           )}
 
           {dataUser &&
-            dataUser.getUserByContent.length &&
-            dataUser.getUserByContent
+            dataUser.getUsersFromSearch.length &&
+            dataUser.getUsersFromSearch
               .slice(0, 4)
               .map((user) => <UserCard key={user} user={user} />)}
 
           {searchType === "member" &&
-            dataUser.getUserByContent.length === 0 && (
+            dataUser.getUsersFromSearch.length === 0 && (
               <SimpleText>No results for this term</SimpleText>
             )}
         </SectionContainer>
