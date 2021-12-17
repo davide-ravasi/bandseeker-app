@@ -8,7 +8,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const UserCard = ({ user }) => {
-  console.log(user);
   return (
     <CardContainer>
       <CardImage imageUrl={user.avatar.url} />
@@ -35,6 +34,11 @@ export const UserCard = ({ user }) => {
         <FontAwesomeIcon icon={faMapMarkerAlt} /> {user.location}
       </Location>
       <Searching>INSTRUMENTS:</Searching>
+      <InstrumentsWrapper>
+        {user.instruments && user.instruments.slice(0, 3).map((instrument, index) => {
+          return <Button key={`${user.name}-${instrument.name}-${index}`}>{instrument.name}</Button>
+        })}
+      </InstrumentsWrapper>
     </CardContainer>
   );
 };
@@ -180,4 +184,8 @@ const CardDetail = styled.div`
   /* or 14px */
 
   color: #c4c4c4;
+`;
+
+const InstrumentsWrapper = styled.div`
+  position: relative !important;
 `;

@@ -52,7 +52,9 @@ const GET_USERS = gql`
       email
       birth_date
       address
-      instruments
+      instruments {
+        name
+      }
       avatar {
         url
       }

@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
-export default function Button({ content }) {
+type ButtonProps = {
+  type?: string,
+  content: string
+}
+
+export default function Button(props: ButtonProps) {
+  const { content } = props;
   return <StyledButton>{content}</StyledButton>;
 }
 

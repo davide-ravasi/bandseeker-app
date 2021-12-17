@@ -37,6 +37,10 @@ const GET_USER = gql`
   }
 `;
 
+type Genre = {
+  name: String
+}
+
 const UserPage: NextPage = ({ router: query }) => {
   const router = useRouter();
   const { id } = router.query;
@@ -56,14 +60,14 @@ const UserPage: NextPage = ({ router: query }) => {
 
     },
   });
-  const [name, setName] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [image, setImage] = useState("");
-  const [birthdate, setBirthdate] = useState("");
-  const [address, setAddress] = useState("");
-  const [description, setDescription] = useState("");
-  const [email, setEmail] = useState("");
-  const [genres, setGenres] = useState([]);
+  const [name, setName] = useState<string>("");
+  const [nickname, setNickname] = useState<string>("");
+  const [image, setImage] = useState<string>("");
+  const [birthdate, setBirthdate] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [genres, setGenres] = useState<Array<Genre>>([]);
 
   const dateFormatted = new Date(
     parseInt(birthdate)

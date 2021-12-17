@@ -21,7 +21,9 @@ const GET_USER = gql`
       genres {
         name
       }
-      instruments
+      instruments {
+        name
+      }
       avatar {
         url
       }
@@ -41,7 +43,9 @@ const UPDATE_USER = gql`
       genres {
         name
       }
-      instruments
+      instruments {
+        name
+      }
       avatar {
         url
       }
@@ -58,27 +62,30 @@ export function ManageUserSection(props) {
       setEmail(data.getUser.email);
       setBirth_date(data.getUser.birth_date);
       setGenres(convertToString(data.getUser.genres));
+      setInstruments(convertToString(data.getUser.instruments));
       setDescription(data.getUser.description);
       setAvatarUrl(data.getUser.avatar.url);
     },
   });
 
-  const [name, setName] = useState();
-  const [nickname, setNickname] = useState();
-  const [email, setEmail] = useState();
-  const [birth_date, setBirth_date] = useState();
-  const [description, setDescription] = useState();
-  const [genres, setGenres] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState();
+  const [name, setName] = useState<string>("");
+  const [nickname, setNickname] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [birth_date, setBirth_date] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [genres, setGenres] = useState<string>("");
+  const [instruments, setInstruments] = useState<string>("");
+  const [avatarUrl, setAvatarUrl] = useState<string>("");
 
   const [hasUpdated, setHasUpdated] = useState("SUBMIT");
 
   const [updateUser] = useMutation(UPDATE_USER);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     const genresArray = convertToArray(genres);
+    const instrumentsArray = convertToArray(instruments);
 
     updateUser({
       variables: {
@@ -90,6 +97,7 @@ export function ManageUserSection(props) {
           birth_date: birth_date,
           description: description,
           genres: genresArray,
+          instruments: instrumentsArray,
           avatar: { url: avatarUrl },
         },
       }
@@ -163,6 +171,17 @@ export function ManageUserSection(props) {
               value={genres}
               onChange={(e) => {
                 setGenres(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
+            />
+            <Input
+              type="text"
+              placeholder="Instruments comma separated Ex. guitar,vocals"
+              kind="input"
+              value={instruments}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                console.log(e.target.value);
+                setInstruments(e.target.value);
                 setHasUpdated("SUBMIT");
               }}
             />

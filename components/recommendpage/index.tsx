@@ -19,7 +19,9 @@ const GET_USERS = gql`
       genres {
         name
       }
-      instruments
+      instruments {
+        name
+      }
       avatar {
         url
       }
