@@ -17,6 +17,9 @@ const NEW_BAND = gql`
       genres {
         name
       }
+      searching {
+        name
+      }
       videos {
         title
         url
@@ -41,6 +44,7 @@ function NewBandSection(props) {
   const [email, setEmail] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const [genres, setGenres] = useState("");
+  const [searching, setSearching] = useState("");
 
   const [hasUpdated, setHasUpdated] = useState("SUBMIT");
 
@@ -50,6 +54,7 @@ function NewBandSection(props) {
     e.preventDefault();
 
     const genresArray = convertToArray(genres);
+    const searchingArray = convertToArray(searching);
 
     newBand({
       variables: {
@@ -60,7 +65,8 @@ function NewBandSection(props) {
           foundation_date: foundation_date,
           email: email,
           avatar: { url: avatarUrl },
-          genres: genresArray
+          genres: genresArray,
+          searching: searchingArray
         },
       },
     });
@@ -149,6 +155,16 @@ function NewBandSection(props) {
               value={genres}
               onChange={(e) => {
                 setGenres(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
+            />
+            <Input
+              type="text"
+              placeholder="Searching (add list comma separated)"
+              kind="input"
+              value={searching}
+              onChange={(e) => {
+                setSearching(e.target.value);
                 setHasUpdated("SUBMIT");
               }}
             />

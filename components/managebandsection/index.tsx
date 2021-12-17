@@ -16,6 +16,9 @@ const GET_BAND = gql`
       genres {
         name
       }
+      searching {
+        name
+      }
       videos {
         title
         url
@@ -43,6 +46,9 @@ const UPDATE_BAND = gql`
       foundation_date
       email
       genres {
+        name
+      }
+      searching {
         name
       }
       videos {
@@ -83,6 +89,7 @@ function ManageBandSection(props) {
     variables: { id: props.id },
     onCompleted: (data) => {
       const genresString = data.getBand.genres.length ? convertToString(data.getBand.genres) : "";
+      const searchingString = data.getBand.searching.length ? convertToString(data.getBand.searching) : "";
       setName(data.getBand.name);
       setDescription(data.getBand.description);
       setLocation(data.getBand.location);
@@ -90,6 +97,7 @@ function ManageBandSection(props) {
       setEmail(data.getBand.email);
       setAvatarUrl(data.getBand.avatar.url);
       setGenres(genresString);
+      setSearching(searchingString);
     },
   });
   const [name, setName] = useState("");
@@ -97,6 +105,7 @@ function ManageBandSection(props) {
   const [location, setLocation] = useState("");
   const [foundation_date, setFoundation_date] = useState("");
   const [genres, setGenres] = useState("");
+  const [searching, setSearching] = useState("");
   const dateFormatted = new Date(
     parseInt(foundation_date)
   ).toLocaleDateString();
@@ -110,6 +119,7 @@ function ManageBandSection(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const convertedGenres = convertToArray(genres);
+    const searchingArray = convertToArray(searching);
     console.log("convertedgenres  ", convertedGenres);
 
     updateBand({
@@ -122,7 +132,8 @@ function ManageBandSection(props) {
           foundation_date: foundation_date,
           email: email,
           avatar: { url: avatarUrl },
-          genres: convertedGenres
+          genres: convertedGenres,
+          searching: searchingArray
         },
       },
     });
@@ -206,6 +217,16 @@ function ManageBandSection(props) {
               onChange={(e) => {
                 console.log(e.target.value);
                 setGenres(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
+            />
+            <Input
+              type="text"
+              placeholder="Searching (add list comma separated)"
+              kind="input"
+              value={searching}
+              onChange={(e) => {
+                setSearching(e.target.value);
                 setHasUpdated("SUBMIT");
               }}
             />

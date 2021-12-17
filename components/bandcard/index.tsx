@@ -34,6 +34,11 @@ export const BandCard = ({ band }) => {
         <FontAwesomeIcon icon={faMapMarkerAlt} /> {band.location}
       </Location>
       <Searching>SEARCHING:</Searching>
+      <SearchingWrapper>
+        {band.searching && band.searching.slice(0, 3).map((role, index) => {
+          return <Button key={`${role.name}-${role.name}-${index}`}>{role.name}</Button>
+        })}
+      </SearchingWrapper>
     </CardContainer>
   );
 };
@@ -186,3 +191,8 @@ const CardDetail = styled.div`
 
   color: #c4c4c4;
 `;
+
+const SearchingWrapper = styled.div`
+  position: relative !important;
+`;
+

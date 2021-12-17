@@ -40,6 +40,9 @@ const GET_BANDS = gql`
       genres {
         name
       }
+      searching {
+        name
+      }
       videos {
         title
         url
