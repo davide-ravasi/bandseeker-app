@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Button from "../searchsection/button";
 import Input from "../searchsection/input";
 import styled from "styled-components";
-import useInput from "../../hooks/useInput";
 
 import { withApollo } from "../../lib/apollo";
 import { useQuery, useMutation, gql } from "@apollo/client";
@@ -81,7 +80,7 @@ export function ManageUserSection(props) {
 
   const [updateUser] = useMutation(UPDATE_USER);
 
-  const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
     const genresArray = convertToArray(genres);

@@ -22,6 +22,9 @@ const GET_BANDS_FROM_SEARCH = gql`
       genres {
         name
       }
+      searching {
+        name
+      }
       videos {
         title
         url
@@ -50,9 +53,11 @@ const GET_USERS_FROM_SEARCH = gql`
       genres {
         name
       }
+      instruments {
+        name
+      }
       birth_date
       address
-      instruments
       avatar {
         url
       }

@@ -1,17 +1,18 @@
-export const convertToArray = (string) => {
-  console.log("string", string);
-  const stringToArray = string.split(",");
-  console.log("stringToArray", stringToArray);
+import { genre } from "../types";
 
-  return stringToArray.map(el => { return { name: el } });
+export const convertToArray = (string: String): genre[] => {
+  if (!string) return [];
+
+  const stringToArray = string.split(",");
+
+  return stringToArray.map(el => { return { name: el.trim() } });
 }
 
-export const convertToString = (array) => {
-  if (typeof array === 'undefined') return false;
+export const convertToString = (array: genre[]): string => {
+  if (typeof array === 'undefined') return "";
   if (array.length === 0) return "";
-  console.log(array);
-  const planArray = array.map(el => el.name);
-  console.log("planArray", planArray);
+
+  const planArray = array.map((el: genre) => el.name);
 
   return planArray.join(",");
 }

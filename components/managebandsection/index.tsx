@@ -3,6 +3,8 @@ import Button from "../searchsection/button";
 import Input from "../searchsection/input";
 import styled from "styled-components";
 import { useQuery, useMutation, gql } from "@apollo/client";
+import { convertToArray, convertToString } from "../../outils";
+import { ManageBandSectionProps } from "../../types";
 
 const GET_BAND = gql`
   query GetBand($id: ID!) {
@@ -67,24 +69,7 @@ const UPDATE_BAND = gql`
   }
 `;
 
-const convertToArray = (string) => {
-  console.log("string", string);
-  const stringToArray = string.split(",");
-  console.log("stringToArray", stringToArray);
-
-  return stringToArray.map(el => { return { name: el } });
-}
-
-const convertToString = (array) => {
-  if (typeof array === 'undefined') return false;
-  console.log(array);
-  const planArray = array.map(el => el.name);
-  console.log("planArray", planArray);
-
-  return planArray.join(",");
-}
-
-function ManageBandSection(props) {
+function ManageBandSection(props: ManageBandSectionProps) {
   const { loading, error, data } = useQuery(GET_BAND, {
     variables: { id: props.id },
     onCompleted: (data) => {
@@ -100,27 +85,26 @@ function ManageBandSection(props) {
       setSearching(searchingString);
     },
   });
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("");
-  const [foundation_date, setFoundation_date] = useState("");
-  const [genres, setGenres] = useState("");
-  const [searching, setSearching] = useState("");
+  const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [location, setLocation] = useState<string>("");
+  const [foundation_date, setFoundation_date] = useState<string>("");
+  const [genres, setGenres] = useState<string>("");
+  const [searching, setSearching] = useState<string>("");
   const dateFormatted = new Date(
     parseInt(foundation_date)
   ).toLocaleDateString();
-  const [email, setEmail] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [avatarUrl, setAvatarUrl] = useState<string>("");
 
-  const [hasUpdated, setHasUpdated] = useState("SUBMIT");
+  const [hasUpdated, setHasUpdated] = useState<string>("SUBMIT");
 
   const [updateBand] = useMutation(UPDATE_BAND);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const convertedGenres = convertToArray(genres);
     const searchingArray = convertToArray(searching);
-    console.log("convertedgenres  ", convertedGenres);
 
     updateBand({
       variables: {
@@ -151,7 +135,7 @@ function ManageBandSection(props) {
           <InputContainer>
             <Input
               type="text"
-              placeholder="Name xxx"
+              placeholder="Name"
               kind="input"
               value={name}
               onChange={(e) => {

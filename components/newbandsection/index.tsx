@@ -5,6 +5,8 @@ import styled from "styled-components";
 
 import { withApollo } from "../../lib/apollo";
 import { useQuery, useMutation, gql } from "@apollo/client";
+import { convertToArray } from "../../outils";
+import { ManageBandSectionProps } from "../../types";
 
 const NEW_BAND = gql`
   mutation NewBand($BandCreateInput: BandCreateInput) {
@@ -36,21 +38,21 @@ const NEW_BAND = gql`
   }
 `;
 
-function NewBandSection(props) {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("");
-  const [foundation_date, setFoundation_date] = useState("");
-  const [email, setEmail] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState("");
-  const [genres, setGenres] = useState("");
-  const [searching, setSearching] = useState("");
+function NewBandSection(props: ManageBandSectionProps) {
+  const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [location, setLocation] = useState<string>("");
+  const [foundation_date, setFoundation_date] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [avatarUrl, setAvatarUrl] = useState<string>("");
+  const [genres, setGenres] = useState<string>("");
+  const [searching, setSearching] = useState<string>("");
 
-  const [hasUpdated, setHasUpdated] = useState("SUBMIT");
+  const [hasUpdated, setHasUpdated] = useState<string>("SUBMIT");
 
   const [newBand] = useMutation(NEW_BAND);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
     const genresArray = convertToArray(genres);
@@ -73,11 +75,11 @@ function NewBandSection(props) {
     setHasUpdated("SUBMITTED!!");
   };
 
-  const convertToArray = (string) => {
-    const stringToArray = string.split(",");
+  // const convertToArray = (string) => {
+  //   const stringToArray = string.split(",");
 
-    return stringToArray.map(el => { return { 'name': el } });
-  }
+  //   return stringToArray.map(el => { return { 'name': el } });
+  // }
 
   return (
     <Container>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, InputHTMLAttributes } from "react";
 import Button from "../searchsection/button";
 import Input from "../searchsection/input";
 import styled from "styled-components";
@@ -81,7 +81,7 @@ export function NewUserSection() {
               placeholder="Name"
               kind="input"
               value={name}
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setName(e.target.value);
                 setHasUpdated("SUBMIT");
               }}
