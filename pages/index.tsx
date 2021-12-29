@@ -16,8 +16,6 @@ const Home: NextPage = ({ router: Query }) => {
   const router = useRouter();
   const type = router.query.type;
 
-  console.log(type);
-
   return (
     <div>
       <Header />

@@ -22,9 +22,11 @@ export const Header = () => {
         </Link>
 
         <Menu isOpen={isOpen}>
+        {user && (
           <Link href="/admin" passHref>
             <MenuLink>ADMIN</MenuLink>
           </Link>
+        )}  
           <Link
             href={{
               pathname: "/statics",
@@ -46,18 +48,14 @@ export const Header = () => {
             <MenuLink href="">CONTACTS</MenuLink>
           </Link>
           {!isLoading && !user && (
-            <Link href="/api/auth/login">
-              <a>
-                LOGIN/SIGNUP
-              </a>
-            </Link>
+            <MenuLink href="/api/auth/login">
+              LOGIN
+            </MenuLink>
           )}
           {user && (
-            <Link href="/api/auth/logout">
-              <a>
-                LOGOUT
-              </a>
-            </Link>
+            <MenuLink href="/api/auth/logout">
+              LOGOUT
+            </MenuLink>
           )}
         </Menu>
       </Container>

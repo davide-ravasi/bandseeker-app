@@ -29,7 +29,9 @@ const GET_USER = gql`
       }
       birth_date
       address
-      instruments
+      instruments {
+        name
+      }
       avatar {
         url
       }
@@ -40,6 +42,11 @@ const GET_USER = gql`
 type Genre = {
   name: String
 }
+
+type Instrument = {
+  name: String
+}
+
 
 const UserPage: NextPage = ({ router: query }) => {
   const router = useRouter();
@@ -57,7 +64,7 @@ const UserPage: NextPage = ({ router: query }) => {
       setDescription(data.getUser.description);
       setEmail(data.getUser.email);
       setGenres(data.getUser.genres);
-
+      setInstruments(data.getUser.instruments);
     },
   });
   const [name, setName] = useState<string>("");
@@ -68,6 +75,7 @@ const UserPage: NextPage = ({ router: query }) => {
   const [description, setDescription] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [genres, setGenres] = useState<Array<Genre>>([]);
+  const [instruments, setInstruments] = useState<Array<Instrument>>([]);
 
   const dateFormatted = new Date(
     parseInt(birthdate)
@@ -115,6 +123,12 @@ const UserPage: NextPage = ({ router: query }) => {
               <FontAwesomeIcon icon={faEnvelope} /> Contacts:{" "}
             </span>
             {email}
+          </SectionInfos>
+          <SectionInfos>
+            <span>
+              <FontAwesomeIcon icon={faEnvelope} /> Instruments:{" "}
+            </span>
+            {instruments?.length && instruments.map(instrument => instrument.name)}
           </SectionInfos>
         </HalfCol>
       </Container>
