@@ -2,13 +2,11 @@ import type { NextPage } from "next";
 import styled from "styled-components";
 import { BandCard } from "../../components/bandcard";
 import { UserCard } from "../../components/usercard";
-import { Header } from "../../components/header";
-
-import { Footer } from "../../components/footer";
 
 import { withApollo } from "../../lib/apollo";
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
+import Layout from "../../components/layout";
 
 const GET_BANDS_FROM_SEARCH = gql`
   query getBandsFromSearch($type: String, $text: String) {
@@ -98,52 +96,35 @@ const Home: NextPage = ({ router: Query }) => {
   if (errorBand || errorUser) return <p>Error :(</p>;
 
   return (
-    <div>
-      <Header />
-      <Container>
-        <SectionTitle>
-          RESULTS FOR {searchQuery} IN {skipBandQuery ? "Members" : "Bands"} BY {searchBy}
-        </SectionTitle>
-        <SectionContainer>
-          {dataBand &&
-            dataBand.getBandsFromSearch.length &&
-            dataBand.getBandsFromSearch
-              .slice(0, 4)
-              .map((band) => <BandCard key={band} band={band} />)}
+    <Layout>
+      <SectionTitle>
+        RESULTS FOR {searchQuery} IN {skipBandQuery ? "Members" : "Bands"} BY {searchBy}
+      </SectionTitle>
+      <SectionContainer>
+        {dataBand &&
+          dataBand.getBandsFromSearch.length &&
+          dataBand.getBandsFromSearch
+            .slice(0, 4)
+            .map((band) => <BandCard key={band} band={band} />)}
 
-          {searchType === "band" && dataBand.getBandsFromSearch.length === 0 && (
+        {searchType === "band" && dataBand.getBandsFromSearch.length === 0 && (
+          <SimpleText>No results for this term</SimpleText>
+        )}
+
+        {dataUser &&
+          dataUser.getUsersFromSearch.length &&
+          dataUser.getUsersFromSearch
+            .slice(0, 4)
+            .map((user) => <UserCard key={user} user={user} />)}
+
+        {searchType === "member" &&
+          dataUser.getUsersFromSearch.length === 0 && (
             <SimpleText>No results for this term</SimpleText>
           )}
-
-          {dataUser &&
-            dataUser.getUsersFromSearch.length &&
-            dataUser.getUsersFromSearch
-              .slice(0, 4)
-              .map((user) => <UserCard key={user} user={user} />)}
-
-          {searchType === "member" &&
-            dataUser.getUsersFromSearch.length === 0 && (
-              <SimpleText>No results for this term</SimpleText>
-            )}
-        </SectionContainer>
-      </Container>
-      <Footer />
-    </div>
+      </SectionContainer>
+    </Layout>
   );
 };
-
-const Container = styled.div`
-  position: relative;
-  display: flex;
-
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-
-  max-width: 1100px;
-  margin: 0 auto;
-  min-height: calc(100vh - 130px);
-`;
 
 const SectionTitle = styled.h1`
   position: relative;

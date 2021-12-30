@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import { Header } from "../../components/header";
 import { useState } from "react";
 import {
   faEnvelope,
@@ -11,11 +10,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import Image from "next/dist/client/image";
 
-import { Footer } from "../../components/footer";
 import { ManagePhotos } from "../../components/managephotos";
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
 import { withApollo } from "../../lib/apollo";
+import Layout from "../../components/layout";
 
 const GET_BAND = gql`
   query GetBand($id: ID!) {
@@ -79,58 +78,43 @@ const ManageBand: NextPage = ({ router: query }) => {
   if (error) return <p>Error :(</p>;
 
   return (
-    <div>
-      <Header />
-
-      <Container>
-        <HalfCol>
-          <Avatar
-            src={image}
-            alt={name}
-          />
-        </HalfCol>
-        <HalfCol>
-          <SectionTitle>
-            {name}
-            {genres && genres.slice(0, 3).map((genre, index) => {
-              return <Badge key={`${name}-${genre.name}-${index}`}>{genre.name}</Badge>
-            })}
-          </SectionTitle>
-          <SectionDescription>{description}</SectionDescription>
-          <SectionInfos>
-            <span>
-              <FontAwesomeIcon icon={faMapMarkerAlt} /> Location:{" "}
-            </span>
-            {location}
-          </SectionInfos>
-          <SectionInfos>
-            <span>
-              <FontAwesomeIcon icon={faCalendar} /> Foundation date:{" "}
-            </span>
-            {dateFormatted}
-          </SectionInfos>
-          <SectionInfos>
-            <span>
-              <FontAwesomeIcon icon={faEnvelope} /> Contacts:{" "}
-            </span>
-            {email}
-          </SectionInfos>
-        </HalfCol>
-      </Container>
-      <Footer />
-    </div>
+    <Layout>
+      <HalfCol>
+        <Avatar
+          src={image}
+          alt={name}
+        />
+      </HalfCol>
+      <HalfCol>
+        <SectionTitle>
+          {name}
+          {genres && genres.slice(0, 3).map((genre, index) => {
+            return <Badge key={`${name}-${genre.name}-${index}`}>{genre.name}</Badge>
+          })}
+        </SectionTitle>
+        <SectionDescription>{description}</SectionDescription>
+        <SectionInfos>
+          <span>
+            <FontAwesomeIcon icon={faMapMarkerAlt} /> Location:{" "}
+          </span>
+          {location}
+        </SectionInfos>
+        <SectionInfos>
+          <span>
+            <FontAwesomeIcon icon={faCalendar} /> Foundation date:{" "}
+          </span>
+          {dateFormatted}
+        </SectionInfos>
+        <SectionInfos>
+          <span>
+            <FontAwesomeIcon icon={faEnvelope} /> Contacts:{" "}
+          </span>
+          {email}
+        </SectionInfos>
+      </HalfCol>
+    </Layout>
   );
 };
-
-const Container = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: flex-start;
-
-  max-width: 1100px;
-  min-height: calc(100vh - 180px);
-  margin: 30px auto;
-`;
 
 const HalfCol = styled.div`
   flex: 0 1 50%;

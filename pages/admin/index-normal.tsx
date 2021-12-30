@@ -11,11 +11,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Header } from "../../components/header";
-import { Footer } from "../../components/footer";
-
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { withApollo } from "../../lib/apollo";
+import Layout from "../../components/layout";
 
 const GET_BANDS = gql`
   query getBands {
@@ -135,100 +133,90 @@ const Admin: NextPage = () => {
   if (errorBand) return <p>Error :(</p>;
 
   return (
-    <div>
-      <Header />
-      <Container>
-        <AdminTitle>
-          YOUR PROFILE
-          <Link href="/admin/new-user" passHref>
-            <PlusButton title="Add a new user">
-              <FontAwesomeIcon icon={faPlus} />
-            </PlusButton>
-          </Link>
-        </AdminTitle>
-        <SectionContainer>
-          <Link
-            href={{
-              pathname: "/admin/manage-user",
-              // query: { id: JSON.stringify(user.id) },
-            }}
-          >
-            <a>
-              Edit your profile <FontAwesomeIcon icon={faAngleRight} />
-            </a>
-          </Link>
-          {dataUser.getUsers.map((user) => (
-            <ListBlock key={user}>
-              <span>User Name: {user.name ? user.name : "no name"}</span>
-              <Link
-                href={{
-                  pathname: "/admin/manage-user",
-                  query: { id: user.id },
-                }}
-                as={"/admin/manage-user"}
-                passHref
-              >
-                <ModifyButton title="Modify this user" key={user}>
-                  <FontAwesomeIcon icon={faPen} />
-                </ModifyButton>
-              </Link>
-              <DeleteButton
-                title="Delete this user"
-                key={user}
-                onClick={() => onDeleteUser(user.id)}
-              >
-                <FontAwesomeIcon icon={faTimes} />
-              </DeleteButton>
-            </ListBlock>
-          ))}
-        </SectionContainer>
-        <AdminTitle>
-          YOUR BANDS
-          <Link href="/admin/new-band" passHref>
-            <PlusButton title="Add a new band">
-              <FontAwesomeIcon icon={faPlus} />
-            </PlusButton>
-          </Link>
-        </AdminTitle>
-        <SectionContainer>
-          {dataBand.getBands.map((band) => (
-            <ListBlock key={band}>
-              <span>Band Name: {band.name ? band.name : "no name"}</span>
-              <Link
-                href={{
-                  pathname: "/admin/manage-band",
-                  query: { id: band.id },
-                }}
-                as={"/admin/manabe-band"}
-                passHref
-              >
-                <ModifyButton title="Modify this band" key={band}>
-                  <FontAwesomeIcon icon={faPen} />
-                </ModifyButton>
-              </Link>
-              <DeleteButton
-                title="Delete this band"
-                key={band}
-                onClick={() => onDeleteBand(band.id)}
-              >
-                <FontAwesomeIcon icon={faTimes} />
-              </DeleteButton>
-            </ListBlock>
-          ))}
-        </SectionContainer>
-      </Container>
-      <Footer />
-    </div>
+    <Layout isBlock={true}>
+      <AdminTitle>
+        YOUR PROFILE
+        <Link href="/admin/new-user" passHref>
+          <PlusButton title="Add a new user">
+            <FontAwesomeIcon icon={faPlus} />
+          </PlusButton>
+        </Link>
+      </AdminTitle>
+      <SectionContainer>
+        <Link
+          href={{
+            pathname: "/admin/manage-user",
+            // query: { id: JSON.stringify(user.id) },
+          }}
+        >
+          <a>
+            Edit your profile <FontAwesomeIcon icon={faAngleRight} />
+          </a>
+        </Link>
+        {dataUser.getUsers.map((user) => (
+          <ListBlock key={user}>
+            <span>User Name: {user.name ? user.name : "no name"}</span>
+            <Link
+              href={{
+                pathname: "/admin/manage-user",
+                query: { id: user.id },
+              }}
+              as={"/admin/manage-user"}
+              passHref
+            >
+              <ModifyButton title="Modify this user" key={user}>
+                <FontAwesomeIcon icon={faPen} />
+              </ModifyButton>
+            </Link>
+            <DeleteButton
+              title="Delete this user"
+              key={user}
+              onClick={() => onDeleteUser(user.id)}
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </DeleteButton>
+          </ListBlock>
+        ))}
+      </SectionContainer>
+      <AdminTitle>
+        YOUR BANDS
+        <Link href="/admin/new-band" passHref>
+          <PlusButton title="Add a new band">
+            <FontAwesomeIcon icon={faPlus} />
+          </PlusButton>
+        </Link>
+      </AdminTitle>
+      <SectionContainer>
+        {dataBand.getBands.map((band) => (
+          <ListBlock key={band}>
+            <span>Band Name: {band.name ? band.name : "no name"}</span>
+            <Link
+              href={{
+                pathname: "/admin/manage-band",
+                query: { id: band.id },
+              }}
+              as={"/admin/manabe-band"}
+              passHref
+            >
+              <ModifyButton title="Modify this band" key={band}>
+                <FontAwesomeIcon icon={faPen} />
+              </ModifyButton>
+            </Link>
+            <DeleteButton
+              title="Delete this band"
+              key={band}
+              onClick={() => onDeleteBand(band.id)}
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </DeleteButton>
+          </ListBlock>
+        ))}
+      </SectionContainer>
+    </Layout>
   );
 };
 
 export default withApollo(Admin);
-
-const Container = styled.div`
-  position: relative;
-  max-width: 800px;
-  margin: 40px auto;
-`;
 
 const AdminTitle = styled.h1`
   position: relative;

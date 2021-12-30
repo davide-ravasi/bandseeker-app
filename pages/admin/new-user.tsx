@@ -1,19 +1,15 @@
 import type { NextPage } from "next";
-import { Header } from "../../components/header";
 
-import { Footer } from "../../components/footer";
+import Layout from "../../components/layout";
 import NewUserSection from "../../components/newusersection";
 import { ManagePhotos } from "../../components/managephotos";
 import { withApollo } from "../../lib/apollo";
 
 const NewUser: NextPage = (props) => {
   return (
-    <div>
-      <Header />
+    <Layout isBlock={true}>
       <NewUserSection apolloClient={undefined} apolloState={undefined} />
-
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 

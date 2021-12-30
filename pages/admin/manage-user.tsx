@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
-import { Header } from "../../components/header";
 
-import { Footer } from "../../components/footer";
+import Layout from "../../components/layout";
 import { ManageUserSection } from "../../components/manageusersection";
 import { ManagePhotos } from "../../components/managephotos";
 import { withRouter, useRouter } from "next/router";
@@ -12,16 +11,13 @@ const ManageUser: NextPage = ({ router: query }) => {
   const user = router.query;
 
   return (
-    <div>
-      <Header />
+    <Layout isBlock={true}>
       <ManageUserSection
         apolloClient={undefined}
         apolloState={undefined}
         id={user.id}
       />
-
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 

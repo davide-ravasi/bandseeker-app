@@ -1,7 +1,5 @@
 import type { NextPage } from "next";
-import { Header } from "../../components/header";
-
-import { Footer } from "../../components/footer";
+import Layout from "../../components/layout";
 import ManageBandSection from "../../components/managebandsection";
 import { ManagePhotos } from "../../components/managephotos";
 import { withRouter, useRouter } from "next/router";
@@ -12,16 +10,13 @@ const ManageBand: NextPage = ({ router: query }) => {
   const band = router.query;
 
   return (
-    <div>
-      <Header />
+    <Layout isBlock={true}>
       <ManageBandSection
         apolloClient={undefined}
         apolloState={undefined}
         id={band.id}
       />
-
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 

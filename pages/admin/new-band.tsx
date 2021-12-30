@@ -1,19 +1,15 @@
 import type { NextPage } from "next";
-import { Header } from "../../components/header";
 
-import { Footer } from "../../components/footer";
 import NewBandSection from "../../components/newbandsection";
 import { ManagePhotos } from "../../components/managephotos";
 import { withApollo } from "../../lib/apollo";
+import Layout from "../../components/layout";
 
 const NewBand: NextPage = (props) => {
   return (
-    <div>
-      <Header />
+    <Layout isBlock={true}>
       <NewBandSection apolloClient={undefined} apolloState={undefined} />
-
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 

@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import { Header } from "../../components/header";
 import { useState } from "react";
 import {
   faEnvelope,
@@ -10,11 +9,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styled from "styled-components";
 
-import { Footer } from "../../components/footer";
 import { ManagePhotos } from "../../components/managephotos";
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
 import { withApollo } from "../../lib/apollo";
+import Layout from "../../components/layout";
 
 const GET_USER = gql`
   query getUser($id: ID!) {
@@ -85,10 +84,7 @@ const UserPage: NextPage = ({ router: query }) => {
   if (error) return <p>Error :(</p>;
 
   return (
-    <div>
-      <Header />
-
-      <Container>
+    <Layout>
         <HalfCol>
           <Avatar
             src={image}
@@ -131,21 +127,9 @@ const UserPage: NextPage = ({ router: query }) => {
             {instruments?.length && instruments.map(instrument => instrument.name)}
           </SectionInfos>
         </HalfCol>
-      </Container>
-      <Footer />
-    </div>
+    </Layout>
   );
 };
-
-const Container = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: flex-start;
-
-  max-width: 1100px;
-  min-height: calc(100vh - 180px);
-  margin: 30px auto;
-`;
 
 const HalfCol = styled.div`
   flex: 0 1 50%;
