@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery, gql } from "@apollo/client";
 import { BandCard } from "../bandcard";
 import { UserCard } from "../usercard";
+import { ElementCard } from "../elementcard";
 
 const GET_USERS = gql`
   query getUsers {
@@ -89,7 +90,7 @@ export const RecommendPage = () => {
           </SectionTitle>
           <SectionContainer>
             {dataBand.getBands.slice(0, 4).map((band) => (
-              <BandCard key={band} band={band} />
+              <ElementCard key={band} element={band} />
             ))}
           </SectionContainer>
           <SectionTitle>
@@ -101,13 +102,13 @@ export const RecommendPage = () => {
           </SectionTitle>
           <SectionContainer>
             {dataUser.getUsers.slice(0, 4).map((user) => (
-              <UserCard key={user} user={user} />
+              <ElementCard key={user} element={user} />
             ))}
           </SectionContainer>
           <SectionTitle>NEW MEMBERS</SectionTitle>
           <SectionContainer>
             {dataUser.getUsers.slice(0, 4).map((user) => (
-              <UserCard key={user} user={user} />
+              <ElementCard key={user} element={user} />
             ))}
           </SectionContainer>
         </Container>

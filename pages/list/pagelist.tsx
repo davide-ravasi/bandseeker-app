@@ -7,6 +7,7 @@ import { withApollo } from "../../lib/apollo";
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
 import Layout from "../../components/layout";
+import { ElementCard } from "../../components/elementcard";
 
 const GET_BANDS_FROM_SEARCH = gql`
   query getBandsFromSearch($type: String, $text: String) {
@@ -96,7 +97,7 @@ const Home: NextPage = ({ router: Query }) => {
   if (errorBand || errorUser) return <p>Error :(</p>;
 
   return (
-    <Layout>
+    <Layout isBlock={true}>
       <SectionTitle>
         RESULTS FOR {searchQuery} IN {skipBandQuery ? "Members" : "Bands"} BY {searchBy}
       </SectionTitle>
@@ -105,7 +106,7 @@ const Home: NextPage = ({ router: Query }) => {
           dataBand.getBandsFromSearch.length &&
           dataBand.getBandsFromSearch
             .slice(0, 4)
-            .map((band) => <BandCard key={band} band={band} />)}
+            .map((band) => <ElementCard key={band} element={band} />)}
 
         {searchType === "band" && dataBand.getBandsFromSearch.length === 0 && (
           <SimpleText>No results for this term</SimpleText>
@@ -115,7 +116,7 @@ const Home: NextPage = ({ router: Query }) => {
           dataUser.getUsersFromSearch.length &&
           dataUser.getUsersFromSearch
             .slice(0, 4)
-            .map((user) => <UserCard key={user} user={user} />)}
+            .map((user) => <ElementCard key={user} element={user} />)}
 
         {searchType === "member" &&
           dataUser.getUsersFromSearch.length === 0 && (
