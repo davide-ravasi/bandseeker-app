@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
 import Layout from "../../components/layout";
 import { ElementCard } from "../../components/elementcard";
-import { SectionTitle, SectionContainer, SimpleText } from './style';
+import { SectionTitle, SectionContainer, SimpleText } from '../../styles/pageList.style';
 
 const GET_BANDS_FROM_SEARCH = gql`
   query getBandsFromSearch($type: String, $text: String) {
