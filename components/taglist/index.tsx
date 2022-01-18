@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { TagListProps } from "../../types";
 
-const TagList = ({ title, tags }: TagListProps) => {
+const TagList = ({ title, tags, cb }: TagListProps) => {
   return (
     <>
       {title && <TagListTitle>{title}</TagListTitle>}
       <TagListWrapper>
         {tags && tags.slice(0, 3).map((tag, index: number) => {
-          return <Button key={`${tag.name}-${tag.name}-${index}`}>{tag.name}</Button>
+          return <Button key={`${tag.name}-${tag.name}-${index}`} onClick={() => cb(tag.name)}>{tag.name}</Button>
         })}
       </TagListWrapper>
     </>
@@ -31,9 +31,10 @@ const TagListWrapper = styled.div`
   margin-left: 3px;
 `;
 
-const Button = styled.div`
+const Button = styled.button`
   position: relative;
   float: left;
+  cursor: pointer;
 
   font-family: "Lato", sans-serif;
   text-transform: uppercase;
@@ -42,6 +43,7 @@ const Button = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+  border: 0;
 
   padding: 5px;
   top: 40.11%;

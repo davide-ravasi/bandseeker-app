@@ -1,10 +1,9 @@
 import React from "react";
+import Link from 'next/link';
 import styled from "styled-components";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery, gql } from "@apollo/client";
-import { BandCard } from "../bandcard";
-import { UserCard } from "../usercard";
 import { ElementCard } from "../elementcard";
 
 const GET_USERS = gql`
@@ -84,8 +83,15 @@ export const RecommendPage = () => {
           <SectionTitle>
             BANDS SEARCHING FOR MUSICIANS{" "}
             <Seemore>
-              {" "}
-              SEE MORE <FontAwesomeIcon icon={faAngleRight} />
+              <Link href={{
+                pathname: '/list/pagelist',
+                query: {
+                  type: 'search',
+                  searchType: "band",
+                },
+              }}>
+                <a>SEE MORE <FontAwesomeIcon icon={faAngleRight} /></a>
+              </Link>
             </Seemore>
           </SectionTitle>
           <SectionContainer>
@@ -96,8 +102,15 @@ export const RecommendPage = () => {
           <SectionTitle>
             MUSICIANS SEARCHING A BAND
             <Seemore>
-              {" "}
-              SEE MORE <FontAwesomeIcon icon={faAngleRight} />
+              <Link href={{
+                pathname: '/list/pagelist',
+                query: {
+                  type: 'search',
+                  searchType: "user",
+                },
+              }}>
+                <a>SEE MORE <FontAwesomeIcon icon={faAngleRight} /></a>
+              </Link>
             </Seemore>
           </SectionTitle>
           <SectionContainer>

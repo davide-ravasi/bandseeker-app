@@ -1,13 +1,11 @@
 import type { NextPage } from "next";
-import styled from "styled-components";
-import { BandCard } from "../../components/bandcard";
-import { UserCard } from "../../components/usercard";
 
 import { withApollo } from "../../lib/apollo";
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
 import Layout from "../../components/layout";
 import { ElementCard } from "../../components/elementcard";
+import { SectionTitle, SectionContainer, SimpleText } from './style';
 
 const GET_BANDS_FROM_SEARCH = gql`
   query getBandsFromSearch($type: String, $text: String) {
@@ -64,6 +62,60 @@ const GET_USERS_FROM_SEARCH = gql`
   }
 `;
 
+const GET_USERS = gql`
+  query getUsers {
+    getUsers {
+      id
+      name
+      nickname
+      description
+      email
+      birth_date
+      address
+      genres {
+        name
+      }
+      instruments {
+        name
+      }
+      avatar {
+        url
+      }
+    }
+  }
+`;
+
+const GET_BANDS = gql`
+  query getBands {
+    getBands {
+      id
+      name
+      description
+      location
+      foundation_date
+      genres {
+        name
+      }
+      searching {
+        name
+      }
+      videos {
+        title
+        url
+      }
+      images {
+        name
+      }
+      members {
+        name
+      }
+      avatar {
+        url
+      }
+    }
+  }
+`;
+
 const Home: NextPage = ({ router: Query }) => {
   const router = useRouter();
   const query = router.query;
@@ -72,8 +124,21 @@ const Home: NextPage = ({ router: Query }) => {
   const searchType = query.searchType;
   const searchBy = query.searchBy;
   const searchQuery = query.searchQuery;
-  const skipUserQuery = searchType === "band";
-  const skipBandQuery = searchType === "member";
+  const searchAll = searchBy === undefined && searchQuery === undefined;
+  const skipUsersQuery = searchType === "band" && !searchAll;
+  const skipBandsQuery = searchType === "user" && !searchAll;
+  const skipUserQuery = (searchType === "band") || skipUsersQuery;
+  const skipBandQuery = (searchType === "user") || skipBandsQuery;
+
+  // console.log(searchAll);
+
+  // console.log(searchType);
+  // console.log(searchBy);
+  // console.log(searchQuery);
+  // console.log("skipBandQuery " + skipBandQuery);
+  // console.log("skipUserQuery " + skipUserQuery);
+  // console.log("skipBandsQuery " + skipBandsQuery);
+  // console.log("skipUsersQuery " + skipUsersQuery);
 
   const {
     loading: loadingBand,
@@ -93,13 +158,29 @@ const Home: NextPage = ({ router: Query }) => {
     skip: skipUserQuery,
   });
 
-  if (loadingBand || loadingUser) return <p>Loading...</p>;
-  if (errorBand || errorUser) return <p>Error :(</p>;
+  const {
+    loading: loadingUsers,
+    error: errorUsers,
+    data: dataUsers,
+  } = useQuery(GET_USERS, {
+    skip: skipUsersQuery,
+  });
+
+  const {
+    loading: loadingBands,
+    error: errorBands,
+    data: dataBands,
+  } = useQuery(GET_BANDS, {
+    skip: skipBandsQuery
+  });
+
+  if (loadingBand || loadingUser || loadingBands || loadingUsers) return <p>Loading...</p>;
+  if (errorBand || errorUser || errorBands || errorUsers) return <p>Error :(</p>;
 
   return (
     <Layout isBlock={true}>
       <SectionTitle>
-        RESULTS FOR {searchQuery} IN {skipBandQuery ? "Members" : "Bands"} BY {searchBy}
+        RESULTS FOR {!searchAll && searchQuery} {!searchAll && 'IN'} {skipBandQuery ? "members" : "bands"} {!searchAll && `BY ${searchBy}`}
       </SectionTitle>
       <SectionContainer>
         {dataBand &&
@@ -108,7 +189,7 @@ const Home: NextPage = ({ router: Query }) => {
             .slice(0, 4)
             .map((band) => <ElementCard key={band} element={band} />)}
 
-        {searchType === "band" && dataBand.getBandsFromSearch.length === 0 && (
+        {searchType === "band" && dataBand.getBandsFromSearch.length === 0 && !searchAll && (
           <SimpleText>No results for this term</SimpleText>
         )}
 
@@ -118,46 +199,23 @@ const Home: NextPage = ({ router: Query }) => {
             .slice(0, 4)
             .map((user) => <ElementCard key={user} element={user} />)}
 
+        {dataUsers &&
+          dataUsers.getUsers.length &&
+          dataUsers.getUsers
+            .map((user) => <ElementCard key={user} element={user} />)}
+
+        {dataBands &&
+          dataBands.getBands.length &&
+          dataBands.getBands
+            .map((band) => <ElementCard key={band} element={band} />)}
+
         {searchType === "member" &&
-          dataUser.getUsersFromSearch.length === 0 && (
+          dataUser.getUsersFromSearch.length === 0 && !searchAll && (
             <SimpleText>No results for this term</SimpleText>
           )}
       </SectionContainer>
     </Layout>
   );
 };
-
-const SectionTitle = styled.h1`
-  position: relative;
-  height: 25px;
-  width: 100%;
-
-  margin-left: 0px;
-
-  font-family: Advent Pro;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 30px;
-  line-height: 82.03%;
-
-  margin-top: 50px;
-  align-items: start;
-
-  color: #757780;
-`;
-
-const SectionContainer = styled.div`
-  position: relative;
-  flex-wrap: wrap;
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
-  margin-bottom: 10px;
-`;
-
-const SimpleText = styled.p`
-  font-family: Lato, sans-serif;
-  color: #fff;
-`;
 
 export default withApollo(Home);

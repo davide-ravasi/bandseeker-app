@@ -11,7 +11,7 @@ export const SearchSection = () => {
 
   const router = useRouter();
 
-  const search = async event => {
+  const search = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     router.push({
