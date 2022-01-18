@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const SectionTitle = styled.h1`
+export const SectionTitle = styled.h1`
   position: relative;
   height: 25px;
   width: 100%;
@@ -19,7 +19,7 @@ const SectionTitle = styled.h1`
   color: #757780;
 `;
 
-const SectionContainer = styled.div`
+export const SectionContainer = styled.div`
   position: relative;
   flex-wrap: wrap;
   display: flex;
@@ -28,13 +28,7 @@ const SectionContainer = styled.div`
   margin-bottom: 10px;
 `;
 
-const SimpleText = styled.p`
+export const SimpleText = styled.p`
   font-family: Lato, sans-serif;
   color: #fff;
 `;
-
-export {
-  SectionTitle,
-  SectionContainer,
-  SimpleText
-}
