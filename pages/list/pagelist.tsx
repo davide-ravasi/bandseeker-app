@@ -124,21 +124,11 @@ const Home: NextPage = ({ router: Query }) => {
   const searchType = query.searchType;
   const searchBy = query.searchBy;
   const searchQuery = query.searchQuery;
-  const searchAll = searchBy === undefined && searchQuery === undefined;
-  const skipUsersQuery = searchType === "band" && !searchAll;
-  const skipBandsQuery = searchType === "user" && !searchAll;
-  const skipUserQuery = (searchType === "band") || skipUsersQuery;
-  const skipBandQuery = (searchType === "user") || skipBandsQuery;
 
-  // console.log(searchAll);
-
-  // console.log(searchType);
-  // console.log(searchBy);
-  // console.log(searchQuery);
-  // console.log("skipBandQuery " + skipBandQuery);
-  // console.log("skipUserQuery " + skipUserQuery);
-  // console.log("skipBandsQuery " + skipBandsQuery);
-  // console.log("skipUsersQuery " + skipUsersQuery);
+  const skipUsersQuery = searchType !== 'user' || type !== 'all';
+  const skipBandsQuery = searchType !== 'band' || type !== 'all';
+  const skipUserQuery = searchType !== 'band' || type !== 'search';
+  const skipBandQuery = searchType !== 'user' || type !== 'search';
 
   const {
     loading: loadingBand,
@@ -180,7 +170,7 @@ const Home: NextPage = ({ router: Query }) => {
   return (
     <Layout isBlock={true}>
       <SectionTitle>
-        RESULTS FOR {!searchAll && searchQuery} {!searchAll && 'IN'} {skipBandQuery ? "members" : "bands"} {!searchAll && `BY ${searchBy}`}
+        RESULTS FOR {type === 'search' && searchQuery} {type === 'search' && 'IN'} {skipBandQuery ? "members" : "bands"} {type === 'search' && `BY ${searchBy}`}
       </SectionTitle>
       <SectionContainer>
         {dataBand &&
@@ -189,7 +179,7 @@ const Home: NextPage = ({ router: Query }) => {
             .slice(0, 4)
             .map((band) => <ElementCard key={band} element={band} />)}
 
-        {searchType === "band" && dataBand.getBandsFromSearch.length === 0 && !searchAll && (
+        {searchType === "band" && dataBand && dataBand.getBandsFromSearch.length === 0 && type === 'search' && (
           <SimpleText>No results for this term</SimpleText>
         )}
 
@@ -210,7 +200,7 @@ const Home: NextPage = ({ router: Query }) => {
             .map((band) => <ElementCard key={band} element={band} />)}
 
         {searchType === "member" &&
-          dataUser.getUsersFromSearch.length === 0 && !searchAll && (
+          dataUser.getUsersFromSearch.length === 0 && type === 'all' && (
             <SimpleText>No results for this term</SimpleText>
           )}
       </SectionContainer>

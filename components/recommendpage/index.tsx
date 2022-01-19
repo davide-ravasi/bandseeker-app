@@ -86,7 +86,7 @@ export const RecommendPage = () => {
               <Link href={{
                 pathname: '/list/pagelist',
                 query: {
-                  type: 'search',
+                  type: 'all',
                   searchType: "band",
                 },
               }}>
@@ -105,7 +105,7 @@ export const RecommendPage = () => {
               <Link href={{
                 pathname: '/list/pagelist',
                 query: {
-                  type: 'search',
+                  type: 'all',
                   searchType: "user",
                 },
               }}>
