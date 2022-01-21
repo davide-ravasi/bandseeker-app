@@ -37,12 +37,16 @@ export const SearchSection = () => {
             <Input name="searchtype" id="searchtype" kind="select" value={searchType} onChange={(e) => { setSearchType(e.target.value) }}>
               <option value="">Who are you looking for? </option>
               <option value="band">Band</option>
-              <option value="member">Member</option>
+              <option value="user">Member</option>
             </Input>
             <Input name="searchby" id="searchby" kind="select" value={searchBy} onChange={(e) => { setSearchBy(e.target.value) }}>
               <option value="">Search by.... </option>
               <option value="content">Content</option>
               <option value="genre">Genre</option>
+              {(searchType && searchType === "band"
+                ? <option value="searching">What musician they are searching</option>
+                : <option value="instruments">Type of instruments</option>
+              )}
             </Input>
             <Input type="Search" name="search" id="search" placeholder="Search term...." kind="input" value={searchQuery} onChange={(e) => { setSearchQuery(e.target.value) }} />
           </InputContainer>
