@@ -127,8 +127,8 @@ const Home: NextPage = ({ router: Query }) => {
 
   const skipUsersQuery = searchType !== 'user' || type !== 'all';
   const skipBandsQuery = searchType !== 'band' || type !== 'all';
-  const skipUserQuery = searchType !== 'band' || type !== 'search';
-  const skipBandQuery = searchType !== 'user' || type !== 'search';
+  const skipUserQuery = searchType !== 'user' || type !== 'search';
+  const skipBandQuery = searchType !== 'band' || type !== 'search';
 
   const {
     loading: loadingBand,

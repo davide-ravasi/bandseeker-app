@@ -14,14 +14,14 @@ export const ElementCard = ({ element }: ElementCardProps) => {
   const pagePath = element.searching ? '/band' : '/user';
   const router = useRouter();
 
-  const search = async (searchQuery: string) => {
+  const search = async (searchQuery: string, searchBy: string) => {
 
     router.push({
       pathname: '/list/pagelist',
       query: {
         type: 'search',
         searchType: pagePath.substring(1),
-        searchBy: "genre",
+        searchBy: searchBy || "genre",
         searchQuery
       },
     })
@@ -53,9 +53,9 @@ export const ElementCard = ({ element }: ElementCardProps) => {
         <FontAwesomeIcon icon={faMapMarkerAlt} /> {element.location}
       </Location>
 
-      {element.searching && <TagList title={'SEARCHING: '} tags={element.searching} cb={search} />}
+      {element.searching && <TagList title={'SEARCHING: '} tags={element.searching} searchBy="searching" cb={search} />}
 
-      {element.instruments && <TagList title={'INSTRUMENTS: '} tags={element.instruments} cb={search} />}
+      {element.instruments && <TagList title={'INSTRUMENTS: '} tags={element.instruments} searchBy="instruments" cb={search} />}
 
     </CardContainer >
   );

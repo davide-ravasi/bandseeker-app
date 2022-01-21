@@ -26,5 +26,6 @@ export interface ElementCardProps {
 export interface TagListProps {
   title?: string;
   tags: [{ name: string }],
-  cb?: (search: string) => void
+  searchBy?: string,
+  cb?: (search: string) => void,
 }
