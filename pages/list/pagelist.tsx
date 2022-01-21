@@ -6,6 +6,7 @@ import { useQuery, gql } from "@apollo/client";
 import Layout from "../../components/layout";
 import { ElementCard } from "../../components/elementcard";
 import { SectionTitle, SectionContainer, SimpleText } from '../../styles/pageList.style';
+import { Band, User } from "../../types";
 
 const GET_BANDS_FROM_SEARCH = gql`
   query getBandsFromSearch($type: String, $text: String) {
@@ -177,7 +178,7 @@ const Home: NextPage = ({ router: Query }) => {
           dataBand.getBandsFromSearch.length &&
           dataBand.getBandsFromSearch
             .slice(0, 4)
-            .map((band) => <ElementCard key={band} element={band} />)}
+            .map((band: Band) => <ElementCard key={band} element={band} />)}
 
         {searchType === "band" && dataBand && dataBand.getBandsFromSearch.length === 0 && type === 'search' && (
           <SimpleText>No results for this term</SimpleText>
@@ -187,17 +188,17 @@ const Home: NextPage = ({ router: Query }) => {
           dataUser.getUsersFromSearch.length &&
           dataUser.getUsersFromSearch
             .slice(0, 4)
-            .map((user) => <ElementCard key={user} element={user} />)}
+            .map((user: User) => <ElementCard key={user} element={user} />)}
 
         {dataUsers &&
           dataUsers.getUsers.length &&
           dataUsers.getUsers
-            .map((user) => <ElementCard key={user} element={user} />)}
+            .map((user: User) => <ElementCard key={user} element={user} />)}
 
         {dataBands &&
           dataBands.getBands.length &&
           dataBands.getBands
-            .map((band) => <ElementCard key={band} element={band} />)}
+            .map((band: Band) => <ElementCard key={band} element={band} />)}
 
         {searchType === "member" &&
           dataUser.getUsersFromSearch.length === 0 && type === 'all' && (
