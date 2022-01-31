@@ -6,29 +6,7 @@ import styled from "styled-components";
 import { withApollo } from "../../lib/apollo";
 import { useMutation, gql } from "@apollo/client";
 import { convertToArray } from "../../outils";
-
-const NEW_USER = gql`
-  mutation newUser($UserCreateInput: UserCreateInput) {
-    newUser(input: $UserCreateInput) {
-      id
-      name
-      nickname
-      description
-      email
-      birth_date
-      address
-      genres {
-        name
-      }
-      instruments {
-        name
-      }
-      avatar {
-        url
-      }
-    }
-  }
-`;
+import NEW_USER from '../../graphql/mutations/newUser';
 
 export function NewUserSection() {
   const [name, setName] = useState<string>("");

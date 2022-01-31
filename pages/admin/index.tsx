@@ -2,6 +2,11 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import GET_USERS from '../../graphql/queries/getUsers';
+import GET_BANDS from '../../graphql/queries/getBands';
+import DELETE_BAND from '../../graphql/mutations/deleteBand';
+import DELETE_USER from '../../graphql/mutations/deleteUser';
+import { Band, User } from '../../types/index';
 
 import {
   faAngleRight,
@@ -14,63 +19,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { withApollo } from "../../lib/apollo";
 import Layout from "../../components/layout";
-
-const GET_BANDS = gql`
-  query getBands {
-    getBands {
-      id
-      name
-      description
-      location
-      foundation_date
-      genres {
-        name
-      }
-      videos {
-        title
-        url
-      }
-      images {
-        name
-      }
-      members {
-        name
-      }
-    }
-  }
-`;
-
-const GET_USERS = gql`
-  query getUsers {
-    getUsers {
-      id
-      name
-      nickname
-      description
-      email
-      birth_date
-      address
-      instruments {
-        name
-      }
-      avatar {
-        url
-      }
-    }
-  }
-`;
-
-const DELETE_BAND = gql`
-  mutation deleteBand($id: ID!) {
-    deleteBand(id: $id)
-  }
-`;
-
-const DELETE_USER = gql`
-  mutation deleteUser($id: ID!) {
-    deleteUser(id: $id)
-  }
-`;
 
 const Admin: NextPage = () => {
   // About User
@@ -118,11 +66,11 @@ const Admin: NextPage = () => {
     }
   }, [userElToDelete]);
 
-  const onDeleteUser = (id) => {
+  const onDeleteUser = (id: number) => {
     setUserElToDelete(id.toString());
   };
 
-  const onDeleteBand = (id) => {
+  const onDeleteBand = (id: number) => {
     setBandElToDelete(id.toString());
   };
 
@@ -153,7 +101,7 @@ const Admin: NextPage = () => {
             Edit your profile <FontAwesomeIcon icon={faAngleRight} />
           </a>
         </Link>
-        {dataUser.getUsers.map((user) => (
+        {dataUser.getUsers.map((user: User) => (
           <ListBlock key={user}>
             <span>User Name: {user.name ? user.name : "no name"}</span>
             <Link
@@ -187,7 +135,7 @@ const Admin: NextPage = () => {
         </Link>
       </AdminTitle>
       <SectionContainer>
-        {dataBand.getBands.map((band) => (
+        {dataBand.getBands.map((band: Band) => (
           <ListBlock key={band}>
             <span>Band Name: {band.name ? band.name : "no name"}</span>
             <Link

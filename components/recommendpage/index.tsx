@@ -3,62 +3,11 @@ import Link from 'next/link';
 import styled from "styled-components";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import GET_USERS from '../../graphql/queries/getUsers';
+import GET_BANDS from '../../graphql/queries/getBands';
 import { useQuery, gql } from "@apollo/client";
 import { ElementCard } from "../elementcard";
-
-const GET_USERS = gql`
-  query getUsers {
-    getUsers {
-      id
-      name
-      nickname
-      description
-      email
-      birth_date
-      address
-      genres {
-        name
-      }
-      instruments {
-        name
-      }
-      avatar {
-        url
-      }
-    }
-  }
-`;
-
-const GET_BANDS = gql`
-  query getBands {
-    getBands {
-      id
-      name
-      description
-      location
-      foundation_date
-      genres {
-        name
-      }
-      searching {
-        name
-      }
-      videos {
-        title
-        url
-      }
-      images {
-        name
-      }
-      members {
-        name
-      }
-      avatar {
-        url
-      }
-    }
-  }
-`;
+import { Band, User } from "../../types";
 
 export const RecommendPage = () => {
   const {
@@ -90,12 +39,12 @@ export const RecommendPage = () => {
                   searchType: "band",
                 },
               }}>
-                <a>SEE MORE <FontAwesomeIcon icon={faAngleRight} /></a>
+                <a>SEE MORE BANDS <FontAwesomeIcon icon={faAngleRight} /></a>
               </Link>
             </Seemore>
           </SectionTitle>
           <SectionContainer>
-            {dataBand.getBands.slice(0, 4).map((band) => (
+            {dataBand.getBands.slice(0, 4).map((band: Band) => (
               <ElementCard key={band} element={band} />
             ))}
           </SectionContainer>
@@ -109,18 +58,18 @@ export const RecommendPage = () => {
                   searchType: "user",
                 },
               }}>
-                <a>SEE MORE <FontAwesomeIcon icon={faAngleRight} /></a>
+                <a>SEE MORE MUSICIANS <FontAwesomeIcon icon={faAngleRight} /></a>
               </Link>
             </Seemore>
           </SectionTitle>
           <SectionContainer>
-            {dataUser.getUsers.slice(0, 4).map((user) => (
+            {dataUser.getUsers.slice(0, 4).map((user: User) => (
               <ElementCard key={user} element={user} />
             ))}
           </SectionContainer>
           <SectionTitle>NEW MEMBERS</SectionTitle>
           <SectionContainer>
-            {dataUser.getUsers.slice(0, 4).map((user) => (
+            {dataUser.getUsers.slice(0, 4).map((user: User) => (
               <ElementCard key={user} element={user} />
             ))}
           </SectionContainer>

@@ -5,69 +5,8 @@ import styled from "styled-components";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { convertToArray, convertToString } from "../../outils";
 import { ManageBandSectionProps } from "../../types";
-
-const GET_BAND = gql`
-  query GetBand($id: ID!) {
-    getBand(id: $id) {
-      id
-      name
-      description
-      location
-      foundation_date
-      email
-      genres {
-        name
-      }
-      searching {
-        name
-      }
-      videos {
-        title
-        url
-      }
-      images {
-        name
-      }
-      members {
-        name
-      }
-      avatar {
-        url
-      }
-    }
-  }
-`;
-
-const UPDATE_BAND = gql`
-  mutation UpdateBand($id: ID!, $BandUpdateInput: BandUpdateInput) {
-    updateBand(id: $id, input: $BandUpdateInput) {
-      id
-      name
-      description
-      location
-      foundation_date
-      email
-      genres {
-        name
-      }
-      searching {
-        name
-      }
-      videos {
-        title
-        url
-      }
-      images {
-        name
-        url
-      }
-      avatar {
-        name
-        url
-      }
-    }
-  }
-`;
+import GET_BAND from '../../graphql/queries/getBand';
+import UPDATE_BAND from '../../graphql/mutations/updateBand';
 
 function ManageBandSection(props: ManageBandSectionProps) {
   const { loading, error, data } = useQuery(GET_BAND, {

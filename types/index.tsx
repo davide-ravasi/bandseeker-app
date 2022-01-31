@@ -18,6 +18,7 @@ export interface TagListProps {
 }
 
 export interface Band {
+  id: number,
   name: string,
   description: string,
   location: string,
@@ -31,6 +32,7 @@ export interface Band {
 }
 
 export interface User {
+  id: number;
   name: string,
   nickname: string,
   description: string,

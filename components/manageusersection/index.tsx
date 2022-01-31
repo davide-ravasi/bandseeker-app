@@ -6,51 +6,8 @@ import styled from "styled-components";
 import { withApollo } from "../../lib/apollo";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { convertToArray, convertToString } from "../../outils";
-
-const GET_USER = gql`
-  query getUser($id: ID!) {
-    getUser(id: $id) {
-      id
-      name
-      nickname
-      description
-      email
-      birth_date
-      address
-      genres {
-        name
-      }
-      instruments {
-        name
-      }
-      avatar {
-        url
-      }
-    }
-  }
-`;
-
-const UPDATE_USER = gql`
-  mutation UpdateUser($id: ID!, $UserUpdateInput: UserUpdateInput) {
-    updateUser(id: $id, input: $UserUpdateInput) {
-      id
-      name
-      description
-      email
-      birth_date
-      address
-      genres {
-        name
-      }
-      instruments {
-        name
-      }
-      avatar {
-        url
-      }
-    }
-  }
-`;
+import GET_USER from '../../graphql/queries/getUser';
+import UPDATE_USER from '../../graphql/mutations/updateUser';
 
 export function ManageUserSection(props) {
   const { loading, error, data } = useQuery(GET_USER, {

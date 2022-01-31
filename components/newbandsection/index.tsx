@@ -7,36 +7,7 @@ import { withApollo } from "../../lib/apollo";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { convertToArray } from "../../outils";
 import { ManageBandSectionProps } from "../../types";
-
-const NEW_BAND = gql`
-  mutation NewBand($BandCreateInput: BandCreateInput) {
-    newBand(input: $BandCreateInput) {
-      name
-      description
-      location
-      foundation_date
-      email
-      genres {
-        name
-      }
-      searching {
-        name
-      }
-      videos {
-        title
-        url
-      }
-      images {
-        name
-        url
-      }
-      avatar {
-        name
-        url
-      }
-    }
-  }
-`;
+import NEW_BAND from '../../graphql/mutations/newBand';
 
 function NewBandSection(props: ManageBandSectionProps) {
   const [name, setName] = useState<string>("");

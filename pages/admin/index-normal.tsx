@@ -2,6 +2,10 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import GET_USERS from '../../graphql/queries/getUsers';
+import GET_BANDS from '../../graphql/queries/getBands';
+import DELETE_BAND from '../../graphql/mutations/deleteBand';
+import DELETE_USER from '../../graphql/mutations/deleteUser';
 
 import {
   faAngleRight,
@@ -14,63 +18,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { withApollo } from "../../lib/apollo";
 import Layout from "../../components/layout";
-
-const GET_BANDS = gql`
-  query getBands {
-    getBands {
-      id
-      name
-      description
-      location
-      foundation_date
-      genres {
-        name
-      }
-      videos {
-        title
-        url
-      }
-      images {
-        name
-      }
-      members {
-        name
-      }
-    }
-  }
-`;
-
-const GET_USERS = gql`
-  query getUsers {
-    getUsers {
-      id
-      name
-      nickname
-      description
-      email
-      birth_date
-      address
-      instruments {
-        name
-      }
-      avatar {
-        url
-      }
-    }
-  }
-`;
-
-const DELETE_BAND = gql`
-  mutation deleteBand($id: ID!) {
-    deleteBand(id: $id)
-  }
-`;
-
-const DELETE_USER = gql`
-  mutation deleteUser($id: ID!) {
-    deleteUser(id: $id)
-  }
-`;
 
 const Admin: NextPage = () => {
   // About User

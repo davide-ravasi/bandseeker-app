@@ -4,118 +4,13 @@ import { withApollo } from "../../lib/apollo";
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
 import Layout from "../../components/layout";
+import GET_USERS from '../../graphql/queries/getUsers';
+import GET_BANDS from '../../graphql/queries/getBands';
+import GET_USERS_FROM_SEARCH from '../../graphql/queries/getUsersFromSearch';
+import GET_BANDS_FROM_SEARCH from '../../graphql/queries/getBandsFromSearch'
 import { ElementCard } from "../../components/elementcard";
 import { SectionTitle, SectionContainer, SimpleText } from '../../styles/pageList.style';
 import { Band, User } from "../../types";
-
-const GET_BANDS_FROM_SEARCH = gql`
-  query getBandsFromSearch($type: String, $text: String) {
-    getBandsFromSearch(type: $type, text: $text) {
-      id
-      name
-      description
-      location
-      foundation_date
-      email
-      genres {
-        name
-      }
-      searching {
-        name
-      }
-      videos {
-        title
-        url
-      }
-      images {
-        name
-      }
-      members {
-        name
-      }
-      avatar {
-        url
-      }
-    }
-  }
-`;
-
-const GET_USERS_FROM_SEARCH = gql`
-  query getUsersFromSearch($type: String, $text: String) {
-    getUsersFromSearch(type: $type, text: $text) {
-      id
-      name
-      nickname
-      description
-      email
-      genres {
-        name
-      }
-      instruments {
-        name
-      }
-      birth_date
-      address
-      avatar {
-        url
-      }
-    }
-  }
-`;
-
-const GET_USERS = gql`
-  query getUsers {
-    getUsers {
-      id
-      name
-      nickname
-      description
-      email
-      birth_date
-      address
-      genres {
-        name
-      }
-      instruments {
-        name
-      }
-      avatar {
-        url
-      }
-    }
-  }
-`;
-
-const GET_BANDS = gql`
-  query getBands {
-    getBands {
-      id
-      name
-      description
-      location
-      foundation_date
-      genres {
-        name
-      }
-      searching {
-        name
-      }
-      videos {
-        title
-        url
-      }
-      images {
-        name
-      }
-      members {
-        name
-      }
-      avatar {
-        url
-      }
-    }
-  }
-`;
 
 const Home: NextPage = ({ router: Query }) => {
   const router = useRouter();
