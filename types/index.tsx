@@ -2,6 +2,10 @@ export type genre = {
   name: String
 }
 
+export type Instrument = {
+  name: String
+}
+
 export type ManageBandSectionProps = {
   id: string
 }
@@ -18,7 +22,7 @@ export interface TagListProps {
 }
 
 export interface Band {
-  id: number,
+  id?: number,
   name: string,
   description: string,
   location: string,
@@ -32,13 +36,13 @@ export interface Band {
 }
 
 export interface User {
-  id: number;
+  id?: number;
   name: string,
   nickname: string,
   description: string,
   email: string,
   genres: [{ name: string }],
-  birth_date: Date,
+  birth_date: string,
   address: string,
   instruments: [{ name: string }],
   avatar: { url: string },
