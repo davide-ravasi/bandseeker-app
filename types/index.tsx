@@ -1,49 +1,55 @@
-export type genre = {
-  name: String
+export type NameObj = {
+  name: string
 }
 
-export type Instrument = {
-  name: String
+export type Video = {
+  title: String
+  url: string
+}
+
+export type NameUrlObj = {
+  name: string
+  url: string
 }
 
 export type ManageBandSectionProps = {
   id: string
 }
 
-export interface ElementCardProps {
+export type ElementCardProps = {
   element: Band | User
 }
 
-export interface TagListProps {
+export type TagListProps = {
   title?: string;
-  tags: [{ name: string }],
+  tags: [NameObj],
   searchBy?: string,
   cb?: (search: string) => void,
 }
 
-export interface Band {
+export type BasicEntityData = {
   id?: number,
   name: string,
   description: string,
-  location: string,
-  foundation_date: Date,
   email: string,
-  genres: [{ name: string }],
-  videos: [{ title: string, url: string }],
-  images: [{ name: string, url: string }],
-  avatar: { name: string, url: string },
-  searching: [{ name: string }],
+  genres: [NameObj],
+  avatar: NameUrlObj,
 }
 
-export interface User {
-  id?: number;
-  name: string,
+export type Band = BasicEntityData &
+{
+  location: string,
+  foundation_date: Date,
+  videos: [Video],
+  images: [NameUrlObj],
+  searching: [NameObj],
+}
+
+
+export type User = BasicEntityData &
+{
   nickname: string,
-  description: string,
-  email: string,
-  genres: [{ name: string }],
   birth_date: string,
   address: string,
-  instruments: [{ name: string }],
-  avatar: { url: string },
+  instruments: [NameObj],
 }

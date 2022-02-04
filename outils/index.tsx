@@ -1,6 +1,6 @@
-import { genre } from "../types";
+import { NameObj } from "../types";
 
-export const convertToArray = (string: String): genre[] => {
+export const convertToArray = (string: String): NameObj[] => {
   if (!string) return [];
 
   const stringToArray = string.split(",");
@@ -8,11 +8,11 @@ export const convertToArray = (string: String): genre[] => {
   return stringToArray.map(el => { return { name: el.trim() } });
 }
 
-export const convertToString = (array: genre[]): string => {
+export const convertToString = (array: NameObj[]): string => {
   if (typeof array === 'undefined') return "";
   if (array.length === 0) return "";
 
-  const planArray = array.map((el: genre) => el.name);
+  const planArray = array.map((el: NameObj) => el.name);
 
   return planArray.join(",");
 }

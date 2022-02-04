@@ -9,7 +9,7 @@ import { useQuery, gql } from "@apollo/client";
 import { withApollo } from "../../lib/apollo";
 import { PageDetails } from '../../components/pagedetails';
 
-const UserPage: NextPage = ({ router: query }) => {
+const UserPage: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
 
