@@ -45,7 +45,7 @@ export const PageDetails = ({ date, cb, contents }) => {
         </SectionInfos>
         <SectionInfos>
           <span>
-            <FontAwesomeIcon icon={faCalendar} /> 
+            <FontAwesomeIcon icon={faCalendar} />
             {contents.searching ? ' Foundation date: ' : ' Birth date: '}{" "}
           </span>
           {date}
@@ -56,17 +56,17 @@ export const PageDetails = ({ date, cb, contents }) => {
           </span>
           {contents.email}
         </SectionInfos>
-        {contents.instruments && <SectionInfos>
+        {contents.instruments && contents.instruments.length && <SectionInfos>
           <span>
             <FontAwesomeIcon icon={faEnvelope} /> Instruments:{" "}
           </span>
-          {contents.instruments?.length && contents.instruments.map(instrument => instrument.name)}
+          {contents.instruments.map(instrument => instrument.name)}
         </SectionInfos>}
-        {contents.searching && <SectionInfos>
+        {contents.searching && contents.searching.length && <SectionInfos>
           <span>
-            <FontAwesomeIcon icon={faEnvelope} /> Instruments:{" "}
+            <FontAwesomeIcon icon={faEnvelope} /> Searching:{" "}
           </span>
-          {contents.searching?.length && contents.searching.map(search => search.name)}
+          {contents.searching.map(search => search.name)}
         </SectionInfos>}
       </HalfCol>
     </Layout>
@@ -77,8 +77,7 @@ const sharedFontStyle = css`
   font-family: Lato;
   font-style: normal;
   font-weight: 500;
-`
-
+`;
 const HalfCol = styled.div`
   flex: 0 1 50%;
   &:last-child {

@@ -77,7 +77,6 @@ export const CardTitle = styled.div`
   line-height: 19px;
   clear: both;
   margin: ${globalMargin};
-
   color: ${(props) => props.theme.colors.yellow};
 `;
 
