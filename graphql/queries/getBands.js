@@ -22,7 +22,15 @@ query getBands {
       name
     }
     members {
-      name
+      name,
+      nickname,
+      description,
+      instruments {
+        name
+      },
+      avatar {
+        url
+      }
     }
     avatar {
       url

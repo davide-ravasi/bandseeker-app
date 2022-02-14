@@ -42,6 +42,7 @@ export type Band = BasicEntityData &
   foundation_date: Date,
   videos: [Video],
   images: [NameUrlObj],
+  members: [User]
   searching: [NameObj],
 }
 

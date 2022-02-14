@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
 import { withApollo } from "../../lib/apollo";
 import { PageDetails } from '../../components/pagedetails';
+import Layout from "../../components/layout";
 
 const UserPage: NextPage = () => {
   const router = useRouter();
@@ -55,9 +56,9 @@ const UserPage: NextPage = () => {
   if (error) return <p>Error :(</p>;
 
   return (
-    <>
+    <Layout isBlock={false}>
       {user && <PageDetails date={dateFormatted} cb={search} contents={user} />}
-    </>
+    </Layout>
   );
 };
 

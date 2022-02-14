@@ -9,7 +9,7 @@ import GET_BANDS from '../../graphql/queries/getBands';
 import GET_USERS_FROM_SEARCH from '../../graphql/queries/getUsersFromSearch';
 import GET_BANDS_FROM_SEARCH from '../../graphql/queries/getBandsFromSearch'
 import { ElementCard } from "../../components/elementcard";
-import { SectionTitle, SectionContainer, SimpleText } from '../../styles/pageList.style';
+import { SectionTitle, SectionContainer, SimpleText } from '../../styles/main.styles';
 import { Band, User } from "../../types";
 
 const Home: NextPage = ({ router: Query }) => {

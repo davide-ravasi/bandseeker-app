@@ -23,7 +23,15 @@ const GET_BANDS_FROM_SEARCH = gql`
         name
       }
       members {
-        name
+        name,
+        nickname,
+        description,
+        instruments {
+          name
+        }
+        avatar {
+          url
+        }
       }
       avatar {
         url

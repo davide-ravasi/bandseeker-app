@@ -7,6 +7,7 @@ import { withApollo } from "../../lib/apollo";
 import { useRouter } from "next/router";
 
 import Layout from "../../components/layout";
+import { SectionContainer, SectionTitle, SimpleText } from "../../styles/main.styles";
 
 const Home: NextPage = ({ router: Query }) => {
   const router = useRouter();
@@ -40,42 +41,5 @@ const Home: NextPage = ({ router: Query }) => {
     </Layout>
   );
 };
-
-const SectionTitle = styled.h1`
-        position: relative;
-        height: 25px;
-        width: 100%;
-
-        font-family: Advent Pro;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 30px;
-        margin: 50px 20px 0;
-        align-items: start;
-
-        color: #757780;
-        `;
-
-const SectionContainer = styled.div`
-        position: relative;
-        flex-wrap: wrap;
-        display: flex;
-        justify-content: flex-start;
-        width: 100%;
-        margin: 10px 20px;
-        `;
-
-const SimpleText = styled.div`
-        font-family: Lato, sans-serif;
-        color: #fff;
-
-        a {
-          color: ${props => props.theme.colors.yellow};
-
-          &:hover {
-            color: ${props => props.theme.colors.lightgrey};
-          }
-        }
-        `;
 
 export default withApollo(Home);

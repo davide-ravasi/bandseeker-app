@@ -14,7 +14,7 @@ import TagList from "../../components/taglist";
 
 export const PageDetails = ({ date, cb, contents }) => {
   return (
-    <Layout isBlock={false}>
+    <>
       <HalfCol>
         <Avatar
           src={contents.avatar}
@@ -66,10 +66,10 @@ export const PageDetails = ({ date, cb, contents }) => {
           <span>
             <FontAwesomeIcon icon={faEnvelope} /> Searching:{" "}
           </span>
-          {contents.searching.map(search => search.name)}
+          {contents.searching.map(search => search.name + ' ')}
         </SectionInfos>}
       </HalfCol>
-    </Layout>
+    </>
   );
 }
 

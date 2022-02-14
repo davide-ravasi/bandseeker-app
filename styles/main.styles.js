@@ -29,6 +29,14 @@ export const SectionContainer = styled.div`
 `;
 
 export const SimpleText = styled.p`
-  font-family: Lato, sans-serif;
-  color: #fff;
-`;
+        font-family: Lato, sans-serif;
+        color: #fff;
+
+        a {
+          color: ${props => props.theme.colors.yellow};
+
+          &:hover {
+            color: ${props => props.theme.colors.lightgrey};
+          }
+        }
+        `;

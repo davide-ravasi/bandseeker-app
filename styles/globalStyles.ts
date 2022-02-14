@@ -1,5 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-import pala from "./assets/pala.ttf";
 
 export const theme = {
   primaryBlue: "#0794B4",
