@@ -65,11 +65,11 @@ const ManageBand: NextPage = ({ router: query }) => {
 
   return (
     <Layout isBlock={true}>
-      <div style={{display: 'flex'}}>
+      <div style={{ display: 'flex' }}>
         {band && <PageDetails date={dateFormatted} cb={search} contents={band} />}
       </div>
       <SectionContainer>
-        <SectionTitle>FIND YOUR MEMBER</SectionTitle>
+        <SectionTitle>OUR MEMBERS</SectionTitle>
         {band && band.members.map((user: User) => (
           <ElementCard key={user.id} element={user} />
         ))}
