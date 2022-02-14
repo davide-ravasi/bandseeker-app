@@ -31,6 +31,12 @@ export const ArrowButton = styled.div`
     color: #fff;
     font-size: 28px;
   }
+
+  transition: all 0.2s ease-in-out;
+  
+  &:hover {
+    filter: brightness(120%);
+  }
 `;
 
 export const GenresWrapper = styled.div`

@@ -8,9 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled, { css } from "styled-components";
 
 // import { ManagePhotos } from "../../components/managephotos";
-import Layout from "../../components/layout";
 import TagList from "../../components/taglist";
-// import { UserInputError } from "apollo-server-core";
 
 export const PageDetails = ({ date, cb, contents }) => {
   return (
