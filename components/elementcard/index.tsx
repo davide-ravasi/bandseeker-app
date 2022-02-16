@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 import { CardContainer, CardImage, GenresWrapper, ArrowButton, CardTitle, CardDetail, Location } from './styles';
 
 export const ElementCard = ({ element }: ElementCardProps) => {
-  const pagePath = element.searching ? '/band' : '/user';
+  const pagePath = ('searching' in element) ? '/band' : '/user';
   const router = useRouter();
 
   const search = async (searchQuery: string, searchBy: string) => {
@@ -48,14 +48,14 @@ export const ElementCard = ({ element }: ElementCardProps) => {
       <CardDetail>
         {element.description && element.description.substring(0, 100)}...
       </CardDetail>
-      {element.location && <Location>
+      {'location' in element && <Location>
         <FontAwesomeIcon icon={faMapMarkerAlt} /> {element.location}
       </Location>
       }
 
-      {element.searching && <TagList title={'SEARCHING: '} tags={element.searching} searchBy="searching" cb={search} />}
+      {'searching' in element  && <TagList title={'SEARCHING: '} tags={element.searching} searchBy="searching" cb={search} />}
 
-      {element.instruments && <TagList title={'INSTRUMENTS: '} tags={element.instruments} searchBy="instruments" cb={search} />}
+      {'instruments' in element && <TagList title={'INSTRUMENTS: '} tags={element.instruments} searchBy="instruments" cb={search} />}
 
     </CardContainer >
   );

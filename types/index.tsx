@@ -24,7 +24,7 @@ export type TagListProps = {
   title?: string;
   tags: [NameObj],
   searchBy?: string,
-  cb?: (search: string) => void,
+  cb?: (search: string, searchBy: string) => void,
 }
 
 export type BasicEntityData = {

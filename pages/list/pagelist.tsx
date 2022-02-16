@@ -83,17 +83,17 @@ const Home: NextPage = ({ router: Query }) => {
           dataUser.getUsersFromSearch.length &&
           dataUser.getUsersFromSearch
             .slice(0, 4)
-            .map((user: User) => <ElementCard key={user} element={user} />)}
+            .map((user: User) => <ElementCard key={user.id} element={user} />)}
 
         {dataUsers &&
           dataUsers.getUsers.length &&
           dataUsers.getUsers
-            .map((user: User) => <ElementCard key={user} element={user} />)}
+            .map((user: User) => <ElementCard key={user.id} element={user} />)}
 
         {dataBands &&
           dataBands.getBands.length &&
           dataBands.getBands
-            .map((band: Band) => <ElementCard key={band} element={band} />)}
+            .map((band: Band) => <ElementCard key={band.id} element={band} />)}
 
         {searchType === "member" &&
           dataUser.getUsersFromSearch.length === 0 && type === 'all' && (
