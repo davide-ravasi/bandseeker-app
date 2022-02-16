@@ -8,23 +8,31 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ElementCardProps } from "../../types";
 import TagList from "../taglist";
 import { useRouter } from "next/router";
-import { CardContainer, CardImage, GenresWrapper, ArrowButton, CardTitle, CardDetail, Location } from './styles';
+import {
+  CardContainer,
+  CardImage,
+  GenresWrapper,
+  ArrowButton,
+  CardTitle,
+  CardDetail,
+  Location,
+} from "./styles";
 
 export const ElementCard = ({ element }: ElementCardProps) => {
-  const pagePath = ('searching' in element) ? '/band' : '/user';
+  const pagePath = "searching" in element ? "/band" : "/user";
   const router = useRouter();
 
   const search = async (searchQuery: string, searchBy: string) => {
     router.push({
-      pathname: '/list/pagelist',
+      pathname: "/list/pagelist",
       query: {
-        type: 'search',
+        type: "search",
         searchType: pagePath.substring(1),
         searchBy: searchBy || "genre",
-        searchQuery
+        searchQuery,
       },
-    })
-  }
+    });
+  };
 
   return (
     <CardContainer>
@@ -48,15 +56,29 @@ export const ElementCard = ({ element }: ElementCardProps) => {
       <CardDetail>
         {element.description && element.description.substring(0, 100)}...
       </CardDetail>
-      {'location' in element && <Location>
-        <FontAwesomeIcon icon={faMapMarkerAlt} /> {element.location}
-      </Location>
-      }
+      {"location" in element && (
+        <Location>
+          <FontAwesomeIcon icon={faMapMarkerAlt} /> {element.location}
+        </Location>
+      )}
 
-      {'searching' in element  && <TagList title={'SEARCHING: '} tags={element.searching} searchBy="searching" cb={search} />}
+      {"searching" in element && (
+        <TagList
+          title={"SEARCHING: "}
+          tags={element.searching}
+          searchBy="searching"
+          cb={search}
+        />
+      )}
 
-      {'instruments' in element && <TagList title={'INSTRUMENTS: '} tags={element.instruments} searchBy="instruments" cb={search} />}
-
-    </CardContainer >
+      {"instruments" in element && (
+        <TagList
+          title={"INSTRUMENTS: "}
+          tags={element.instruments}
+          searchBy="instruments"
+          cb={search}
+        />
+      )}
+    </CardContainer>
   );
 };

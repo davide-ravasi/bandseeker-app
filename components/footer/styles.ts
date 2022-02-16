@@ -1,17 +1,29 @@
 import styled from "styled-components";
 
+export const FooterWrapper = styled.div`
+  color: #cccccc;
+  background: #4c4b63;
+`;
+
 export const Nav = styled.div`
   position: relative;
+  font-family: "Lato", sans-serif;
+  font-size: 0.9rem;
+  margin: 30px auto 0;
+  width: 1100px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-  color: #cccccc;
-  padding: 0 15rem;
-  width: 100%;
+  justify-content: space-between;
   height: 53px;
-  margin-top: 30px;
-  background: #4c4b63;
   text-align: center;
+
+  ul {
+    list-style-type: none;
+    li {
+      display: inline-block;
+      a:hover {
+        filter: brightness(80%);
+      }
+    }
+  }
 `;

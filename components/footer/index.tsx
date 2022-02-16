@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { Nav } from './styles';
-import Layout from "../layout";
+import { FooterWrapper, Nav } from "./styles";
 import { MenuLink } from "../header/styles";
 
 export const Footer = () => {
   return (
-    <Layout isBlock={true}>
+    <FooterWrapper>
       <Nav>
         <div>© {new Date().getFullYear()}</div>
         <ul>
@@ -36,8 +35,6 @@ export const Footer = () => {
           </li>
         </ul>
       </Nav>
-    </Layout>
+    </FooterWrapper>
   );
 };
-
-

@@ -1,5 +1,18 @@
 import styled from "styled-components";
 
+// export const Container =
+//   styled.div <
+//   { isBlock: boolean | undefined } >
+//   `
+//   position: relative;
+//   display: ${(props) => (props.isBlock ? "block" : "flex")};
+//   justify-content: flex-start;
+
+//   max-width: 1100px;
+//   min-height: calc(100vh - 180px);
+//   margin: 30px auto;
+// `;
+
 export const SectionTitle = styled.h1`
   position: relative;
   height: 25px;
@@ -29,14 +42,14 @@ export const SectionContainer = styled.div`
 `;
 
 export const SimpleText = styled.p`
-        font-family: Lato, sans-serif;
-        color: #fff;
+  font-family: Lato, sans-serif;
+  color: #fff;
 
-        a {
-          color: ${props => props.theme.colors.yellow};
+  a {
+    color: ${(props) => props.theme.colors.yellow};
 
-          &:hover {
-            color: ${props => props.theme.colors.lightgrey};
-          }
-        }
-        `;
+    &:hover {
+      color: ${(props) => props.theme.colors.lightgrey};
+    }
+  }
+`;
