@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { useUser } from '@auth0/nextjs-auth0';
+import { useUser } from "@auth0/nextjs-auth0";
 import { Nav, Container, Logo, Menu, MenuLink } from "./styles";
 
 export const Header = () => {
@@ -48,19 +48,11 @@ export const Header = () => {
             <MenuLink href="">CONTACTS</MenuLink>
           </Link>
           {!isLoading && !user && (
-            <MenuLink href="/api/auth/login">
-              LOGIN
-            </MenuLink>
+            <MenuLink href="/api/auth/login">LOGIN</MenuLink>
           )}
-          {user && (
-            <MenuLink href="/api/auth/logout">
-              LOGOUT
-            </MenuLink>
-          )}
+          {user && <MenuLink href="/api/auth/logout">LOGOUT</MenuLink>}
         </Menu>
       </Container>
     </Nav>
   );
 };
-
-

@@ -10,7 +10,7 @@ export const Nav = styled.div`
   font-family: "Lato", sans-serif;
   font-size: 0.9rem;
   margin: 30px auto 0;
-  width: 1100px;
+  max-width: 1100px;
   display: flex;
   align-items: center;
   justify-content: space-between;

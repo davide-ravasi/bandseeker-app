@@ -1,23 +1,30 @@
 import styled from "styled-components";
 
-export const Nav = styled.div`
-  display: flex;
-  justify-content: space-between;
+export const Nav = styled.nav`
   align-items: center;
   width: 100vw;
   height: 63px;
   background: #4c4b63;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+  }
 `;
 
 export const Container = styled.div`
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  width: 1100px;
+  max-width: 1100px;
   display: flex;
-  justify-content: flex-start;
+  height: 63px;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+  }
 `;
 
 export const Logo = styled.a`
@@ -26,8 +33,6 @@ export const Logo = styled.a`
   text-decoration: none;
   font-weight: 400;
   font-size: 36px;
-  height: 43px;
-  size: 36px;
   width: 188px;
 `;
 
@@ -35,14 +40,9 @@ export const Menu = styled.div<{ isOpen: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
-  left: 30%;
+
   @media (max-width: 768px) {
-    overflow: hidden;
-    flex-direction: column;
-    max-height: ${({ isOpen }) => (isOpen ? "300px" : "0")};
-    transition: max-height 0.3s ease-in;
-    width: 100%;
+    clear: both;
   }
 `;
 

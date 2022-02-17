@@ -53,3 +53,15 @@ export const SimpleText = styled.p`
     }
   }
 `;
+
+export const FormContainer = styled.div`
+  position: relative;
+  max-width: 624px;
+  margin-left: auto;
+  margin-right: auto;
+
+  background: rgba(255, 255, 252, 0.26);
+  padding: 0 0 1rem;
+  align-items: center;
+  text-align: center;
+`;

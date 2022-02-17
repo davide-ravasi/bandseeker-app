@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { FormContainer } from "../../styles/main.styles";
 import Button from "./button";
 import Input from "./input";
 
@@ -47,24 +48,6 @@ const Container = styled.div`
   bottom: 0%;
   max-width: 100%;
  */
-`;
-
-const FormContainer = styled.div`
-  position: relative;
-  width: 624px;
-  height: 374px;
-  /* width: 30%;
-  height: 30%;
-  top: 74px;
-  left: 35%;
-  right: 35%; */
-  margin-left: auto;
-  margin-right: auto;
-
-  background: rgba(255, 255, 252, 0.26);
-  padding: 0rem;
-  align-items: center;
-  text-align: center;
 `;
 
 const SearchFormTitle = styled.a`

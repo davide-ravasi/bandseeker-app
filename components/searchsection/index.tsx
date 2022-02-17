@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import Button from "./button";
 import Input from "./input";
+import { FormContainer } from "../../styles/main.styles";
 
 export const SearchSection = () => {
   const [searchType, setSearchType] = useState("");
@@ -15,15 +16,15 @@ export const SearchSection = () => {
     event.preventDefault();
 
     router.push({
-      pathname: '/list/pagelist',
+      pathname: "/list/pagelist",
       query: {
-        type: 'search',
+        type: "search",
         searchType,
         searchBy,
-        searchQuery
+        searchQuery,
       },
-    })
-  }
+    });
+  };
 
   return (
     <div>
@@ -34,21 +35,50 @@ export const SearchSection = () => {
             Search Thousands of Musicians and Bands:
           </SearchFormDetail>
           <InputContainer>
-            <Input name="searchtype" id="searchtype" kind="select" value={searchType} onChange={(e) => { setSearchType(e.target.value) }}>
+            <Input
+              name="searchtype"
+              id="searchtype"
+              kind="select"
+              value={searchType}
+              onChange={(e) => {
+                setSearchType(e.target.value);
+              }}
+            >
               <option value="">Who are you looking for? </option>
               <option value="band">Band</option>
               <option value="user">Member</option>
             </Input>
-            <Input name="searchby" id="searchby" kind="select" value={searchBy} onChange={(e) => { setSearchBy(e.target.value) }}>
+            <Input
+              name="searchby"
+              id="searchby"
+              kind="select"
+              value={searchBy}
+              onChange={(e) => {
+                setSearchBy(e.target.value);
+              }}
+            >
               <option value="">Search by.... </option>
               <option value="content">Content</option>
               <option value="genre">Genre</option>
-              {(searchType && searchType === "band"
-                ? <option value="searching">What musician they are searching</option>
-                : <option value="instruments">Type of instruments</option>
+              {searchType && searchType === "band" ? (
+                <option value="searching">
+                  What musician they are searching
+                </option>
+              ) : (
+                <option value="instruments">Type of instruments</option>
               )}
             </Input>
-            <Input type="Search" name="search" id="search" placeholder="Search term...." kind="input" value={searchQuery} onChange={(e) => { setSearchQuery(e.target.value) }} />
+            <Input
+              type="Search"
+              name="search"
+              id="search"
+              placeholder="Search term...."
+              kind="input"
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+              }}
+            />
           </InputContainer>
           <ButtonContainer>
             <Button content="SUBMIT" />
@@ -65,19 +95,6 @@ const Container = styled.div`
   background-size: cover;
   background-position: center;
   height: 600px;
-`;
-
-const FormContainer = styled.form`
-  position: relative;
-  width: 624px;
-  height: 410px;
-  margin-left: auto;
-  margin-right: auto;
-
-  background: rgba(255, 255, 252, 0.26);
-  padding: 0rem;
-  align-items: center;
-  text-align: center;
 `;
 
 const SearchFormTitle = styled.a`
