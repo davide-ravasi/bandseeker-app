@@ -1,16 +1,19 @@
 import styled from "styled-components";
 
-export const globalMargin = '8px';
+export const globalMargin = "8px";
 
 export const CardContainer = styled.div`
-  width: 224px;
+  max-width: 260px;
   height: 343px;
   position: relative;
   background: linear-gradient(180deg, #757780 0%, #242527 100%);
   border-radius: 13px;
-  margin-right: 30px;
   margin-top: 10px;
   padding-bottom: 15px;
+
+  @media (max-width: 768px) {
+    margin: auto;
+  }
 `;
 
 export const ArrowButton = styled.div`
@@ -33,7 +36,7 @@ export const ArrowButton = styled.div`
   }
 
   transition: all 0.2s ease-in-out;
-  
+
   &:hover {
     filter: brightness(120%);
   }

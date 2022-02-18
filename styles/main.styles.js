@@ -15,7 +15,6 @@ import styled from "styled-components";
 
 export const SectionTitle = styled.h1`
   position: relative;
-  height: 25px;
   width: 100%;
 
   margin-left: 0px;
@@ -24,7 +23,7 @@ export const SectionTitle = styled.h1`
   font-style: normal;
   font-weight: 500;
   font-size: 30px;
-  line-height: 82.03%;
+  line-height: 34px;
 
   margin-top: 50px;
   align-items: start;
@@ -34,9 +33,9 @@ export const SectionTitle = styled.h1`
 
 export const SectionContainer = styled.div`
   position: relative;
-  flex-wrap: wrap;
-  display: flex;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 30px;
   width: 100%;
   margin-bottom: 10px;
 `;
@@ -54,7 +53,7 @@ export const SimpleText = styled.p`
   }
 `;
 
-export const FormContainer = styled.div`
+export const FormContainer = styled.form`
   position: relative;
   max-width: 624px;
   margin-left: auto;

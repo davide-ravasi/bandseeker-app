@@ -81,7 +81,7 @@ export const SearchSection = () => {
             />
           </InputContainer>
           <ButtonContainer>
-            <Button content="SUBMIT" />
+            <Button content="SUBMIT" type="submit" />
           </ButtonContainer>
         </FormContainer>
       </Container>
