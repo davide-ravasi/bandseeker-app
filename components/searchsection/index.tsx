@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import Button from "./button";
 import Input from "./input";
+import { Autocomplete } from "../autocomplete/index";
 import { FormContainer } from "../../styles/main.styles";
 
 export const SearchSection = () => {
@@ -69,7 +70,11 @@ export const SearchSection = () => {
               )}
             </Input>
             <Input
-              type="Search"
+              type={
+                ["genre", "instruments", "searching"].includes(searchBy)
+                  ? "hidden"
+                  : "search"
+              }
               name="search"
               id="search"
               placeholder="Search term...."
@@ -79,6 +84,7 @@ export const SearchSection = () => {
                 setSearchQuery(e.target.value);
               }}
             />
+            <Autocomplete searchBy={searchBy} setSearchQuery={setSearchQuery} />
           </InputContainer>
           <ButtonContainer>
             <Button content="SUBMIT" type="submit" />
