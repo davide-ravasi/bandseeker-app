@@ -2,18 +2,22 @@ import React, { useState } from "react";
 import Button from "../searchsection/button";
 import Input from "../searchsection/input";
 import styled from "styled-components";
-import { useQuery, useMutation, gql } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { convertToArray, convertToString } from "../../outils";
 import { ManageBandSectionProps } from "../../types";
-import GET_BAND from '../../graphql/queries/getBand';
-import UPDATE_BAND from '../../graphql/mutations/updateBand';
+import GET_BAND from "../../graphql/queries/getBand";
+import UPDATE_BAND from "../../graphql/mutations/updateBand";
 
 function ManageBandSection(props: ManageBandSectionProps) {
   const { loading, error, data } = useQuery(GET_BAND, {
     variables: { id: props.id },
     onCompleted: (data) => {
-      const genresString = data.getBand.genres.length ? convertToString(data.getBand.genres) : "";
-      const searchingString = data.getBand.searching.length ? convertToString(data.getBand.searching) : "";
+      const genresString = data.getBand.genres.length
+        ? convertToString(data.getBand.genres)
+        : "";
+      const searchingString = data.getBand.searching.length
+        ? convertToString(data.getBand.searching)
+        : "";
       setName(data.getBand.name);
       setDescription(data.getBand.description);
       setLocation(data.getBand.location);
@@ -56,7 +60,7 @@ function ManageBandSection(props: ManageBandSectionProps) {
           email: email,
           avatar: { url: avatarUrl },
           genres: convertedGenres,
-          searching: searchingArray
+          searching: searchingArray,
         },
       },
     });
