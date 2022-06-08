@@ -1,20 +1,34 @@
 import React, { useState } from "react";
 import Button from "../searchsection/button";
 import Input from "../searchsection/input";
-import styled from "styled-components";
 import { useQuery, useMutation } from "@apollo/client";
 import { convertToArray, convertToString } from "../../outils";
 import { ManageBandSectionProps } from "../../types";
 import GET_BAND from "../../graphql/queries/getBand";
 import UPDATE_BAND from "../../graphql/mutations/updateBand";
+import Select from "react-select";
+import GET_LIST from "../../graphql/queries/getList";
+import {
+  Container,
+  FormContainer,
+  SearchFormTitle,
+  SearchFormDetail,
+  ButtonContainer,
+  InputContainer,
+} from "./styles";
 
 function ManageBandSection(props: ManageBandSectionProps) {
   const { loading, error, data } = useQuery(GET_BAND, {
     variables: { id: props.id },
     onCompleted: (data) => {
-      const genresString = data.getBand.genres.length
-        ? convertToString(data.getBand.genres)
-        : "";
+      // const genresString = data.getBand.genres.length
+      //   ? convertToString(data.getBand.genres)
+      //   : "";
+
+      const genresString = data.getBand.genres.reduce((acc, el: string) => {
+        return (acc = [...acc, { value: el.name, label: el.name }]);
+      }, []);
+
       const searchingString = data.getBand.searching.length
         ? convertToString(data.getBand.searching)
         : "";
@@ -34,6 +48,8 @@ function ManageBandSection(props: ManageBandSectionProps) {
   const [foundation_date, setFoundation_date] = useState<string>("");
   const [genres, setGenres] = useState<string>("");
   const [searching, setSearching] = useState<string>("");
+  const [genresList, setGenresList] = useState<string>("");
+
   const dateFormatted = new Date(
     parseInt(foundation_date)
   ).toLocaleDateString();
@@ -44,9 +60,28 @@ function ManageBandSection(props: ManageBandSectionProps) {
 
   const [updateBand] = useMutation(UPDATE_BAND);
 
+  const {
+    loading: loadingList,
+    error: errorList,
+    data: dataList,
+  } = useQuery(GET_LIST, {
+    variables: { what: "genre" },
+    onCompleted: (data) => {
+      const formattedList = data.getList.reduce((acc, el: string) => {
+        return (acc = [...acc, { value: el.name, label: el.name }]);
+      }, []);
+
+      setGenresList(formattedList);
+    },
+  });
+
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const convertedGenres = convertToArray(genres);
+    // const convertedGenres = convertToArray(genres);
+    const genresArray = genres.reduce(
+      (acc, el) => [...acc, { name: el.value }],
+      []
+    );
     const searchingArray = convertToArray(searching);
 
     updateBand({
@@ -59,13 +94,15 @@ function ManageBandSection(props: ManageBandSectionProps) {
           foundation_date: foundation_date,
           email: email,
           avatar: { url: avatarUrl },
-          genres: convertedGenres,
+          genres: genresArray,
           searching: searchingArray,
         },
       },
     });
     setHasUpdated("UPDATED!");
   };
+
+  console.log(genres);
 
   return (
     <Container>
@@ -136,7 +173,7 @@ function ManageBandSection(props: ManageBandSectionProps) {
                 setHasUpdated("SUBMIT");
               }}
             />
-            <Input
+            {/* <Input
               type="text"
               placeholder="Genres comma separated. Ex. rock, blues"
               kind="input"
@@ -146,7 +183,52 @@ function ManageBandSection(props: ManageBandSectionProps) {
                 setGenres(e.target.value);
                 setHasUpdated("SUBMIT");
               }}
-            />
+            /> */}
+            {genres && (
+              <Select
+                defaultValue={genres}
+                isMulti={true}
+                placeholder="Select your genre(s)"
+                onChange={(value) => {
+                  setGenres(value);
+                  setHasUpdated("SUBMIT");
+                }}
+                styles={{
+                  container: (provided) => ({
+                    ...provided,
+                    width: "330px",
+                    color: "#303036",
+                    background: "white",
+                    borderRadius: "5px",
+                    marginBottom: "15px",
+                    border: "2px solid rgb(118, 118, 118)",
+                    textAlign: "left",
+                  }),
+                  input: (provided) => ({
+                    ...provided,
+                    border: "none",
+                    fontFamily: "Lato, sans-serif",
+                  }),
+                  control: (provided) => ({
+                    ...provided,
+                    border: "none",
+                  }),
+                  option: (provided) => ({
+                    ...provided,
+                    fontFamily: "Lato, sans-serif",
+                  }),
+                  multiValue: (provided) => ({
+                    ...provided,
+                    fontFamily: "Lato, sans-serif",
+                  }),
+                  placeholder: (provided) => ({
+                    ...provided,
+                    fontFamily: "Lato, sans-serif",
+                  }),
+                }}
+                options={genresList}
+              />
+            )}
             <Input
               type="text"
               placeholder="Searching (add list comma separated)"
@@ -168,72 +250,3 @@ function ManageBandSection(props: ManageBandSectionProps) {
 }
 
 export default ManageBandSection;
-
-const Container = styled.div`
-  position: relative;
-`;
-
-const FormContainer = styled.div`
-  position: relative;
-  width: 624px;
-  margin-left: auto;
-  margin-right: auto;
-
-  background: rgba(255, 255, 252, 0.26);
-  padding: 0 0 1px;
-  align-items: center;
-  text-align: center;
-`;
-
-const SearchFormTitle = styled.a`
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding-top: 40px;
-
-  font-family: Advent Pro;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 48px;
-  line-height: 82.03%;
-
-  color: #e4e752;
-`;
-
-const SearchFormDetail = styled.a`
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin-top: 20px;
-  margin-bottom: 10px;
-
-  font-family: "Lato", sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 140.62%;
-  text-align: center;
-
-  color: #fffffc;
-`;
-
-const ButtonContainer = styled.div`
-  margin: 0 0 2rem 0;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 6px 6px;
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-`;

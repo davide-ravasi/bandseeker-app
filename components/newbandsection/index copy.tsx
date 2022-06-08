@@ -1,23 +1,21 @@
 import React, { useState } from "react";
 import Button from "../searchsection/button";
 import Input from "../searchsection/input";
+import styled from "styled-components";
+//import { StyledSelect } from "../searchsection/input";
 
 import { withApollo } from "../../lib/apollo";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { convertToArray } from "../../outils";
 import { ManageBandSectionProps } from "../../types";
 import NEW_BAND from "../../graphql/mutations/newBand";
-import Select from "react-select";
-import GET_LIST from "../../graphql/queries/getList";
-
+//import Select from "react-select";
+//import GET_LIST from "../../graphql/queries/getList";
 import {
-  Container,
-  FormContainer,
-  SearchFormTitle,
-  SearchFormDetail,
   ButtonContainer,
+  FormContainer,
   InputContainer,
-} from "./styles";
+} from "../../styles/main.styles";
 
 function NewBandSection(props: ManageBandSectionProps) {
   const [name, setName] = useState<string>("");
@@ -27,32 +25,41 @@ function NewBandSection(props: ManageBandSectionProps) {
   const [email, setEmail] = useState<string>("");
   const [avatarUrl, setAvatarUrl] = useState<string>("");
   const [genres, setGenres] = useState<string>("");
+  // const [genresList, setGenresList] = useState<string>("");
   const [searching, setSearching] = useState<string>("");
-  const [genresList, setGenresList] = useState<string>("");
 
   const [hasUpdated, setHasUpdated] = useState<string>("SUBMIT");
+  // const [selectedOption, setSelectedOption] = useState(null);
 
   const [newBand] = useMutation(NEW_BAND);
 
-  const { loading, error, data } = useQuery(GET_LIST, {
-    variables: { what: "genre" },
-    onCompleted: (data) => {
-      const formattedList = data.getList.reduce((acc, el: string) => {
-        return (acc = [...acc, { value: el.name, label: el.name }]);
-      }, []);
+  // const options = [
+  //   { value: "chocolate", label: "Chocolate" },
+  //   { value: "strawberry", label: "Strawberry" },
+  //   { value: "vanilla", label: "Vanilla" },
+  // ];
 
-      setGenresList(formattedList);
-    },
-  });
+  // const { loading, error, data } = useQuery(GET_LIST, {
+  //   variables: { what: "genre" },
+  //   onCompleted: (data) => {
+  //     const formattedList = data.getList.reduce((acc, el: string) => {
+  //       return (acc = [...acc, { value: el.name, label: el.name }]);
+  //     }, []);
+
+  //     setGenresList(formattedList);
+  //   },
+  // });
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    const genresArray = genres.reduce(
-      (acc, el) => [...acc, { name: el.value }],
-      []
-    );
+    console.log("submit");
 
+    console.log("genres: ", genres);
+
+    //const genresArray = genres.reduce((acc, el) => [...acc, el.name], []);
+    //console.log("genresArray: ", genresArray);
+    const genresArray = convertToArray(genres);
     const searchingArray = convertToArray(searching);
 
     newBand({
@@ -141,14 +148,24 @@ function NewBandSection(props: ManageBandSectionProps) {
                 setHasUpdated("SUBMIT");
               }}
             />
-            <Select
+            <Input
+              type="text"
+              placeholder="Genres (add list comma separated)"
+              kind="input"
+              value={genres}
+              onChange={(e) => {
+                setGenres(e.target.value);
+                setHasUpdated("SUBMIT");
+              }}
+            />
+            {/* <Select
               defaultValue={"select one or more genres"}
               isMulti={true}
               placeholder="Select your genre(s)"
               onChange={(value) => {
                 console.log("value: ", value);
                 setGenres(value);
-                setHasUpdated("SUBMIT");
+                //setHasUpdated("SUBMIT");
               }}
               styles={{
                 container: (provided) => ({
@@ -184,7 +201,7 @@ function NewBandSection(props: ManageBandSectionProps) {
                 }),
               }}
               options={genresList}
-            />
+            /> */}
             <Input
               type="text"
               placeholder="Searching (add list comma separated)"
@@ -206,3 +223,43 @@ function NewBandSection(props: ManageBandSectionProps) {
 }
 
 export default withApollo(NewBandSection);
+
+const Container = styled.div`
+  position: relative;
+`;
+
+const SearchFormTitle = styled.a`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding-top: 40px;
+
+  font-family: Advent Pro;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 48px;
+  line-height: 82.03%;
+
+  color: #e4e752;
+`;
+
+const SearchFormDetail = styled.a`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 20px;
+  margin-bottom: 10px;
+
+  font-family: "Lato", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 140.62%;
+  text-align: center;
+
+  color: #fffffc;
+`;
